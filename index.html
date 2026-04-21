@@ -3,36 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <style>
-    html {
-      /* Aplica um filtro de escala de cinza em 100% para todo o conteúdo */
-      filter: grayscale(100%);
-      
-      /* Garante que o fundo da página também siga a regra se necessário */
-      background-color: black; 
-    }
-
-    /* Opcional: Se você quiser que as imagens (como o ícone SVG) 
-       MANTENHAM a cor original, use o código abaixo. 
-       Se quiser TUDO preto e branco, ignore este bloco. */
-    /*
-    img, svg, .icon {
-      filter: grayscale(0%);
-    }
-    */
-  </style>
-
   <meta name="theme-color" content="#121631">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="gvOtimizacao">
   <title>gvOtimização</title>
+  
+  <style>
+    /* Estilo para o fundo de partículas */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #0d0d0d; /* Fundo escuro */
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    /* Filtro Preto e Branco solicitado anteriormente */
+    html {
+      filter: grayscale(100%);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <div id="particles-js"></div>
+
   <main class="phone">
     <header class="hero">
       <button class="menu-button" type="button" aria-label="Abrir menu">
@@ -113,51 +119,38 @@
     <section class="ios-panel tab-content" id="iosTab">
       <h3>Instalar via Perfil (WebClip)</h3>
       <p>Isso instala um ícone na tela inicial abrindo seu site como app.</p>
-      
       <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig">Baixar Perfil (WebClip)</a>
-      
       <ol>
         <li>Toque em "Baixar Perfil (WebClip)".</li>
         <li>No iPhone, abra Ajustes.</li>
         <li>Toque em "Perfil Baixado".</li>
         <li>Toque em Instalar e confirme.</li>
       </ol>
-      <p>Depois disso, o ícone aparece na Tela de Início.</p>
-      <p class="settings-note">Importante: o perfil precisa do link publicado do seu site.</p>
-    </section>
-
-    <section class="stabilization-panel" id="stabilizationPanel">
-      <h3>Treino de Estabilização</h3>
-      <p>Toque/clique no alvo para treinar precisão e firmeza.</p>
-      <p class="stabilizer-status" id="stabilizerStatusLine"></p>
-      <button class="target" id="stabilizationTarget" type="button" aria-label="Alvo de treino"></button>
-      <p class="score" id="stabilizationScore">Acertos: 0</p>
-    </section>
-
-    <section class="fps-panel" id="fpsPanel">
-      <h3>Perfil 120 FPS (Recomendado)</h3>
-      <p>Atua como guia no app. Nao altera configuracoes internas do jogo.</p>
-      <p id="fpsStatusLine"></p>
-      <ul>
-        <li>Ative 120Hz na tela do celular.</li>
-        <li>Use modo desempenho e desative economia de bateria.</li>
-        <li>Feche apps em segundo plano antes de jogar.</li>
-        <li>Mantenha temperatura baixa para evitar queda de FPS.</li>
-      </ul>
-    </section>
-
-    <section class="fullcap-panel" id="fullcapPanel">
-      <h3>Full Cap (Treino)</h3>
-      <p id="fullcapStatusLine">Desativado.</p>
-      <p>Modo de treino visual para controle vertical e firmeza da mira.</p>
-    </section>
-
-    <section class="precision-panel" id="precisionPanel">
-      <h3>Precision (Treino)</h3>
-      <p id="precisionStatusLine">Desativado.</p>
-      <p>Treino para reduzir tremor e melhorar precisão em movimentos curtos.</p>
     </section>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <script>
+    /* Configuração direta das partículas brancas */
+    particlesJS('particles-js', {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+        "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
+      },
+      "retina_detect": true
+    });
+  </script>
 
   <script src="./app.js"></script>
 </body>
