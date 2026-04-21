@@ -29,9 +29,10 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
       background-color: #0d0d0d;
+      overflow-x: hidden;
     }
 
     /* Navegação das abas */
@@ -70,6 +71,7 @@
       display: block;
     }
 
+    /* Estilo dos cards e itens */
     .activation-card, .settings, .ios-panel {
       background: rgba(255, 255, 255, 0.03);
       padding: 20px;
@@ -168,8 +170,8 @@
     <section class="tab-content active" id="activationTab">
       <div class="activation-card">
         <p style="text-align: center; color: #888; margin-bottom: 20px;">Insira o seu código de acesso privado</p>
-        <input id="codeInput" type="text" maxlength="24" placeholder="" />
-        <button id="activateButton" class="btn-main">Ativar</button>
+        <input id="codeInput" type="text" maxlength="24" placeholder="CÓDIGO DE 24 CARACTERES" />
+        <button id="activateButton" class="btn-main">Ativar Agora</button>
         <p id="resultMessage" style="text-align: center; margin-top: 15px; font-size: 14px;"></p>
       </div>
     </section>
@@ -215,11 +217,11 @@
           <label class="switch"><input type="checkbox" data-key="estabilizacao"><span></span></label>
         </article>
         <article class="setting-item">
-          <span>120 FPS</span>
+          <span>Perfil 120 FPS</span>
           <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
         </article>
         <article class="setting-item">
-          <span>Full Capa </span>
+          <span>Full Cap (Treino)</span>
           <label class="switch"><input type="checkbox" data-key="fullcap"><span></span></label>
         </article>
         <article class="setting-item">
@@ -233,7 +235,7 @@
       <div class="ios-panel" style="margin-top: 20px;">
         <h3 style="font-size: 16px; margin-bottom: 5px;">Instalação iOS</h3>
         <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Instale o perfil para usar Oliveira_OTM como App.</p>
-        <a class="download-btn" href="./gvotimizacao-webclip.mobileconfig">Abaixar Perfil</a>
+        <a class="download-btn" href="./gvotimizacao-webclip.mobileconfig">Descarregar Perfil</a>
       </div>
     </section>
   </main>
