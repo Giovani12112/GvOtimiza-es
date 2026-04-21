@@ -10,18 +10,18 @@
   <title>Oliveira_OTM</title>
   
   <style>
-    /* Estilo para o fundo de partículas */
+    /* Fundo de partículas fixo */
     #particles-js {
       position: fixed;
       width: 100%;
       height: 100%;
-      background-color: #0d0d0d; /* Fundo escuro */
+      background-color: #0d0d0d;
       z-index: -1;
       top: 0;
       left: 0;
     }
 
-    /* Filtro Preto e Branco solicitado */
+    /* Filtro global Preto e Branco */
     html {
       filter: grayscale(100%);
     }
@@ -29,6 +29,35 @@
     body {
       margin: 0;
       padding: 0;
+      font-family: sans-serif;
+    }
+
+    /* Lógica visual das abas */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Estilo básico para os botões de aba */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .tab-button.active {
+      background: #444;
+      font-weight: bold;
     }
   </style>
 
@@ -41,116 +70,94 @@
 
   <main class="phone">
     <header class="hero">
-      <button class="menu-button" type="button" aria-label="Abrir menu">
-        <span></span><span></span><span></span>
-      </button>
       <h1>Oliveira_OTM</h1>
-      <p class="subtitle">Insira seu código privado</p>
     </header>
 
-    <section class="activation-card">
-      <label for="codeInput" class="sr-only">Código de ativação</label>
-      <input id="codeInput" type="text" maxlength="24" placeholder="Coloque seu codigo aqui" />
-      <button id="activateButton" type="button">Ativar Código</button>
-      <p id="resultMessage" aria-live="polite"></p>
-    </section>
-
-    <nav class="tabs" aria-label="Navegação principal">
-      <button class="tab-button active" data-tab="mainTab" type="button">Funções</button>
-      <button class="tab-button" data-tab="iosTab" type="button">iOS</button>
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="activationTab">Ativação</button>
+      <button class="tab-button" data-tab="featuresTab">Painel OTM</button>
     </nav>
 
-    <section class="settings tab-content active" id="mainTab">
-      <h2>Configurações iOS</h2>
-      <p class="settings-note">Essas funções atuam apenas neste app/site.</p>
-
-      <article class="setting-item">
-        <span>Otimização de Memória</span>
-        <label class="switch"><input type="checkbox" data-key="memoria"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Boost de Desempenho</span>
-        <label class="switch"><input type="checkbox" data-key="boost"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Limpeza de Storage</span>
-        <label class="switch"><input type="checkbox" data-key="storage"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Modo Low Power Gaming</span>
-        <label class="switch"><input type="checkbox" data-key="lowpower"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Redução de Ping</span>
-        <label class="switch"><input type="checkbox" data-key="ping"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Proteção de Privacidade</span>
-        <label class="switch"><input type="checkbox" data-key="privacidade"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>VPN Integrada</span>
-        <label class="switch"><input type="checkbox" data-key="vpn"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Firewall Avançado</span>
-        <label class="switch"><input type="checkbox" data-key="firewall"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Modo Estabilização</span>
-        <label class="switch"><input type="checkbox" data-key="estabilizacao"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Perfil 120 FPS</span>
-        <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Full Cap (Treino)</span>
-        <label class="switch"><input type="checkbox" data-key="fullcap"><span></span></label>
-      </article>
-      <article class="setting-item">
-        <span>Precision (Treino)</span>
-        <label class="switch"><input type="checkbox" data-key="precision"><span></span></label>
-      </article>
-
-      <button class="reset-inline" id="resetButton" type="button">Resetar Configurações</button>
+    <section class="tab-content active" id="activationTab">
+      <div class="activation-card" style="text-align: center; padding: 20px;">
+        <p class="subtitle">Insira seu código privado</p>
+        <input id="codeInput" type="text" maxlength="24" placeholder="Coloque seu código aqui" style="padding: 10px; width: 80%;" />
+        <br><br>
+        <button id="activateButton" type="button" style="padding: 10px 20px;">Ativar Código</button>
+        <p id="resultMessage"></p>
+      </div>
     </section>
 
-    <section class="ios-panel tab-content" id="iosTab">
-      <h3>Instalar via Perfil (WebClip)</h3>
-      <p>Isso instala um ícone na tela inicial abrindo seu site como app.</p>
-      <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig">Baixar Perfil (WebClip)</a>
-      <ol>
-        <li>Toque em "Baixar Perfil (WebClip)".</li>
-        <li>No iPhone, abra Ajustes.</li>
-        <li>Toque em "Perfil Baixado".</li>
-        <li>Toque em Instalar e confirme.</li>
-      </ol>
+    <section class="tab-content" id="featuresTab">
+      
+      <div class="settings" style="padding: 20px;">
+        <h2>Funções de Otimização</h2>
+        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <span>Otimização de Memória</span>
+          <label class="switch"><input type="checkbox" data-key="memoria"><span></span></label>
+        </article>
+        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <span>Boost de Desempenho</span>
+          <label class="switch"><input type="checkbox" data-key="boost"><span></span></label>
+        </article>
+        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <span>Redução de Ping</span>
+          <label class="switch"><input type="checkbox" data-key="ping"><span></span></label>
+        </article>
+        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <span>Perfil 120 FPS</span>
+          <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
+        </article>
+        <button id="resetButton" style="width: 100%; padding: 10px;">Resetar Configurações</button>
+      </div>
+
+      <hr style="border: 0.5px solid #333; margin: 20px;">
+
+      <div class="ios-panel" style="padding: 20px; text-align: center;">
+        <h3>Instalação iOS</h3>
+        <p>Baixe o perfil para usar como App na tela de início.</p>
+        <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig" style="display: inline-block; padding: 10px 20px; background: #fff; color: #000; text-decoration: none; border-radius: 5px;">Baixar Perfil</a>
+        <p style="font-size: 12px; margin-top: 10px;">Após baixar, vá em Ajustes > Perfil Baixado.</p>
+      </div>
+
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  
   <script>
+    /* Configuração das Partículas Brancas */
     particlesJS('particles-js', {
       "particles": {
         "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
-        "opacity": { "value": 0.5, "random": false },
+        "opacity": { "value": 0.5 },
         "size": { "value": 3, "random": true },
         "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-        "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+        "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" }
       },
       "interactivity": {
-        "detect_on": "canvas",
-        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
         "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
-      },
-      "retina_detect": true
+      }
+    });
+
+    /* Lógica de Troca de Abas */
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
     });
   </script>
-
   <script src="./app.js"></script>
 </body>
 </html>
