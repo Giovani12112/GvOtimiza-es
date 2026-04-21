@@ -3,6 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <style>
+    html {
+      /* Aplica um filtro de escala de cinza em 100% para todo o conteúdo */
+      filter: grayscale(100%);
+      
+      /* Garante que o fundo da página também siga a regra se necessário */
+      background-color: black; 
+    }
+
+    /* Opcional: Se você quiser que as imagens (como o ícone SVG) 
+       MANTENHAM a cor original, use o código abaixo. 
+       Se quiser TUDO preto e branco, ignore este bloco. */
+    /*
+    img, svg, .icon {
+      filter: grayscale(0%);
+    }
+    */
+  </style>
+
   <meta name="theme-color" content="#121631">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -71,19 +91,19 @@
         <label class="switch"><input type="checkbox" data-key="firewall"><span></span></label>
       </article>
       <article class="setting-item">
-        <span>Estabilização mira </span>
+        <span>Modo Estabilização</span>
         <label class="switch"><input type="checkbox" data-key="estabilizacao"><span></span></label>
       </article>
       <article class="setting-item">
-        <span>120 FPS</span>
+        <span>Perfil 120 FPS</span>
         <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
       </article>
       <article class="setting-item">
-        <span>Full Capa</span>
+        <span>Full Cap (Treino)</span>
         <label class="switch"><input type="checkbox" data-key="fullcap"><span></span></label>
       </article>
       <article class="setting-item">
-        <span>Precision</span>
+        <span>Precision (Treino)</span>
         <label class="switch"><input type="checkbox" data-key="precision"><span></span></label>
       </article>
 
@@ -93,7 +113,9 @@
     <section class="ios-panel tab-content" id="iosTab">
       <h3>Instalar via Perfil (WebClip)</h3>
       <p>Isso instala um ícone na tela inicial abrindo seu site como app.</p>
+      
       <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig">Baixar Perfil (WebClip)</a>
+      
       <ol>
         <li>Toque em "Baixar Perfil (WebClip)".</li>
         <li>No iPhone, abra Ajustes.</li>
