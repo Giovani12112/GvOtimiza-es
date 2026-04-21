@@ -1,84 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- REFERÊNCIAS DOS ELEMENTOS ---
+    // --- REFERÊNCIAS ---
     const activateButton = document.getElementById('activateButton');
     const codeInput = document.getElementById('codeInput');
     const resultMessage = document.getElementById('resultMessage');
-    const tabButtons = document.querySelectorAll('.tab-button');
     const switches = document.querySelectorAll('.switch input');
     const resetButton = document.getElementById('resetButton');
 
-    // --- 1. LÓGICA DE ATIVAÇÃO DO CÓDIGO ---
-    // O código exato de 24 caracteres que você pediu:
-    const CODIGO_CORRETO = "68fbde36f576351f1378c5d5"; 
+    // --- 1. CÓDIGO DE ATIVAÇÃO (24 CARACTERES) ---
+    const CODIGO_MESTRE = "68fbde36f576351f1378c5d5"; 
 
-    // Verifica se já estava ativado anteriormente
-    if (localStorage.getItem('isActivated') === 'true') {
-        resultMessage.innerText = "✅ Sistema Ativado";
+    // Função para trocar de aba visualmente
+    function trocarParaPainel() {
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        const btnPainel = document.querySelector('[data-tab="featuresTab"]');
+        const conteudoPainel = document.getElementById('featuresTab');
+
+        if (btnPainel && conteudoPainel) {
+            btnPainel.classList.add('active');
+            conteudoPainel.classList.add('active');
+        }
+    }
+
+    // Verificar se já foi ativado antes
+    if (localStorage.getItem('oliveira_auth') === 'true') {
+        resultMessage.innerText = "✅ SISTEMA ATIVADO";
         resultMessage.style.color = "#888";
     }
 
+    // --- 2. LÓGICA DO BOTÃO ATIVAR ---
     activateButton.addEventListener('click', () => {
-        const code = codeInput.value.trim().toLowerCase(); // Mantém em minúsculo para bater com o código acima
+        const entrada = codeInput.value.trim().toLowerCase();
 
-        if (code === CODIGO_CORRETO) {
-            resultMessage.innerText = "✅ Código Ativado com Sucesso!";
+        if (entrada === CODIGO_MESTRE) {
+            resultMessage.innerText = "✅ ACESSO CONCEDIDO!";
             resultMessage.style.color = "#fff";
-            localStorage.setItem('isActivated', 'true');
+            localStorage.setItem('oliveira_auth', 'true');
             
-            // Troca para a aba de funções automaticamente após 1 segundo
-            setTimeout(() => {
-                showTab('featuresTab');
-            }, 1000);
+            // Aguarda 1 segundo para o usuário ler e pula para as funções
+            setTimeout(trocarParaPainel, 1000);
         } else {
-            resultMessage.innerText = "❌ Código Inválido!";
+            resultMessage.innerText = "❌ CÓDIGO INVÁLIDO";
             resultMessage.style.color = "#ff4444";
         }
     });
 
-    // --- 2. LÓGICA DAS FUNÇÕES (SWITCHES) ---
+    // --- 3. LÓGICA DAS 12 FUNÇÕES ---
     switches.forEach(sw => {
-        const key = sw.dataset.key;
-        const savedValue = localStorage.getItem(key);
+        const chave = sw.dataset.key;
         
-        if (savedValue === 'true') {
+        // Carrega o que estava ligado
+        if (localStorage.getItem(chave) === 'true') {
             sw.checked = true;
         }
 
         sw.addEventListener('change', (e) => {
-            // Verifica se o código foi ativado antes de permitir ligar a função
-            if (localStorage.getItem('isActivated') === 'true') {
-                localStorage.setItem(key, e.target.checked);
+            if (localStorage.getItem('oliveira_auth') === 'true') {
+                localStorage.setItem(chave, e.target.checked);
             } else {
                 e.target.checked = false;
-                alert("Por favor, insira o código de ativação primeiro.");
-                showTab('activationTab');
+                alert("Ative o sistema primeiro!");
+                // Volta para a aba de ativação se tentar burlar
+                location.reload(); 
             }
         });
     });
 
-    // --- 3. BOTÃO DE RESET ---
+    // --- 4. RESET ---
     if (resetButton) {
         resetButton.addEventListener('click', () => {
-            if (confirm("Deseja resetar todas as funções?")) {
+            if (confirm("Resetar todas as otimizações?")) {
                 switches.forEach(sw => {
                     sw.checked = false;
                     localStorage.removeItem(sw.dataset.key);
                 });
             }
         });
-    }
-
-    // --- 4. FUNÇÃO PARA TROCAR ABAS ---
-    function showTab(tabId) {
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        const targetButton = document.querySelector(`[data-tab="${tabId}"]`);
-        const targetContent = document.getElementById(tabId);
-
-        if (targetButton && targetContent) {
-            targetButton.classList.add('active');
-            targetContent.classList.add('active');
-        }
     }
 });
