@@ -29,34 +29,121 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background-color: #0d0d0d;
     }
 
-    /* Lógica visual das abas */
-    .tab-content {
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
-    }
-
-    /* Estilo básico para os botões de aba */
+    /* Navegação das abas */
     .tabs {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
+      margin: 20px 0;
+      padding: 0 15px;
     }
+
     .tab-button {
-      padding: 10px 20px;
+      flex: 1;
+      padding: 12px;
       cursor: pointer;
+      background: #1a1a1a;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .tab-button.active {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 0 20px 40px 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .activation-card, .settings, .ios-panel {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .setting-item:last-child { border-bottom: none; }
+
+    /* Switch Customizado */
+    .switch input { display: none; }
+    .switch span {
+      width: 44px;
+      height: 22px;
+      background: #333;
+      display: block;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+    .switch span::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+    }
+    .switch input:checked + span { background: #555; }
+    .switch input:checked + span::after { left: 24px; }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: white;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 15px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
       background: #222;
       color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    .tab-button.active {
-      background: #444;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      margin-top: 15px;
       font-weight: bold;
     }
   </style>
@@ -68,9 +155,9 @@
 <body>
   <div id="particles-js"></div>
 
-  <main class="phone">
-    <header class="hero">
-      <h1>Oliveira_OTM</h1>
+  <main class="phone" style="max-width: 500px; margin: auto;">
+    <header style="text-align: center; padding: 40px 20px 20px 20px;">
+      <h1 style="margin: 0; font-size: 28px;">Oliveira_OTM</h1>
     </header>
 
     <nav class="tabs">
@@ -79,47 +166,75 @@
     </nav>
 
     <section class="tab-content active" id="activationTab">
-      <div class="activation-card" style="text-align: center; padding: 20px;">
-        <p class="subtitle">Insira seu código privado</p>
-        <input id="codeInput" type="text" maxlength="24" placeholder="Coloque seu código aqui" style="padding: 10px; width: 80%;" />
-        <br><br>
-        <button id="activateButton" type="button" style="padding: 10px 20px;">Ativar Código</button>
-        <p id="resultMessage"></p>
+      <div class="activation-card">
+        <p style="text-align: center; color: #888; margin-bottom: 20px;">Insira o seu código de acesso privado</p>
+        <input id="codeInput" type="text" maxlength="24" placeholder="CÓDIGO-ATIVACAO-2026" />
+        <button id="activateButton" class="btn-main">Ativar Agora</button>
+        <p id="resultMessage" style="text-align: center; margin-top: 15px; font-size: 14px;"></p>
       </div>
     </section>
 
     <section class="tab-content" id="featuresTab">
-      
-      <div class="settings" style="padding: 20px;">
-        <h2>Funções de Otimização</h2>
-        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+      <div class="settings">
+        <h2 style="font-size: 18px; margin-bottom: 15px;">Otimização do Sistema</h2>
+
+        <article class="setting-item">
           <span>Otimização de Memória</span>
           <label class="switch"><input type="checkbox" data-key="memoria"><span></span></label>
         </article>
-        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        <article class="setting-item">
           <span>Boost de Desempenho</span>
           <label class="switch"><input type="checkbox" data-key="boost"><span></span></label>
         </article>
-        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        <article class="setting-item">
+          <span>Limpeza de Storage</span>
+          <label class="switch"><input type="checkbox" data-key="storage"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>Modo Low Power Gaming</span>
+          <label class="switch"><input type="checkbox" data-key="lowpower"><span></span></label>
+        </article>
+        <article class="setting-item">
           <span>Redução de Ping</span>
           <label class="switch"><input type="checkbox" data-key="ping"><span></span></label>
         </article>
-        <article class="setting-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-          <span>Perfil 120 FPS</span>
+        <article class="setting-item">
+          <span>Proteção de Privacidade</span>
+          <label class="switch"><input type="checkbox" data-key="privacidade"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>VPN Integrada</span>
+          <label class="switch"><input type="checkbox" data-key="vpn"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>Firewall Avançado</span>
+          <label class="switch"><input type="checkbox" data-key="firewall"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>Modo Estabilização</span>
+          <label class="switch"><input type="checkbox" data-key="estabilizacao"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>120 FPS</span>
           <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
         </article>
-        <button id="resetButton" style="width: 100%; padding: 10px;">Resetar Configurações</button>
+        <article class="setting-item">
+          <span>Full Capa </span>
+          <label class="switch"><input type="checkbox" data-key="fullcap"><span></span></label>
+        </article>
+        <article class="setting-item">
+          <span>Precision (Treino)</span>
+          <label class="switch"><input type="checkbox" data-key="precision"><span></span></label>
+        </article>
+
+        <button id="resetButton" style="width: 100%; padding: 10px; margin-top: 15px; background: transparent; color: #555; border: none; cursor: pointer;">Resetar Tudo</button>
       </div>
 
-      <hr style="border: 0.5px solid #333; margin: 20px;">
-
-      <div class="ios-panel" style="padding: 20px; text-align: center;">
-        <h3>Instalação iOS</h3>
-        <p>Baixe o perfil para usar como App na tela de início.</p>
-        <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig" style="display: inline-block; padding: 10px 20px; background: #fff; color: #000; text-decoration: none; border-radius: 5px;">Baixar Perfil</a>
-        <p style="font-size: 12px; margin-top: 10px;">Após baixar, vá em Ajustes > Perfil Baixado.</p>
+      <div class="ios-panel" style="margin-top: 20px;">
+        <h3 style="font-size: 16px; margin-bottom: 5px;">Instalação iOS</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Instale o perfil para usar Oliveira_OTM como App.</p>
+        <a class="download-btn" href="./gvotimizacao-webclip.mobileconfig">Descarregar Perfil</a>
       </div>
-
     </section>
   </main>
 
@@ -128,33 +243,29 @@
     /* Configuração das Partículas Brancas */
     particlesJS('particles-js', {
       "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
-        "opacity": { "value": 0.5 },
-        "size": { "value": 3, "random": true },
-        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-        "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" }
+        "opacity": { "value": 0.4 },
+        "size": { "value": 2, "random": true },
+        "line_linked": { "enable": true, "distance": 140, "color": "#ffffff", "opacity": 0.3, "width": 1 },
+        "move": { "enable": true, "speed": 1.5, "direction": "none", "out_mode": "out" }
       },
       "interactivity": {
-        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
+        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }
       }
     });
 
-    /* Lógica de Troca de Abas */
-    const tabs = document.querySelectorAll('.tab-button');
-    const contents = document.querySelectorAll('.tab-content');
+    /* Lógica das Abas */
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-
-        tab.classList.add('active');
-        document.getElementById(target).classList.add('active');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
       });
     });
   </script>
