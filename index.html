@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121631">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="gvOtimizacao">
+  <title>gvOtimização</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="phone">
+    <header class="hero">
+      <button class="menu-button" type="button" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+      <h1>gvOtimização</h1>
+      <p class="subtitle">Insira seu código privado</p>
+    </header>
+
+    <section class="activation-card">
+      <label for="codeInput" class="sr-only">Código de ativação</label>
+      <input id="codeInput" type="text" maxlength="24" placeholder="Coloque seu codigo aqui" />
+      <button id="activateButton" type="button">Ativar Código</button>
+      <p id="resultMessage" aria-live="polite"></p>
+    </section>
+
+    <nav class="tabs" aria-label="Navegação principal">
+      <button class="tab-button active" data-tab="mainTab" type="button">Funções</button>
+      <button class="tab-button" data-tab="iosTab" type="button">iOS</button>
+    </nav>
+
+    <section class="settings tab-content active" id="mainTab">
+      <h2>Configurações iOS</h2>
+      <p class="settings-note">Essas funções atuam apenas neste app/site.</p>
+
+      <article class="setting-item">
+        <span>Otimização de Memória</span>
+        <label class="switch"><input type="checkbox" data-key="memoria"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Boost de Desempenho</span>
+        <label class="switch"><input type="checkbox" data-key="boost"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Limpeza de Storage</span>
+        <label class="switch"><input type="checkbox" data-key="storage"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Modo Low Power Gaming</span>
+        <label class="switch"><input type="checkbox" data-key="lowpower"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Redução de Ping</span>
+        <label class="switch"><input type="checkbox" data-key="ping"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Proteção de Privacidade</span>
+        <label class="switch"><input type="checkbox" data-key="privacidade"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>VPN Integrada</span>
+        <label class="switch"><input type="checkbox" data-key="vpn"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Firewall Avançado</span>
+        <label class="switch"><input type="checkbox" data-key="firewall"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Modo Estabilização</span>
+        <label class="switch"><input type="checkbox" data-key="estabilizacao"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Perfil 120 FPS</span>
+        <label class="switch"><input type="checkbox" data-key="fps120"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Full Cap (Treino)</span>
+        <label class="switch"><input type="checkbox" data-key="fullcap"><span></span></label>
+      </article>
+      <article class="setting-item">
+        <span>Precision (Treino)</span>
+        <label class="switch"><input type="checkbox" data-key="precision"><span></span></label>
+      </article>
+
+      <button class="reset-inline" id="resetButton" type="button">Resetar Configurações</button>
+    </section>
+
+    <section class="ios-panel tab-content" id="iosTab">
+      <h3>Instalar via Perfil (WebClip)</h3>
+      <p>Isso instala um ícone na tela inicial abrindo seu site como app.</p>
+      <a class="download-profile-btn" href="./gvotimizacao-webclip.mobileconfig">Baixar Perfil (WebClip)</a>
+      <ol>
+        <li>Toque em "Baixar Perfil (WebClip)".</li>
+        <li>No iPhone, abra Ajustes.</li>
+        <li>Toque em "Perfil Baixado".</li>
+        <li>Toque em Instalar e confirme.</li>
+      </ol>
+      <p>Depois disso, o ícone aparece na Tela de Início.</p>
+      <p class="settings-note">Importante: o perfil precisa do link publicado do seu site.</p>
+    </section>
+
+    <section class="stabilization-panel" id="stabilizationPanel">
+      <h3>Treino de Estabilização</h3>
+      <p>Toque/clique no alvo para treinar precisão e firmeza.</p>
+      <p class="stabilizer-status" id="stabilizerStatusLine"></p>
+      <button class="target" id="stabilizationTarget" type="button" aria-label="Alvo de treino"></button>
+      <p class="score" id="stabilizationScore">Acertos: 0</p>
+    </section>
+
+    <section class="fps-panel" id="fpsPanel">
+      <h3>Perfil 120 FPS (Recomendado)</h3>
+      <p>Atua como guia no app. Nao altera configuracoes internas do jogo.</p>
+      <p id="fpsStatusLine"></p>
+      <ul>
+        <li>Ative 120Hz na tela do celular.</li>
+        <li>Use modo desempenho e desative economia de bateria.</li>
+        <li>Feche apps em segundo plano antes de jogar.</li>
+        <li>Mantenha temperatura baixa para evitar queda de FPS.</li>
+      </ul>
+    </section>
+
+    <section class="fullcap-panel" id="fullcapPanel">
+      <h3>Full Cap (Treino)</h3>
+      <p id="fullcapStatusLine">Desativado.</p>
+      <p>Modo de treino visual para controle vertical e firmeza da mira.</p>
+    </section>
+
+    <section class="precision-panel" id="precisionPanel">
+      <h3>Precision (Treino)</h3>
+      <p id="precisionStatusLine">Desativado.</p>
+      <p>Treino para reduzir tremor e melhorar precisão em movimentos curtos.</p>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

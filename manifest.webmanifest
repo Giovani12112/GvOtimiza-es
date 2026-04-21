@@ -1,0 +1,17 @@
+{
+  "name": "gvOtimizacao",
+  "short_name": "gvOtimizacao",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121631",
+  "theme_color": "#121631",
+  "description": "Painel gvOtimizacao com configuracoes e treino.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
