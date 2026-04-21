@@ -10,15 +10,13 @@
       <key>IsRemovable</key>
       <true/>
       <key>Label</key>
-      <string>gvOtimização</string>
-      <key>Precomposed</key>
-      <false/>
+      <string>Oliveira_OTM</string>
       <key>PayloadDescription</key>
-      <string>Atalho da tela inicial para o gvOtimização.</string>
+      <string>Atalho para Oliveira_OTM</string>
       <key>PayloadDisplayName</key>
-      <string>gvOtimização WebClip</string>
+      <string>Oliveira_OTM WebClip</string>
       <key>PayloadIdentifier</key>
-      <string>com.companyname.gvotimizacao.webclip</string>
+      <string>com.oliveiraotm.webclip</string>
       <key>PayloadType</key>
       <string>com.apple.webClip.managed</string>
       <key>PayloadUUID</key>
@@ -29,16 +27,12 @@
       <string>https://gv-tomiza-es.vercel.app/</string>
     </dict>
   </array>
-  <key>PayloadDescription</key>
-  <string>Instala um atalho (WebClip) do gvOtimização na Tela de Início.</string>
   <key>PayloadDisplayName</key>
-  <string>gvOtimização</string>
+  <string>Oliveira_OTM</string>
   <key>PayloadIdentifier</key>
-  <string>com.companyname.gvotimizacao.profile</string>
+  <string>com.oliveiraotm.profile</string>
   <key>PayloadOrganization</key>
-  <string>gvOtimização</string>
-  <key>PayloadRemovalDisallowed</key>
-  <false/>
+  <string>Oliveira_OTM</string>
   <key>PayloadType</key>
   <string>Configuration</string>
   <key>PayloadUUID</key>
