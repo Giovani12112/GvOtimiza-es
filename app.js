@@ -8,26 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetButton = document.getElementById('resetButton');
 
     // --- 1. LÓGICA DE ATIVAÇÃO DO CÓDIGO ---
-    // Defina aqui o seu código de ativação
-    const CODIGO_CORRETO = "OLIVEIRA-2026"; 
+    // O código exato de 24 caracteres que você pediu:
+    const CODIGO_CORRETO = "68fbde36f576351f1378c5d5"; 
 
     // Verifica se já estava ativado anteriormente
     if (localStorage.getItem('isActivated') === 'true') {
         resultMessage.innerText = "✅ Sistema Ativado";
         resultMessage.style.color = "#888";
-        // Opcional: Se quiser que ele vá direto para a aba de funções ao abrir
-        // showTab('featuresTab');
     }
 
     activateButton.addEventListener('click', () => {
-        const code = codeInput.value.trim().toUpperCase();
+        const code = codeInput.value.trim().toLowerCase(); // Mantém em minúsculo para bater com o código acima
 
         if (code === CODIGO_CORRETO) {
             resultMessage.innerText = "✅ Código Ativado com Sucesso!";
             resultMessage.style.color = "#fff";
             localStorage.setItem('isActivated', 'true');
             
-            // Pequeno delay para o usuário ver a mensagem antes de trocar de aba
+            // Troca para a aba de funções automaticamente após 1 segundo
             setTimeout(() => {
                 showTab('featuresTab');
             }, 1000);
@@ -37,8 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 2. LÓGICA DAS 12 FUNÇÕES (SWITCHES) ---
-    // Carregar estados salvos ao abrir o site
+    // --- 2. LÓGICA DAS FUNÇÕES (SWITCHES) ---
     switches.forEach(sw => {
         const key = sw.dataset.key;
         const savedValue = localStorage.getItem(key);
@@ -47,15 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
             sw.checked = true;
         }
 
-        // Salvar mudança toda vez que clicar no switch
         sw.addEventListener('change', (e) => {
-            // Só permite salvar se o código estiver ativado
+            // Verifica se o código foi ativado antes de permitir ligar a função
             if (localStorage.getItem('isActivated') === 'true') {
                 localStorage.setItem(key, e.target.checked);
-                console.log(`Função ${key}: ${e.target.checked ? 'LIGADA' : 'DESLIGADA'}`);
             } else {
                 e.target.checked = false;
-                alert("Ative o sistema com o código primeiro!");
+                alert("Por favor, insira o código de ativação primeiro.");
+                showTab('activationTab');
             }
         });
     });
@@ -68,18 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     sw.checked = false;
                     localStorage.removeItem(sw.dataset.key);
                 });
-                alert("Configurações resetadas!");
             }
         });
     }
 
-    // --- 4. FUNÇÃO AUXILIAR PARA TROCAR ABAS ---
+    // --- 4. FUNÇÃO PARA TROCAR ABAS ---
     function showTab(tabId) {
-        // Remove active de todos
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-        // Adiciona no alvo
         const targetButton = document.querySelector(`[data-tab="${tabId}"]`);
         const targetContent = document.getElementById(tabId);
 
