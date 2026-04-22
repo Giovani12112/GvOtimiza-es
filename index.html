@@ -118,6 +118,19 @@
       font-weight: 800;
       font-size: 19px;
       cursor: pointer;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    /* Estilo específico para o botão de download */
+    .btn-download {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      font-size: 16px;
+      margin-top: 15px;
     }
 
     /* ESTILO DAS FUNÇÕES (SWITCHES) */
@@ -160,7 +173,7 @@
       border-radius: 50%;
     }
 
-    input:checked + .slider { background-color: #00e5ff; } /* Azul ciano conforme original */
+    input:checked + .slider { background-color: #00e5ff; } 
     input:checked + .slider:before {
       transform: translateX(20px);
     }
@@ -228,8 +241,10 @@
           <span class="function-name">Firewall Avançado</span>
           <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
         </div>
+        
         <div style="margin-top: 25px;">
           <button class="btn-action" id="btn-salvar">Salvar Alterações</button>
+          <a href="seu-perfil.mobileconfig" download class="btn-action btn-download">Baixar Perfil</a>
         </div>
       </div>
     </div>
@@ -238,7 +253,6 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // CONFIGURAÇÃO PARTICULAS INTENSAS (Visual de Rede Brilhante)
     particlesJS('particles-js', {
       "particles": {
         "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
@@ -252,7 +266,6 @@
       "retina_detect": true
     });
 
-    // LÓGICA DO APP
     const CODIGO_VALIDO = "68fbde36f576351f1378c5d5";
     const input = document.getElementById('input-codigo');
     const btnAtivar = document.getElementById('btn-ativar');
@@ -263,7 +276,6 @@
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
 
-    // Navegação entre abas
     tabAtivacao.onclick = () => {
       tabAtivacao.classList.add('active'); tabPainel.classList.remove('active');
       secAtivacao.classList.add('active'); secPainel.classList.remove('active');
@@ -279,7 +291,6 @@
       }
     };
 
-    // Validação de Código
     btnAtivar.onclick = () => {
       if(input.value.trim() === CODIGO_VALIDO) {
         msg.style.color = "#44ff44";
