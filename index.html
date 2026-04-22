@@ -21,6 +21,7 @@
       overflow: hidden;
     }
 
+    /* PARTICULAS ORIGINAIS (Z-INDEX 1) */
     #particles-js {
       position: fixed;
       width: 100%; height: 100%;
@@ -47,6 +48,7 @@
       color: #fff;
     }
 
+    /* BOTÕES SUPERIORES */
     .nav-tabs {
       display: flex;
       gap: 10px;
@@ -63,7 +65,6 @@
       text-align: center;
       font-weight: 700;
       cursor: pointer;
-      transition: 0.3s;
     }
 
     .tab-item.active {
@@ -72,6 +73,7 @@
       border-color: #fff;
     }
 
+    /* CARD PRINCIPAL */
     .main-card {
       background: rgba(20, 20, 20, 0.92);
       padding: 25px;
@@ -85,13 +87,6 @@
 
     .content-section { display: none; }
     .content-section.active { display: block; }
-
-    .instruction {
-      color: #999;
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 16px;
-    }
 
     input[type="text"] {
       width: 100%;
@@ -120,14 +115,7 @@
       text-decoration: none;
     }
 
-    .btn-download {
-      background: transparent;
-      color: #fff;
-      border: 1px solid #fff;
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
+    /* TODAS AS FUNÇÕES DA FOTO */
     .function-row {
       display: flex;
       justify-content: space-between;
@@ -138,6 +126,7 @@
 
     .function-name { font-size: 16px; font-weight: 500; color: #eee; }
 
+    /* SWITCH ESTILO IOS */
     .switch {
       position: relative;
       display: inline-block;
@@ -193,49 +182,25 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p class="instruction">Insira o seu código de acesso privado</p>
-        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off" placeholder="DIGITE O CÓDIGO">
+        <p style="color:#999; text-align:center; margin-bottom:20px;">Insira o código privado</p>
+        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off" placeholder="CÓDIGO">
         <button class="btn-action" id="btn-ativar">Ativar Agora</button>
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="function-row">
-          <span class="function-name">Otimização de Memória</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Boost de Desempenho</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Limpeza de Storage</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Modo Low Power Gaming</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Redução de Ping</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Proteção de Privacidade</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">VPN Integrada</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-          <span class="function-name">Firewall Avançado</span>
-          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
-        </div>
+        <div class="function-row"><span class="function-name">Otimização de Memória</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Boost de Desempenho</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Limpeza de Storage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Modo Low Power Gaming</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Redução de Ping</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Proteção de Privacidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">VPN Integrada</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span class="function-name">Firewall Avançado</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
         
         <div style="margin-top: 25px;">
-          <button class="btn-action" onclick="alert('Configurações Aplicadas!')">Salvar Alterações</button>
-          <a href="perfil.mobileconfig" download class="btn-action btn-download">Baixar Perfil</a>
+          <button class="btn-action" onclick="alert('Salvo!')">Salvar Alterações</button>
+          <a href="perfil.mobileconfig" download class="btn-action" style="background:transparent; color:#fff; border:1px solid #fff; margin-top:10px; font-size:16px;">Baixar Perfil</a>
         </div>
       </div>
     </div>
@@ -244,7 +209,7 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // PARTÍCULAS ORIGINAIS PRESERVADAS
+    // PARTÍCULAS ORIGINAIS (VISUAL DE REDE)
     particlesJS('particles-js', {
       "particles": {
         "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
@@ -259,32 +224,23 @@
     });
 
     const CODIGO_VALIDO = "68fbde36f576351f1378c5d5";
-    const input = document.getElementById('input-codigo');
-    const btnAtivar = document.getElementById('btn-ativar');
-    const msg = document.getElementById('status-msg');
-    
     const tabAtivacao = document.getElementById('tab-ativacao');
     const tabPainel = document.getElementById('tab-painel');
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
+    const msg = document.getElementById('status-msg');
 
-    // Limpa o estado ao carregar para garantir que comece travado
-    // Se quiser que a ativação dure pra sempre no celular, comente a linha abaixo:
-    // localStorage.removeItem('auth_gv'); 
-
-    function trocarAba(destino) {
-      if(destino === 'painel') {
-        if(localStorage.getItem('auth_gv') === 'true') {
+    // LÓGICA DE TRAVA DO BOTÃO
+    function mudarAba(alvo) {
+      if(alvo === 'painel') {
+        if(localStorage.getItem('gv_authorized') === 'true') {
+          // LIBERADO
           tabPainel.classList.add('active'); tabAtivacao.classList.remove('active');
           secPainel.classList.add('active'); secAtivacao.classList.remove('active');
-          msg.innerText = "";
         } else {
-          // TRAVA DO BOTÃO SUPERIOR
+          // TRAVADO
           msg.style.color = "#ff4444";
-          msg.innerText = "❌ ACESSO NEGADO: ATIVE O CÓDIGO!";
-          // Breve efeito visual de erro na aba
-          tabPainel.style.borderColor = "#ff4444";
-          setTimeout(() => tabPainel.style.borderColor = "#333", 500);
+          msg.innerText = "❌ ERRO: ATIVE O CÓDIGO PRIMEIRO!";
         }
       } else {
         tabAtivacao.classList.add('active'); tabPainel.classList.remove('active');
@@ -292,19 +248,19 @@
       }
     }
 
-    tabPainel.onclick = () => trocarAba('painel');
-    tabAtivacao.onclick = () => trocarAba('ativacao');
+    tabPainel.onclick = () => mudarAba('painel');
+    tabAtivacao.onclick = () => mudarAba('ativacao');
 
-    btnAtivar.onclick = () => {
+    document.getElementById('btn-ativar').onclick = () => {
+      const input = document.getElementById('input-codigo');
       if(input.value.trim() === CODIGO_VALIDO) {
-        msg.style.color = "#44ff44";
-        msg.innerText = "✅ CÓDIGO VÁLIDO! LIBERANDO FUNÇÕES...";
-        localStorage.setItem('auth_gv', 'true');
-        setTimeout(() => trocarAba('painel'), 1200);
+        msg.style.color = "#00ff88";
+        msg.innerText = "✅ CÓDIGO ACEITO! LIBERANDO...";
+        localStorage.setItem('gv_authorized', 'true');
+        setTimeout(() => mudarAba('painel'), 1000);
       } else {
         msg.style.color = "#ff4444";
         msg.innerText = "❌ CÓDIGO INVÁLIDO";
-        input.value = "";
       }
     };
   </script>
