@@ -7,164 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>gvOtimização</title>
   
-  <style>
-    /* RESET E BASE */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-    
-    body {
-      margin: 0; padding: 0;
-      background-color: #000;
-      color: white;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      height: 100vh; width: 100vw;
-      display: flex; justify-content: center;
-      overflow: hidden;
-    }
-
-    /* PARTICULAS ORIGINAIS (Z-INDEX 1) */
-    #particles-js {
-      position: fixed;
-      width: 100%; height: 100%;
-      z-index: 1;
-      top: 0; left: 0;
-    }
-
-    .app-container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 420px;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header h1 {
-      font-size: 38px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 30px;
-      letter-spacing: -1.5px;
-      color: #fff;
-    }
-
-    /* BOTÕES SUPERIORES */
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-
-    .tab-item {
-      flex: 1;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #333;
-      border-radius: 12px;
-      color: #888;
-      text-align: center;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .tab-item.active {
-      background: #fff;
-      color: #000;
-      border-color: #fff;
-    }
-
-    /* CARD PRINCIPAL */
-    .main-card {
-      background: rgba(20, 20, 20, 0.92);
-      padding: 25px;
-      border-radius: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      width: 100%;
-      max-height: 75vh;
-      overflow-y: auto;
-    }
-
-    .content-section { display: none; }
-    .content-section.active { display: block; }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 22px;
-      background: #000 !important;
-      border: 1px solid #333;
-      border-radius: 15px;
-      color: #fff;
-      font-size: 18px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .btn-action {
-      width: 100%;
-      padding: 20px;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 15px;
-      font-weight: 800;
-      font-size: 19px;
-      cursor: pointer;
-      display: block;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    /* TODAS AS FUNÇÕES DA FOTO */
-    .function-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .function-name { font-size: 16px; font-weight: 500; color: #eee; }
-
-    /* SWITCH ESTILO IOS */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-    }
-
-    .switch input { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #333;
-      transition: .3s;
-      border-radius: 30px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px; width: 18px;
-      left: 3px; bottom: 3px;
-      background-color: white;
-      transition: .3s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider { background-color: #00e5ff; } 
-    input:checked + .slider:before { transform: translateX(20px); }
-
-    #status-msg {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -181,88 +24,47 @@
     </div>
 
     <div class="main-card">
+      
       <div id="sec-ativacao" class="content-section active">
-        <p style="color:#999; text-align:center; margin-bottom:20px;">Insira o código privado</p>
-        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off" placeholder="CÓDIGO">
+        <p style="color:#999; text-align:center; margin-bottom:20px;">Insira seu código de acesso privado</p>
+        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off" placeholder="DIGITE O CÓDIGO">
         <button class="btn-action" id="btn-ativar">Ativar Agora</button>
+        
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="function-row"><span class="function-name">Otimização de Memória</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Boost de Desempenho</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Limpeza de Storage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Modo Low Power Gaming</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Redução de Ping</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Proteção de Privacidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">VPN Integrada</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="function-row"><span class="function-name">Firewall Avançado</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        
+        <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Redução de Ping</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        
+        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        
+        <div class="function-row"><span>Desbloquear 120 FPS</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Mira Precision (Aimbot)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+        <div class="function-row"><span>Mira Estável (No Shake)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
         
         <div style="margin-top: 25px;">
-          <button class="btn-action" onclick="alert('Salvo!')">Salvar Alterações</button>
-          <a href="gvotimizacao-webclip.mobileconfig" download class="btn-action" style="background:transparent; color:#fff; border:1px solid #fff; margin-top:10px; font-size:16px;">Baixar Perfil</a>
+          <button id="btn-salvar" class="btn-action">Salvar Alterações</button>
+          
+          <a href="gvotimizacao-webclip.mobileconfig" download class="btn-action" 
+             style="background:transparent; color:#00e5ff; border:1px solid #333; margin-top:10px; font-size:16px; text-decoration:none;">
+             Baixar Perfil Configurado
+          </a>
         </div>
       </div>
+
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
-  <script>
-    // PARTÍCULAS ORIGINAIS (VISUAL DE REDE)
-    particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "opacity": { "value": 0.9, "random": true },
-        "size": { "value": 3, "random": true },
-        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.6, "width": 1.5 },
-        "move": { "enable": true, "speed": 2.2, "direction": "none", "out_mode": "out" }
-      },
-      "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-      "retina_detect": true
-    });
+  <script src="app.js?v=3"></script>
 
-    const CODIGO_VALIDO = "68fbde36f576351f1378c5d5";
-    const tabAtivacao = document.getElementById('tab-ativacao');
-    const tabPainel = document.getElementById('tab-painel');
-    const secAtivacao = document.getElementById('sec-ativacao');
-    const secPainel = document.getElementById('sec-painel');
-    const msg = document.getElementById('status-msg');
-
-    // LÓGICA DE TRAVA DO BOTÃO
-    function mudarAba(alvo) {
-      if(alvo === 'painel') {
-        if(localStorage.getItem('gv_authorized') === 'true') {
-          // LIBERADO
-          tabPainel.classList.add('active'); tabAtivacao.classList.remove('active');
-          secPainel.classList.add('active'); secAtivacao.classList.remove('active');
-        } else {
-          // TRAVADO
-          msg.style.color = "#ff4444";
-          msg.innerText = "❌ ERRO: ATIVE O CÓDIGO PRIMEIRO!";
-        }
-      } else {
-        tabAtivacao.classList.add('active'); tabPainel.classList.remove('active');
-        secAtivacao.classList.add('active'); secPainel.classList.remove('active');
-      }
-    }
-
-    tabPainel.onclick = () => mudarAba('painel');
-    tabAtivacao.onclick = () => mudarAba('ativacao');
-
-    document.getElementById('btn-ativar').onclick = () => {
-      const input = document.getElementById('input-codigo');
-      if(input.value.trim() === CODIGO_VALIDO) {
-        msg.style.color = "#00ff88";
-        msg.innerText = "✅ CÓDIGO ACEITO! LIBERANDO...";
-        localStorage.setItem('gv_authorized', 'true');
-        setTimeout(() => mudarAba('painel'), 1000);
-      } else {
-        msg.style.color = "#ff4444";
-        msg.innerText = "❌ CÓDIGO INVÁLIDO";
-      }
-    };
-  </script>
 </body>
 </html>
