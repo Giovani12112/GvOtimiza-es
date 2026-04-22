@@ -1,5 +1,5 @@
 /**
- * LÓGICA COMPLETA - Oliveira_OTM
+ * LÓGICA COMPLETA - gvOtimização
  * Gerenciamento de Partículas, Ativação e Funções do Painel
  */
 
@@ -7,27 +7,27 @@
 particlesJS('particles-js', {
     "particles": {
         "number": { 
-            "value": 100, 
+            "value": 110, 
             "density": { "enable": true, "value_area": 800 } 
         },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
         "opacity": { 
-            "value": 0.95, // Alta visibilidade conforme a imagem
+            "value": 0.95, 
             "random": true, 
             "anim": { "enable": true, "speed": 1, "opacity_min": 0.4, "sync": false } 
         },
         "size": { "value": 3, "random": true },
         "line_linked": { 
             "enable": true, 
-            "distance": 140, 
+            "distance": 150, 
             "color": "#ffffff", 
-            "opacity": 0.7, // Linhas bem nítidas
+            "opacity": 0.7, 
             "width": 1.5 
         },
         "move": { 
             "enable": true, 
-            "speed": 2, 
+            "speed": 2.2, 
             "direction": "none", 
             "out_mode": "out" 
         }
@@ -49,17 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
     const switches = document.querySelectorAll('.switch input');
-    const btnSalvar = document.getElementById('apply-btn');
+    const btnSalvar = document.getElementById('btn-salvar'); // Ajustado para bater com seu HTML
 
     // Código Mestre
     const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
 
-    // --- FUNÇÕES DE NAVEGAÇÃO ---
+    // --- FUNÇÕES DE NAVEGAÇÃO COM TRAVA ---
     function mostrarPainel() {
-        tabPainel.classList.add('active');
-        tabAtivacao.classList.remove('active');
-        secPainel.classList.add('active');
-        secAtivacao.classList.remove('active');
+        if (localStorage.getItem('auth_otm') === 'true') {
+            tabPainel.classList.add('active');
+            tabAtivacao.classList.remove('active');
+            secPainel.classList.add('active');
+            secAtivacao.classList.remove('active');
+            msgStatus.innerText = ""; // Limpa erros ao entrar
+        } else {
+            msgStatus.style.color = "#ff4444";
+            msgStatus.innerText = "❌ BLOQUEADO: ATIVE O CÓDIGO PRIMEIRO!";
+        }
     }
 
     function mostrarAtivacao() {
@@ -71,26 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clique nas Abas
     tabAtivacao.addEventListener('click', mostrarAtivacao);
-
-    tabPainel.addEventListener('click', () => {
-        if (localStorage.getItem('auth_otm') === 'true') {
-            mostrarPainel();
-        } else {
-            msgStatus.style.color = "#ff4444";
-            msgStatus.innerText = "❌ SISTEMA NÃO ATIVADO";
-        }
-    });
+    tabPainel.addEventListener('click', mostrarPainel);
 
     // --- LÓGICA DE ATIVAÇÃO ---
     btnAtivar.addEventListener('click', () => {
         const entrada = inputCodigo.value.trim();
 
         if (entrada === CODIGO_MESTRE) {
-            msgStatus.style.color = "#44ff44";
-            msgStatus.innerText = "✅ SUCESSO! REDIRECIONANDO...";
+            msgStatus.style.color = "#00e5ff"; // Azul ciano do site
+            msgStatus.innerText = "✅ SUCESSO! LIBERANDO FUNÇÕES...";
             localStorage.setItem('auth_otm', 'true');
             
-            // Simula carregamento e troca para o painel
             setTimeout(mostrarPainel, 1200);
         } else if (entrada === "") {
             msgStatus.style.color = "#ffcc00";
@@ -98,44 +95,48 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             msgStatus.style.color = "#ff4444";
             msgStatus.innerText = "❌ CÓDIGO INVÁLIDO";
+            inputCodigo.value = "";
         }
     });
 
-    // --- LÓGICA DAS FUNÇÕES (SWITCHES) ---
-    // Carregar estados salvos
+    // --- LÓGICA DAS FUNÇÕES (SWITCHES) COM TRAVA REAL ---
     switches.forEach((checkbox, index) => {
-        const savedState = localStorage.getItem(`opt_state_${index}`);
-        if (savedState === 'true') {
-            checkbox.checked = true;
-        }
+        // Bloqueia interação visual se não estiver logado
+        checkbox.addEventListener('click', (e) => {
+            if (localStorage.getItem('auth_otm') !== 'true') {
+                e.preventDefault(); // Impede o switch de mexer
+                msgStatus.style.color = "#ff4444";
+                msgStatus.innerText = "❌ ATIVE O CÓDIGO PARA USAR AS FUNÇÕES";
+                return false;
+            }
+        });
 
-        // Salvar automaticamente ao mudar
+        // Salvar estados apenas se autorizado
         checkbox.addEventListener('change', (e) => {
             if (localStorage.getItem('auth_otm') === 'true') {
                 localStorage.setItem(`opt_state_${index}`, e.target.checked);
-            } else {
-                e.target.checked = false;
-                alert("Ative o sistema primeiro!");
             }
         });
     });
 
-    // Botão Salvar/Aplicar
+    // Botão Salvar
     if (btnSalvar) {
         btnSalvar.addEventListener('click', () => {
-            btnSalvar.innerText = "APLICANDO...";
-            btnSalvar.disabled = true;
-            
-            setTimeout(() => {
-                btnSalvar.innerText = "ALTERAÇÕES SALVAS!";
-                btnSalvar.style.background = "#44ff44";
+            if (localStorage.getItem('auth_otm') === 'true') {
+                btnSalvar.innerText = "APLICANDO...";
+                btnSalvar.disabled = true;
                 
                 setTimeout(() => {
-                    btnSalvar.innerText = "Salvar Alterações";
-                    btnSalvar.style.background = "#fff";
-                    btnSalvar.disabled = false;
-                }, 2000);
-            }, 1500);
+                    btnSalvar.innerText = "OTIMIZAÇÃO APLICADA!";
+                    btnSalvar.style.background = "#00e5ff"; // Cor ciano
+                    
+                    setTimeout(() => {
+                        btnSalvar.innerText = "Salvar Alterações";
+                        btnSalvar.style.background = "#fff";
+                        btnSalvar.disabled = false;
+                    }, 2000);
+                }, 1500);
+            }
         });
     }
 });
