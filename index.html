@@ -3,136 +3,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="gvOtimização">
+  
   <title>gvOtimização</title>
   
   <style>
-    /* --- RESET TOTAL PARA O APP --- */
-    * { 
-        box-sizing: border-box; 
-        -webkit-tap-highlight-color: transparent; 
-        outline: none;
+    /* 1. ESTILO DO SITE (PRETO E BRANCO) */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #0d0d0d; /* Fundo idêntico ao site */
+      z-index: -1;
+      top: 0;
+      left: 0;
     }
-    
+
     body {
       margin: 0;
       padding: 0;
-      background-color: #0d0d0d !important; /* Força o fundo preto */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: white;
-      font-family: -apple-system, sans-serif;
-      height: 100vh;
-      width: 100vw;
+      background-color: #0d0d0d;
       overflow: hidden;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
     }
 
-    /* Fundo de partículas */
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #0d0d0d;
-      z-index: 1;
+    /* Título gvOtimização em Branco */
+    header {
+      text-align: center;
+      padding: 60px 20px 10px 20px;
     }
 
-    .app-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 100%;
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    /* 2. LAYOUT DOS BOTÕES (Mantendo a posição do seu App) */
+    .container {
+      width: 90%;
       max-width: 400px;
-      height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 60px 30px 30px 30px;
+      align-items: center;
+      margin-top: 30px;
     }
 
-    /* Título gvOtimização */
-    .logo {
-      font-size: 45px;
-      font-weight: 900;
-      text-align: center;
-      margin: 0;
-      color: #ffffff;
-      letter-spacing: -2px;
-      /* Remove qualquer sombra azul que existia antes */
-      text-shadow: none; 
-    }
-
-    .instruction {
-      text-align: center;
-      color: #888;
-      font-size: 18px;
-      margin-top: 10px;
-      margin-bottom: 50px;
-    }
-
-    /* Input Branco idêntico ao seu print */
-    .input-box {
-      width: 100%;
-      padding: 22px;
-      border-radius: 20px;
-      border: none;
-      background: #ffffff;
-      color: #000;
-      font-size: 18px;
-      text-align: center;
-      font-weight: 500;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    /* Botão "Ativar Código" (Estilo Black & White) */
-    .btn-activate {
+    /* Input Branco idêntico ao site/app */
+    input[type="text"] {
       width: 100%;
       padding: 20px;
+      background: white;
+      border: none;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: #ffffff; /* Branco puro */
       color: #000;
-      font-size: 18px;
+      font-size: 17px;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Botão Principal em Branco (Estilo Site) */
+    .btn-main {
+      width: 100%;
+      padding: 20px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 20px;
       font-weight: 800;
-      text-transform: uppercase;
+      font-size: 18px;
       cursor: pointer;
-      transition: 0.2s;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
     }
 
-    .btn-activate:active {
-      transform: scale(0.96);
-      background: #e0e0e0;
-    }
-
-    /* Navegação Inferior */
-    .bottom-nav {
-      margin-top: auto;
+    /* Botões de Baixo (Funções e iOS) */
+    .footer-nav {
       display: flex;
-      gap: 15px;
+      gap: 12px;
+      width: 90%;
+      max-width: 400px;
+      margin-top: auto; /* Joga para o final da tela */
+      margin-bottom: 40px;
     }
 
-    .nav-item {
+    .nav-btn {
       flex: 1;
       padding: 16px;
       border-radius: 15px;
       border: 1px solid #333;
       background: rgba(255,255,255,0.05);
-      color: white;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-    }
-
-    /* Cor de destaque quando ativado */
-    .nav-item.active {
-      background: #ffffff;
-      color: #000;
-      border-color: #ffffff;
-    }
-
-    #msg-status {
-      text-align: center;
-      margin-top: 20px;
+      color: #fff;
       font-weight: 600;
       font-size: 14px;
+      text-align: center;
+    }
+
+    .nav-btn.active {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    #resultMessage {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -140,53 +132,52 @@
 
   <div id="particles-js"></div>
 
-  <div class="app-wrapper">
-    <h1 class="logo">gvOtimização</h1>
-    <p class="instruction">Insira seu código privado</p>
+  <header>
+    <h1>gvOtimização</h1>
+    <p class="subtitle">Insira seu código privado</p>
+  </header>
 
-    <div id="activation-area">
-      <input type="text" id="codeInput" placeholder="Coloque seu codigo aqui" autocomplete="off">
-      <button class="btn-activate" onclick="verificar()">Ativar Código</button>
-      <div id="msg-status"></div>
-    </div>
-
-    <div class="bottom-nav">
-      <div class="nav-item active">Funções</div>
-      <div class="nav-item">iOS</div>
-    </div>
+  <div class="container">
+    <input id="codeInput" type="text" placeholder="Coloque seu codigo aqui" maxlength="24">
+    <button id="activateButton" class="btn-main">Ativar Código</button>
+    <p id="resultMessage"></p>
   </div>
+
+  <nav class="footer-nav">
+    <div class="nav-btn active">Funções</div>
+    <div class="nav-btn">iOS</div>
+  </nav>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Configura as bolinhas brancas no fundo
     particlesJS('particles-js', {
       "particles": {
-        "number": { "value": 60 },
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
         "opacity": { "value": 0.2 },
-        "size": { "value": 3 },
+        "size": { "value": 2 },
         "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 },
         "move": { "enable": true, "speed": 1.5 }
       }
     });
 
-    const CODIGO_CORRETO = "68fbde36f576351f1378c5d5";
+    // Lógica de Ativação
+    const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
+    const btn = document.getElementById('activateButton');
+    const input = document.getElementById('codeInput');
+    const msg = document.getElementById('resultMessage');
 
-    function verificar() {
-        const input = document.getElementById('codeInput').value;
-        const status = document.getElementById('msg-status');
-        
-        if (input.trim() === CODIGO_CORRETO) {
-            status.style.color = "#ffffff";
-            status.innerText = "ACESSO CONCEDIDO! REDIRECIONANDO...";
-            localStorage.setItem('auth', 'true');
-            // Aqui vai o comando para abrir suas funções
+    btn.addEventListener('click', () => {
+        if(input.value.trim() === CODIGO_MESTRE) {
+            msg.innerText = "✅ SISTEMA ATIVADO!";
+            msg.style.color = "#ffffff";
+            localStorage.setItem('gv_auth', 'true');
         } else {
-            status.style.color = "#ff4444";
-            status.innerText = "CÓDIGO INVÁLIDO";
+            msg.innerText = "❌ CÓDIGO INVÁLIDO";
+            msg.style.color = "#ff4444";
         }
-    }
+    });
   </script>
 </body>
 </html>
