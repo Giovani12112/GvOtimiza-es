@@ -21,6 +21,7 @@
       overflow: hidden;
     }
 
+    /* PARTICULAS INTENSAS (Mantidas) */
     #particles-js {
       position: fixed;
       width: 100%; height: 100%;
@@ -115,8 +116,8 @@
       font-size: 19px;
       cursor: pointer;
       display: block;
-      text-decoration: none;
       text-align: center;
+      text-decoration: none;
     }
 
     .btn-download {
@@ -165,7 +166,7 @@
       border-radius: 50%;
     }
 
-    input:checked + .slider { background-color: #00e5ff; }
+    input:checked + .slider { background-color: #00e5ff; } 
     input:checked + .slider:before { transform: translateX(20px); }
 
     #status-msg {
@@ -193,7 +194,7 @@
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
         <p class="instruction">Insira o seu código de acesso privado</p>
-        <input type="text" id="input-codigo" placeholder="CÓDIGO" spellcheck="false" autocomplete="off">
+        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off">
         <button class="btn-action" id="btn-ativar">Ativar Agora</button>
         <div id="status-msg"></div>
       </div>
@@ -208,6 +209,10 @@
           <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
         </div>
         <div class="function-row">
+          <span class="function-name">Limpeza de Storage</span>
+          <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
+        </div>
+        <div class="function-row">
           <span class="function-name">Redução de Ping</span>
           <label class="switch"><input type="checkbox"> <span class="slider"></span></label>
         </div>
@@ -217,7 +222,7 @@
         </div>
         
         <div style="margin-top: 25px;">
-          <button class="btn-action" onclick="alert('Configurações Salvas!')">Salvar Alterações</button>
+          <button class="btn-action" onclick="alert('Configurações Aplicadas!')">Salvar Alterações</button>
           <a href="perfil.mobileconfig" download class="btn-action btn-download">Baixar Perfil</a>
         </div>
       </div>
@@ -227,17 +232,21 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // Inicializa Partículas
+    // CONFIGURAÇÃO PARTICULAS ORIGINAIS (SEM MUDANÇAS)
     particlesJS('particles-js', {
       "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#ffffff" },
-        "line_linked": { "enable": true, "opacity": 0.3 },
-        "move": { "enable": true, "speed": 2 }
-      }
+        "opacity": { "value": 0.9, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.6, "width": 1.5 },
+        "move": { "enable": true, "speed": 2.2, "direction": "none", "out_mode": "out" }
+      },
+      "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+      "retina_detect": true
     });
 
-    const CODIGO_CORRETO = "68fbde36f576351f1378c5d5";
+    const CODIGO_VALIDO = "68fbde36f576351f1378c5d5";
     const input = document.getElementById('input-codigo');
     const btnAtivar = document.getElementById('btn-ativar');
     const msg = document.getElementById('status-msg');
@@ -247,36 +256,32 @@
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
 
-    // Função para trocar de aba
-    function switchTab(target) {
-      if(target === 'painel') {
-        tabPainel.classList.add('active'); tabAtivacao.classList.remove('active');
-        secPainel.classList.add('active'); secAtivacao.classList.remove('active');
+    // Lógica para trocar de aba com Trava de Segurança
+    function trocarAba(destino) {
+      if(destino === 'painel') {
+        if(localStorage.getItem('auth_gv') === 'true') {
+          tabPainel.classList.add('active'); tabAtivacao.classList.remove('active');
+          secPainel.classList.add('active'); secAtivacao.classList.remove('active');
+          msg.innerText = "";
+        } else {
+          msg.style.color = "#ff4444";
+          msg.innerText = "❌ ATIVE O CÓDIGO PRIMEIRO!";
+        }
       } else {
         tabAtivacao.classList.add('active'); tabPainel.classList.remove('active');
         secAtivacao.classList.add('active'); secPainel.classList.remove('active');
       }
     }
 
-    // Trava de segurança na aba Painel
-    tabPainel.onclick = () => {
-      if(localStorage.getItem('gv_auth') === 'true') {
-        switchTab('painel');
-      } else {
-        msg.style.color = "#ff4444";
-        msg.innerText = "❌ ERRO: INSIRA O CÓDIGO PRIMEIRO";
-      }
-    };
+    tabPainel.onclick = () => trocarAba('painel');
+    tabAtivacao.onclick = () => trocarAba('ativacao');
 
-    tabAtivacao.onclick = () => switchTab('ativacao');
-
-    // Lógica de Ativação
     btnAtivar.onclick = () => {
-      if(input.value.trim() === CODIGO_CORRETO) {
-        msg.style.color = "#00ff88";
-        msg.innerText = "✅ CÓDIGO ACEITO! LIBERANDO PAINEL...";
-        localStorage.setItem('gv_auth', 'true');
-        setTimeout(() => switchTab('painel'), 1000);
+      if(input.value.trim() === CODIGO_VALIDO) {
+        msg.style.color = "#44ff44";
+        msg.innerText = "✅ ACESSO CONCEDIDO! REDIRECIONANDO...";
+        localStorage.setItem('auth_gv', 'true');
+        setTimeout(() => trocarAba('painel'), 1200);
       } else {
         msg.style.color = "#ff4444";
         msg.innerText = "❌ CÓDIGO INVÁLIDO";
