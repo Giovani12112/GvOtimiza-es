@@ -5,126 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="gvOtimização">
-  
-  <title>gvOtimização</title>
+  <title>Oliveira_OTM</title>
   
   <style>
-    /* 1. ESTILO DO SITE (PRETO E BRANCO) */
+    /* Reset Geral */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      color: white;
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Camada das Partículas no Fundo */
     #particles-js {
       position: fixed;
       width: 100%;
       height: 100%;
-      background-color: #0d0d0d; /* Fundo idêntico ao site */
-      z-index: -1;
+      z-index: 1;
       top: 0;
       left: 0;
     }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: white;
-      background-color: #0d0d0d;
-      overflow: hidden;
+    .app-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 400px;
+      padding: 60px 25px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      height: 100vh;
     }
 
-    /* Título gvOtimização em Branco */
-    header {
+    .header h1 {
+      font-size: 34px;
+      font-weight: 800;
       text-align: center;
-      padding: 60px 20px 10px 20px;
-    }
-
-    header h1 {
       margin: 0;
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      color: #ffffff;
+      letter-spacing: -1px;
     }
 
-    .subtitle {
-      color: #888;
-      font-size: 16px;
-      margin-top: 5px;
-    }
-
-    /* 2. LAYOUT DOS BOTÕES (Mantendo a posição do seu App) */
-    .container {
-      width: 90%;
-      max-width: 400px;
+    /* Abas Superior */
+    .tabs-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
+      gap: 10px;
+      margin: 30px 0;
     }
 
-    /* Input Branco idêntico ao site/app */
-    input[type="text"] {
-      width: 100%;
-      padding: 20px;
-      background: white;
-      border: none;
-      border-radius: 20px;
-      color: #000;
-      font-size: 17px;
-      text-align: center;
-      margin-bottom: 15px;
-      font-weight: 500;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-
-    /* Botão Principal em Branco (Estilo Site) */
-    .btn-main {
-      width: 100%;
-      padding: 20px;
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 20px;
-      font-weight: 800;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
-    }
-
-    /* Botões de Baixo (Funções e iOS) */
-    .footer-nav {
-      display: flex;
-      gap: 12px;
-      width: 90%;
-      max-width: 400px;
-      margin-top: auto; /* Joga para o final da tela */
-      margin-bottom: 40px;
-    }
-
-    .nav-btn {
+    .tab {
       flex: 1;
-      padding: 16px;
-      border-radius: 15px;
+      padding: 12px;
+      border-radius: 10px;
       border: 1px solid #333;
-      background: rgba(255,255,255,0.05);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      color: #777;
+      text-align: center;
       font-weight: 600;
       font-size: 14px;
-      text-align: center;
+      cursor: pointer;
     }
 
-    .nav-btn.active {
+    .tab.active {
       background: white;
       color: black;
       border-color: white;
     }
 
-    #resultMessage {
+    /* Card de Ativação */
+    .activation-card {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 30px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      text-align: center;
+    }
+
+    .instruction {
+      color: #aaa;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    /* Campo de Código VAZIO (sem placeholder ou texto) */
+    input[type="text"] {
+      width: 100%;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: #888;
+    }
+
+    /* Botão Activate */
+    .btn-activate {
+      width: 100%;
+      padding: 18px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 17px;
+      cursor: pointer;
+      text-transform: capitalize;
+    }
+
+    .btn-activate:active {
+      transform: scale(0.98);
+      background: #e0e0e0;
+    }
+
+    #status-msg {
       margin-top: 15px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
+      min-height: 1.2em;
     }
   </style>
 </head>
@@ -132,52 +142,27 @@
 
   <div id="particles-js"></div>
 
-  <header>
-    <h1>gvOtimização</h1>
-    <p class="subtitle">Insira seu código privado</p>
-  </header>
+  <div class="app-wrapper">
+    <div class="header">
+      <h1>Oliveira_OTM</h1>
+    </div>
 
-  <div class="container">
-    <input id="codeInput" type="text" placeholder="Coloque seu codigo aqui" maxlength="24">
-    <button id="activateButton" class="btn-main">Ativar Código</button>
-    <p id="resultMessage"></p>
+    <div class="tabs-container">
+      <div class="tab active" id="btn-ativacao">Ativação</div>
+      <div class="tab" id="btn-painel">Painel OTM</div>
+    </div>
+
+    <div class="activation-card">
+      <p class="instruction">Insira o seu código de acesso privado</p>
+      
+      <input type="text" id="input-codigo" autocomplete="off" spellcheck="false">
+      
+      <button class="btn-activate" id="btn-submit">Activate Agora</button>
+      <div id="status-msg"></div>
+    </div>
   </div>
 
-  <nav class="footer-nav">
-    <div class="nav-btn active">Funções</div>
-    <div class="nav-btn">iOS</div>
-  </nav>
-
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script>
-    particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.2 },
-        "size": { "value": 2 },
-        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 },
-        "move": { "enable": true, "speed": 1.5 }
-      }
-    });
-
-    // Lógica de Ativação
-    const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
-    const btn = document.getElementById('activateButton');
-    const input = document.getElementById('codeInput');
-    const msg = document.getElementById('resultMessage');
-
-    btn.addEventListener('click', () => {
-        if(input.value.trim() === CODIGO_MESTRE) {
-            msg.innerText = "✅ SISTEMA ATIVADO!";
-            msg.style.color = "#ffffff";
-            localStorage.setItem('gv_auth', 'true');
-        } else {
-            msg.innerText = "❌ CÓDIGO INVÁLIDO";
-            msg.style.color = "#ff4444";
-        }
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
