@@ -1,9 +1,9 @@
 /**
  * LÓGICA COMPLETA - gvOtimização
- * Gerenciamento de Partículas, Ativação e Funções do Painel
+ * Partículas, Sistema de Ativação e Trava de Funções
  */
 
-// 1. CONFIGURAÇÃO DAS PARTÍCULAS (BRILHO MÁXIMO IGUAL À FOTO)
+// 1. CONFIGURAÇÃO DAS PARTÍCULAS (Brilho Máximo e Alta Densidade)
 particlesJS('particles-js', {
     "particles": {
         "number": { 
@@ -49,19 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
     const switches = document.querySelectorAll('.switch input');
-    const btnSalvar = document.getElementById('btn-salvar'); // Ajustado para bater com seu HTML
+    const btnSalvar = document.getElementById('btn-salvar');
 
-    // Código Mestre
+    // Código Mestre de Ativação
     const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
 
-    // --- FUNÇÕES DE NAVEGAÇÃO COM TRAVA ---
+    // --- FUNÇÕES DE NAVEGAÇÃO ---
     function mostrarPainel() {
         if (localStorage.getItem('auth_otm') === 'true') {
             tabPainel.classList.add('active');
             tabAtivacao.classList.remove('active');
             secPainel.classList.add('active');
             secAtivacao.classList.remove('active');
-            msgStatus.innerText = ""; // Limpa erros ao entrar
+            msgStatus.innerText = ""; 
         } else {
             msgStatus.style.color = "#ff4444";
             msgStatus.innerText = "❌ BLOQUEADO: ATIVE O CÓDIGO PRIMEIRO!";
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         secPainel.classList.remove('active');
     }
 
-    // Clique nas Abas
+    // Eventos de Clique nas Abas
     tabAtivacao.addEventListener('click', mostrarAtivacao);
     tabPainel.addEventListener('click', mostrarPainel);
 
@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             msgStatus.innerText = "✅ SUCESSO! LIBERANDO FUNÇÕES...";
             localStorage.setItem('auth_otm', 'true');
             
+            // Redireciona para o painel após um pequeno delay
             setTimeout(mostrarPainel, 1200);
         } else if (entrada === "") {
             msgStatus.style.color = "#ffcc00";
@@ -99,36 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- LÓGICA DAS FUNÇÕES (SWITCHES) COM TRAVA REAL ---
-    switches.forEach((checkbox, index) => {
-        // Bloqueia interação visual se não estiver logado
+    // --- TRAVA DOS SWITCHES (AS 11 FUNÇÕES) ---
+    switches.forEach((checkbox) => {
+        // Bloqueia o clique físico se não houver ativação
         checkbox.addEventListener('click', (e) => {
             if (localStorage.getItem('auth_otm') !== 'true') {
-                e.preventDefault(); // Impede o switch de mexer
+                e.preventDefault(); // O switch não se move
                 msgStatus.style.color = "#ff4444";
-                msgStatus.innerText = "❌ ATIVE O CÓDIGO PARA USAR AS FUNÇÕES";
+                msgStatus.innerText = "❌ FUNÇÃO BLOQUEADA! ATIVE O SISTEMA.";
                 return false;
-            }
-        });
-
-        // Salvar estados apenas se autorizado
-        checkbox.addEventListener('change', (e) => {
-            if (localStorage.getItem('auth_otm') === 'true') {
-                localStorage.setItem(`opt_state_${index}`, e.target.checked);
             }
         });
     });
 
-    // Botão Salvar
+    // --- BOTÃO SALVAR ALTERAÇÕES ---
     if (btnSalvar) {
         btnSalvar.addEventListener('click', () => {
             if (localStorage.getItem('auth_otm') === 'true') {
-                btnSalvar.innerText = "APLICANDO...";
+                btnSalvar.innerText = "APLICANDO NO FREE FIRE...";
                 btnSalvar.disabled = true;
                 
                 setTimeout(() => {
-                    btnSalvar.innerText = "OTIMIZAÇÃO APLICADA!";
-                    btnSalvar.style.background = "#00e5ff"; // Cor ciano
+                    btnSalvar.innerText = "OTIMIZAÇÃO CONCLUÍDA!";
+                    btnSalvar.style.background = "#00e5ff";
                     
                     setTimeout(() => {
                         btnSalvar.innerText = "Salvar Alterações";
