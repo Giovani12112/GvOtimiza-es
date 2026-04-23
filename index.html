@@ -24,6 +24,7 @@
 
         <div class="nav-tabs">
             <div id="tab-ativacao" class="tab-item active">Ativação</div>
+            <div id="tab-opcoes" class="tab-item">Opções</div>
             <div id="tab-painel" class="tab-item">Painel OTM</div>
         </div>
 
@@ -33,6 +34,16 @@
                 <input type="text" id="input-codigo" placeholder="COLE O CÓDIGO AQUI" spellcheck="false" autocomplete="off">
                 <button id="btn-ativar" class="btn-action btn-ativar">Ativar Agora</button>
                 <div id="status-msg" style="margin-top: 22px; text-align: center; font-weight: bold; font-size: 14px;"></div>
+            </div>
+
+            <div id="sec-opcoes" class="content-section">
+                <div class="function-row"><span>Otimização de Sensibilidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Remover Tremor da Mira</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Otimização de Gráficos</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Redução de Latência</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Desativação de Anúncios</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Configurações de Audio Customizadas</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <button id="btn-salvar-opcoes" class="btn-action btn-salvar">Aplicar Alterações</button>
             </div>
 
             <div id="sec-painel" class="content-section">
@@ -48,11 +59,7 @@
                 <div class="function-row"><span>Mira Precision (Headshot)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
                 <div class="function-row"><span>Mira Estável (Zero Tremer)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
                 
-                <!-- Novas funções -->
-                <div class="function-row"><span>Otimização de Sensibilidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="function-row"><span>Remover Tremor da Mira</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                
-                <button id="btn-salvar" class="btn-action btn-salvar">Salvar Alterações</button>
+                <button id="btn-salvar-painel" class="btn-action btn-salvar">Salvar Alterações</button>
                 <a href="oliveira-otm-webclip.mobileconfig" download class="btn-perfil">Baixar Perfil</a>
             </div>
         </div>
@@ -162,7 +169,8 @@
             }
         });
 
-        document.getElementById('btn-salvar').addEventListener('click', salvarAlteracoes);
+        document.getElementById('btn-salvar-opcoes').addEventListener('click', salvarAlteracoes);
+        document.getElementById('btn-salvar-painel').addEventListener('click', salvarAlteracoes);
 
         // Função para alternar abas
         function alternarAba(alvo) {
