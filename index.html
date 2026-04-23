@@ -147,7 +147,167 @@
 
                 <button id="btn-salvar" class="btn-action btn-salvar">Salvar Alterações</button>
                 
-                <a href="oliveira-otm-webclip.mobileconfig" download class="btn-perfil">Baixar Perfil Oliveira_OTM</a>
+                <a href="<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Oliveira_OTM</title>
+    
+    <link rel="stylesheet" href="style.css?v=16">
+    
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden; 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: #000;
+            color: #fff;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .app-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            padding-top: 25px; 
+        }
+        .main-card { 
+            width: 92%; 
+            max-width: 390px; 
+            background: rgba(12, 12, 12, 0.98); 
+            border-radius: 30px; 
+            padding: 22px; 
+            border: 1px solid #222; 
+            box-sizing: border-box; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            margin-bottom: 50px;
+        }
+        .content-section { display: none; width: 100%; flex-direction: column; }
+        .content-section.active { display: flex; }
+        
+        .function-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        .function-row span { font-size: 14px; color: #f0f0f0; }
+        
+        #input-codigo { 
+            width: 100%; 
+            height: 55px; 
+            background: #050505; 
+            border: 1px solid #333; 
+            border-radius: 15px; 
+            color: #fff; 
+            text-align: center; 
+            font-size: 11px; 
+            margin-bottom: 20px; 
+            padding: 0 10px; 
+            box-sizing: border-box;
+        }
+        
+        .btn-action { 
+            width: 100%; 
+            height: 54px; 
+            border-radius: 15px; 
+            border: none; 
+            font-weight: bold; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        .btn-ativar { background: #fff; color: #000; }
+        .btn-salvar { background: #fff; color: #000; margin-top: 30px; }
+        
+        #progress-container { display: none; width: 100%; background: #1a1a1a; height: 12px; border-radius: 6px; margin-top: 25px; overflow: hidden; border: 1px solid #333; }
+        #progress-bar { width: 0%; height: 100%; background: #00e5ff; box-shadow: 0 0 10px #00e5ff; transition: width 0.1s; }
+        #loader-text { display:none; font-size:11px; color:#00e5ff; text-align:center; margin-top:10px; font-family: 'Courier New', monospace; }
+        
+        .nav-tabs { display: flex; gap: 12px; margin-bottom: 30px; }
+        .tab-item { padding: 10px 24px; border-radius: 12px; cursor: pointer; color: #666; border: 1px solid #222; transition: 0.3s; }
+        .tab-item.active { background: #fff; color: #000; border: none; font-weight: bold; }
+
+        .btn-perfil {
+            display: block; 
+            text-align: center; 
+            color: #00e5ff; 
+            text-decoration: none; 
+            font-size: 13px; 
+            margin-top: 20px; 
+            border: 1px solid #222; 
+            padding: 12px; 
+            border-radius: 15px;
+            background: rgba(0, 229, 255, 0.05);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="app-container">
+        <h1 style="font-size: 32px; margin-bottom: 25px; font-weight: 900;">Oliveira_OTM</h1>
+
+        <div class="nav-tabs">
+            <div id="tab-ativacao" class="tab-item active">Ativação</div>
+            <div id="tab-painel" class="tab-item">Painel OTM</div>
+        </div>
+
+        <div class="main-card">
+            <div id="sec-ativacao" class="content-section active">
+                <p style="color:#777; text-align:center; font-size: 13px; margin-bottom: 25px;">Insira seu código ID de acesso privado</p>
+                <input type="text" id="input-codigo" placeholder="COLE O SEU CÓDIGO AQUI" spellcheck="false" autocomplete="off">
+                <button id="btn-ativar" class="btn-action btn-ativar">Ativar Agora</button>
+                <div id="status-msg" style="margin-top: 25px; text-align: center; font-size: 14px; font-weight: bold;"></div>
+            </div>
+
+            <div id="sec-painel" class="content-section">
+                <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Redução de Ping</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Desbloquear 120 FPS</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Mira Precision (Headshot)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Mira Estável (Zero Tremer)</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Otimização de Sensibilidade</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Remover Tremor da Mira</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Otimização de Gráficos</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Redução de Latência</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Desativação de Anúncios</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="function-row"><span>Audio Customizado 3D</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                
+                <div id="progress-container"><div id="progress-bar"></div></div>
+                <p id="loader-text"></p>
+
+                <button id="btn-salvar" class="btn-action btn-salvar">Salvar Alterações</button>
+                
+                <a href="gvotimizacao-webclip.mobileconfig" download class="btn-perfil">Baixar Perfil Oliveira_OTM</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="app.js?v=16"></script>
+
+</body>
+</html>
+" download class="btn-perfil">Baixar Perfil Oliveira_OTM</a>
             </div>
         </div>
     </div>
