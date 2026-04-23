@@ -1,5 +1,5 @@
 /**
- * LÓGICA gvOtimização - FINALIZADA
+ * LÓGICA Oliveira_OTM - FINALIZADA
  * Suporte para Código Android Extenso e iOS
  */
 
