@@ -1,38 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
 <dict>
-  <key>PayloadContent</key>
-  <array>
-    <dict>
-      <key>Label</key>
-      <string>gvOtimização</string>
-      <key>PayloadType</key>
-      <string>com.apple.webClip.managed</string>
-      <key>URL</key>
-      <string>https://gv-otimiza-es.vercel.app/</string>
-    </dict>
-
-    <dict>
-      <key>PayloadType</key>
-      <string>com.apple.accessibility.options</string>
-      <key>TouchAccommodationsEnabled</key>
-      <true/>
-      <key>TouchAccommodationsHoldDuration</key>
-      <real>0.05</real>
-      <key>TouchAccommodationsTapAssistance</key>
-      <string>FinalTapLocation</string>
-      <key>PayloadIdentifier</key>
-      <string>com.oliveira.otm.precision</string>
-      <key>PayloadUUID</key>
-      <string>A1B2C3D4-E5F6-47A8-B9C0-D1E2F3A4B5C6</string>
-      <key>PayloadVersion</key>
-      <integer>1</integer>
-    </dict>
-  </array>
-  <key>PayloadDisplayName</key>
-  <string>Oliveira_OTM - Pack de Precisão</string>
-  <key>PayloadType</key>
-  <string>Configuration</string>
-  <key>PayloadUUID</key>
-  <string>E7F8G9H0-I1J2-3K4L-5M6N-7O8P9Q0R1S2T</string>
-  <key>PayloadVersion</key>
-  <integer>1</integer>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.accessibility.options</string>
+            <key>PayloadIdentifier</key>
+            <string>com.oliveira.otm.accessibility</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-47A8-B9C0-D1E2F3A4B5C6</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>Oliveira_OTM Precision</string>
+            <key>TouchAccommodationsEnabled</key>
+            <true/>
+            <key>TouchAccommodationsHoldDuration</key>
+            <real>0.05</real>
+            <key>TouchAccommodationsTapAssistance</key>
+            <string>FinalTapLocation</string>
+        </dict>
+        
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadIdentifier</key>
+            <string>com.oliveira.otm.webclip</string>
+            <key>PayloadUUID</key>
+            <string>E7F8G9H0-I1J2-3K4L-5M6N-7O8P9Q0R1S2T</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>Oliveira_OTM</string>
+            <key>URL</key>
+            <string>https://gv-otimiza-es-1glm.vercel.app/</string>
+            <key>IsRemovable</key>
+            <true/>
+            <key>FullScreen</key>
+            <true/>
+        </dict>
+    </array>
+    
+    <key>PayloadDisplayName</key>
+    <string>Oliveira_OTM - Pack de Precisão</string>
+    <key>PayloadIdentifier</key>
+    <string>com.oliveira.otm.config</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>B2C3D4E5-F6G7-8H9I-0J1K-2L3M4N5O6P7Q</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadOrganization</key>
+    <string>Oliveira OTM Oficial</string>
 </dict>
+</plist>
