@@ -16,9 +16,9 @@ particlesJS('particles-js', {
 
 document.addEventListener('DOMContentLoaded', () => {
     const DATABASE_CODIGOS = [
-        "68fbde36f576351f1378c5d5",
-        "33cc3184-0a47-49e4-a20a-b661b27af069+FFD58FB4F76F648C2A5E21EBCFA3AAE81B4C9B7D97"
-    ];
+    "68fbde36f576351f1378c5d5",
+    "33cc3184-0a47-49e4-a20a-b661b27af069+ffd58fb4f76f648c2a5e21ebcfa3aae81b4c9b7d97"
+];
 
     const btnAtivar = document.getElementById('btn-ativar');
     const inputCodigo = document.getElementById('input-codigo');
