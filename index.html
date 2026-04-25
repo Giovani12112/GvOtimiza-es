@@ -10,24 +10,20 @@
     <link rel="stylesheet" href="style.css?v=17">
     
     <style>
-        body {
-    margin: 0;
-    background-color: #000 !important;
-    color: white !important;
-    font-family: -apple-system, sans-serif;
-    /* overflow: hidden;  <-- REMOVA OU COMENTE ESTA LINHA */
-    overflow-y: auto; /* Permite rolar para baixo */
-    overflow-x: hidden; /* Mantém a largura travada */
-    height: 100%;
-}
-
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none; /* Garante que as partículas não atrapalhem o toque nos botões */
-}
+        body { 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden; 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: #000;
+            color: #fff;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
         .app-container { 
             display: flex; 
             flex-direction: column; 
