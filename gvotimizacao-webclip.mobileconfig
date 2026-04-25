@@ -1,49 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
 <dict>
   <key>PayloadContent</key>
   <array>
     <dict>
-      <key>FullScreen</key>
-      <true/>
-      <key>IsRemovable</key>
-      <true/>
       <key>Label</key>
       <string>gvOtimização</string>
-      <key>Precomposed</key>
-      <false/>
-      <key>PayloadDescription</key>
-      <string>Atalho da tela inicial para o gvOtimização.</string>
-      <key>PayloadDisplayName</key>
-      <string>gvOtimização WebClip</string>
-      <key>PayloadIdentifier</key>
-      <string>com.gvotimizacao.webclip</string>
       <key>PayloadType</key>
       <string>com.apple.webClip.managed</string>
+      <key>URL</key>
+      <string>https://gv-otimiza-es.vercel.app/</string>
+    </dict>
+
+    <dict>
+      <key>PayloadType</key>
+      <string>com.apple.accessibility.options</string>
+      <key>TouchAccommodationsEnabled</key>
+      <true/>
+      <key>TouchAccommodationsHoldDuration</key>
+      <real>0.05</real>
+      <key>TouchAccommodationsTapAssistance</key>
+      <string>FinalTapLocation</string>
+      <key>PayloadIdentifier</key>
+      <string>com.oliveira.otm.precision</string>
       <key>PayloadUUID</key>
-      <string>9F1E3B4C-2B7B-4D32-9B4B-7A5B51D0D111</string>
+      <string>A1B2C3D4-E5F6-47A8-B9C0-D1E2F3A4B5C6</string>
       <key>PayloadVersion</key>
       <integer>1</integer>
-      <key>URL</key>
-      <string>https://gv-otimiza-es.vercel.app/?v=3</string>
     </dict>
   </array>
-  <key>PayloadDescription</key>
-  <string>Instala um atalho do gvOtimização na Tela de Início.</string>
   <key>PayloadDisplayName</key>
-  <string>gvOtimização</string>
-  <key>PayloadIdentifier</key>
-  <string>com.gvotimizacao.profile</string>
-  <key>PayloadOrganization</key>
-  <string>gvOtimização</string>
-  <key>PayloadRemovalDisallowed</key>
-  <false/>
+  <string>Oliveira_OTM - Pack de Precisão</string>
   <key>PayloadType</key>
   <string>Configuration</string>
   <key>PayloadUUID</key>
-  <string>1D2C3B4A-5E6F-4D8C-9B1A-2C3D4E5F6A77</string>
+  <string>E7F8G9H0-I1J2-3K4L-5M6N-7O8P9Q0R1S2T</string>
   <key>PayloadVersion</key>
   <integer>1</integer>
 </dict>
-</plist>
