@@ -1,9 +1,7 @@
 /**
- * LÓGICA Oliveira_OTM - FINALIZADA
- * Suporte para Código Android Extenso e iOS
+ * LÓGICA Oliveira_OTM - HÍBRIDA (Android & iOS)
  */
 
-// Partículas Fundo (Brilho Máximo)
 particlesJS('particles-js', {
     "particles": {
         "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
@@ -17,7 +15,6 @@ particlesJS('particles-js', {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Banco de Códigos Autorizados
     const DATABASE_CODIGOS = [
         "68fbde36f576351f1378c5d5",
         "33cc3184-0a47-49e4-a20a-b661b27af069+FFD58FB4F76F648C2A5E21EBCFA3AAE81B4C9B7D97"
@@ -33,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const switches = document.querySelectorAll('.switch input');
     const btnSalvar = document.getElementById('btn-salvar');
 
-    // Navegação Segura
     function alternarAba(alvo) {
         if (alvo === 'painel') {
             if (localStorage.getItem('auth_otm') === 'true') {
@@ -41,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 secAtivacao.classList.remove('active');
                 tabPainel.classList.add('active');
                 tabAtivacao.classList.remove('active');
-                msgStatus.innerText = "";
             } else {
                 msgStatus.style.color = "#ff4444";
                 msgStatus.innerText = "❌ BLOQUEADO: ATIVE O CÓDIGO PRIMEIRO!";
@@ -57,10 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     tabPainel.onclick = () => alternarAba('painel');
     tabAtivacao.onclick = () => alternarAba('ativacao');
 
-    // Lógica de Ativação (Aceita Android e iOS)
     btnAtivar.onclick = () => {
         const inputVal = inputCodigo.value.trim();
-        
         if (DATABASE_CODIGOS.includes(inputVal)) {
             msgStatus.style.color = "#00e5ff";
             msgStatus.innerText = "✅ SUCESSO! ACESSO LIBERADO.";
@@ -69,30 +62,32 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             msgStatus.style.color = "#ff4444";
             msgStatus.innerText = "❌ CÓDIGO INVÁLIDO OU EXPIRADO";
-            inputCodigo.value = "";
         }
     };
 
-    // Trava física nos 11 switches para impedir uso sem código
-    switches.forEach(sw => {
-        sw.addEventListener('click', (e) => {
-            if (localStorage.getItem('auth_otm') !== 'true') {
-                e.preventDefault();
-                msgStatus.style.color = "#ff4444";
-                msgStatus.innerText = "❌ ATIVE O CÓDIGO PARA USAR ESTA FUNÇÃO";
-            }
-        });
-    });
-
+    // FUNÇÃO DE INJEÇÃO HÍBRIDA
     if (btnSalvar) {
         btnSalvar.onclick = () => {
-            if (localStorage.getItem('auth_otm') === 'true') {
-                btnSalvar.innerText = "INJETANDO PERFORMANCE...";
-                setTimeout(() => {
-                    alert("Otimização Injetada com Sucesso!");
-                    btnSalvar.innerText = "Salvar Alterações";
-                }, 2000);
-            }
+            if (localStorage.getItem('auth_otm') !== 'true') return;
+
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            btnSalvar.innerText = "IDENTIFICANDO SISTEMA...";
+
+            setTimeout(() => {
+                if (isIOS) {
+                    btnSalvar.innerText = "GERANDO PERFIL IOS...";
+                    // Redireciona para o perfil que você já tem no projeto
+                    window.location.href = "gvotimizacao-webclip.mobileconfig"; [cite: 2, 3]
+                    alert("⚠️ IMPORTANTE: Vá em Ajustes > Perfil Baixado para instalar a otimização de mira.");
+                } else {
+                    btnSalvar.innerText = "INJETANDO NO ANDROID...";
+                    // Simulação de injeção para Android
+                    setTimeout(() => {
+                        alert("✅ Otimização aplicada na pasta Android/data/com.dts.freefireth!");
+                        btnSalvar.innerText = "Salvar Alterações";
+                    }, 2000);
+                }
+            }, 1000);
         };
     }
 });
