@@ -8,21 +8,24 @@
             <key>PayloadType</key>
             <string>com.apple.accessibility.options</string>
             <key>PayloadIdentifier</key>
-            <string>com.oliveira.otm.precision</string>
+            <string>com.oliveira.otm.ajustes</string>
             <key>PayloadUUID</key>
-            <string>A1B2C3D4-E5F6-47A8-B9C0-D1E2F3A4B5C6</string>
+            <string>D1E2F3A4-B5C6-47A8-B9C0-D1E2F3A4B5C6</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadDisplayName</key>
-            <string>Oliveira_OTM Precision</string>
+            <string>Oliveira_OTM In-Game Engine</string>
+            
             <key>TouchAccommodationsEnabled</key>
             <true/>
             <key>TouchAccommodationsHoldDuration</key>
-            <real>0.05</real>
-            <key>TouchAccommodationsTapAssistance</key>
+            <real>0.03</real> <key>TouchAccommodationsIgnoreRepeatEnabled</key>
+            <true/>
+            <key>TouchAccommodationsIgnoreRepeatDuration</key>
+            <real>0.1</real> <key>TouchAccommodationsTapAssistance</key>
             <string>FinalTapLocation</string>
         </dict>
-        
+
         <dict>
             <key>PayloadType</key>
             <string>com.apple.webClip.managed</string>
@@ -44,13 +47,13 @@
             <string>Oliveira_OTM</string>
         </dict>
     </array>
-    
+
     <key>PayloadDisplayName</key>
-    <string>Oliveira_OTM - Pack de Precisão</string>
+    <string>Oliveira_OTM - Funções Ativadas</string>
     <key>PayloadIdentifier</key>
-    <string>com.oliveira.otm.config</string>
+    <string>com.gvotimiza.apple.config</string>
     <key>PayloadOrganization</key>
-    <string>Oliveira OTM Oficial</string>
+    <string>Oliveira OTM</string>
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
