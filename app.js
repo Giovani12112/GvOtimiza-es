@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnSalvar.innerText = "Salvar Alterações";
 
                 if (isIOS) {
-                    alert("SISTEMA iOS: Clique no botão azul abaixo para baixar o perfil de sensibilidade.");
+                    alert("ARQUIVAS INJETADOS");
                 } else {
                     alert("SISTEMA ANDROID: Otimizações de registro aplicadas com sucesso!");
                 }
