@@ -2,48 +2,48 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>PayloadContent</key>
-  <array>
-    <dict>
-      <key>FullScreen</key>
-      <true/>
-      <key>IsRemovable</key>
-      <true/>
-      <key>Label</key>
-      <string>gvOtimização</string>
-      <key>Precomposed</key>
-      <false/>
-      <key>PayloadDescription</key>
-      <string>Atalho da tela inicial para o gvOtimização.</string>
-      <key>PayloadDisplayName</key>
-      <string>gvOtimização WebClip</string>
-      <key>PayloadIdentifier</key>
-      <string>com.gvotimizacao.webclip</string>
-      <key>PayloadType</key>
-      <string>com.apple.webClip.managed</string>
-      <key>PayloadUUID</key>
-      <string>9F1E3B4C-2B7B-4D32-9B4B-7A5B51D0D111</string>
-      <key>PayloadVersion</key>
-      <integer>1</integer>
-      <key>URL</key>
-      <string>https://gv-tomiza-es.vercel.app/</string>
-    </dict>
-  </array>
-  <key>PayloadDescription</key>
-  <string>Instala um atalho do gvOtimização na Tela de Início.</string>
-  <key>PayloadDisplayName</key>
-  <string>gvOtimização</string>
-  <key>PayloadIdentifier</key>
-  <string>com.gvotimizacao.profile</string>
-  <key>PayloadOrganization</key>
-  <string>gvOtimização</string>
-  <key>PayloadRemovalDisallowed</key>
-  <false/>
-  <key>PayloadType</key>
-  <string>Configuration</string>
-  <key>PayloadUUID</key>
-  <string>1D2C3B4A-5E6F-4D8C-9B1A-2C3D4E5F6A77</string>
-  <key>PayloadVersion</key>
-  <integer>1</integer>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Configurações de Otimização Oliveira_OTM</string>
+			<key>PayloadDisplayName</key>
+			<string>Oliveira_OTM Precision</string>
+			<key>PayloadIdentifier</key>
+			<string>com.oliveira.otm.precision.123</string>
+			<key>PayloadType</key>
+			<string>com.apple.webClip.managed</string>
+			<key>PayloadUUID</key>
+			<string>5C6D7E8F-9A0B-4C1D-8E2F-3A4B5C6D7E8F</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>FullScreen</key>
+			<true/>
+			<key>Icon</key>
+			<data></data>
+			<key>IsRemovable</key>
+			<true/>
+			<key>Label</key>
+			<string>Oliveira_OTM</string>
+			<key>URL</key>
+			<string>https://gv-otimiza-es-1glm.vercel.app/</string>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Ajustes de sensibilidade e otimização de resposta de toque.</string>
+	<key>PayloadDisplayName</key>
+	<string>Oliveira_OTM Oficial</string>
+	<key>PayloadIdentifier</key>
+	<string>com.gvotimiza.apple.config</string>
+	<key>PayloadOrganization</key>
+	<string>Oliveira OTM</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>7A8B9C0D-1E2F-3A4B-5C6D-7E8F9A0B1C2D</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
 </dict>
 </plist>
