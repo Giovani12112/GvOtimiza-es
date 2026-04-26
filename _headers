@@ -1,17 +1,3 @@
-{
-  "headers": [
-    {
-      "source": "/gvotimizacao-webclip.mobileconfig",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/x-apple-aspen-config"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"gvotimizacao-webclip.mobileconfig\""
-        }
-      ]
-    }
-  ]
-}
+/gvotimizacao-webclip.mobileconfig
+  Content-Type: application/x-apple-aspen-config
+  Content-Disposition: attachment; filename="gvotimizacao-webclip.mobileconfig"
