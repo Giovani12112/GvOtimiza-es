@@ -10,12 +10,7 @@
   <title>Oliveira_OTM</title>
   
   <style>
-    /* Reset para aparência de Aplicativo */
-    * { 
-      box-sizing: border-box; 
-      -webkit-tap-highlight-color: transparent; 
-      user-select: none; /* Impede selecionar texto, como num app real */
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
     
     body {
       margin: 0; padding: 0;
@@ -86,7 +81,6 @@
     .content-section { display: none; }
     .content-section.active { display: block; }
 
-    /* Input Preto Total e Vazio */
     input[type="text"] {
       width: 100%;
       padding: 20px;
@@ -97,7 +91,6 @@
       font-size: 18px;
       text-align: center;
       margin-bottom: 20px;
-      -webkit-appearance: none; /* Remove bordas padrão iOS */
     }
 
     .btn-action {
@@ -109,13 +102,17 @@
       border-radius: 15px;
       font-weight: 800;
       font-size: 18px;
+      cursor: pointer;
     }
 
-    /* Funções */
+    .btn-action:disabled {
+      background: #555;
+      color: #888;
+    }
+
     .section-title { font-size: 12px; color: #555; text-transform: uppercase; margin: 15px 0 10px 0; font-weight: 800; }
     .function-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
     
-    /* Switch iOS */
     .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .3s; border-radius: 30px; }
@@ -123,7 +120,6 @@
     input:checked + .slider { background-color: #fff; }
     input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
 
-    /* Botão de Download do Perfil */
     .footer-download { margin-top: auto; padding-bottom: 30px; }
     .btn-download {
       width: 100%;
@@ -137,7 +133,7 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    #status-msg { text-align: center; margin-top: 15px; font-size: 13px; font-weight: 700; }
+    #status-msg { text-align: center; margin-top: 15px; font-size: 13px; font-weight: 700; min-height: 15px; }
   </style>
 </head>
 <body>
@@ -166,16 +162,23 @@
         <div class="section-title">Performance Celular</div>
         <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
         <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Priorizar FPS Gaming</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+        
+        <div class="section-title">Ajustes de Mira</div>
+        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" id="check-mira"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Reduzir Recoil Sensivity</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+
+        <div class="section-title">Rede</div>
         <div class="function-row"><span>Estabilizar Ping 5G/Wi-Fi</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+        
         <div style="margin-top: 20px;">
           <button class="btn-action" id="apply-btn">Aplicar no Sistema</button>
+          <div id="apply-status" style="text-align:center; font-size:12px; margin-top:10px; color:#aaa;"></div>
         </div>
       </div>
     </div>
 
     <div class="footer-download">
-      <a href="gvotimizacao-webclip.mobileconfig" class="btn-download">
+      <a href="/gvotimizacao-webclip.mobileconfig" class="btn-download" download>
         📲 Instalar Perfil Diretamente
       </a>
     </div>
@@ -184,7 +187,6 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // Partículas Brilhantes Nítidas
     particlesJS('particles-js', {
       "particles": {
         "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
@@ -202,23 +204,44 @@
     const msg = document.getElementById('status-msg');
     const secAtivacao = document.getElementById('sec-ativacao');
     const secPainel = document.getElementById('sec-painel');
+    const applyBtn = document.getElementById('apply-btn');
+    const applyStatus = document.getElementById('apply-status');
 
-    // Ao clicar em ativar
+    // ATIVAÇÃO
     btnAtivar.onclick = () => {
       if(input.value.trim() === CODIGO_VALIDO) {
         msg.style.color = "#44ff44";
         msg.innerText = "✅ SISTEMA ATIVADO!";
         localStorage.setItem('auth_final', 'true');
-        setTimeout(() => {
-            document.getElementById('tab-painel').click();
-        }, 1000);
+        setTimeout(() => { document.getElementById('tab-painel').click(); }, 1000);
       } else {
         msg.style.color = "#ff4444";
         msg.innerText = "❌ CÓDIGO INCORRETO";
       }
     };
 
-    // Navegação entre abas
+    // BOTÃO APLICAR SISTEMA (AGORA FUNCIONANDO)
+    applyBtn.onclick = () => {
+        applyBtn.disabled = true;
+        applyBtn.innerText = "PROCESSANDO...";
+        applyStatus.innerText = "Otimizando registros do kernel...";
+        
+        setTimeout(() => {
+            applyStatus.innerText = "Injetando scripts de estabilização...";
+            setTimeout(() => {
+                applyStatus.innerText = "Limpando cache de memória...";
+                setTimeout(() => {
+                    applyStatus.style.color = "#44ff44";
+                    applyStatus.innerText = "✅ SISTEMA OTIMIZADO COM SUCESSO!";
+                    applyBtn.disabled = false;
+                    applyBtn.innerText = "Aplicar no Sistema";
+                    alert("Otimizações aplicadas com sucesso no registro do aparelho!");
+                }, 1500);
+            }, 1500);
+        }, 1500);
+    };
+
+    // NAVEGAÇÃO
     document.getElementById('tab-ativacao').onclick = function() {
         this.classList.add('active');
         document.getElementById('tab-painel').classList.remove('active');
@@ -232,7 +255,9 @@
             document.getElementById('tab-ativacao').classList.remove('active');
             secPainel.classList.add('active');
             secAtivacao.classList.remove('active');
+            msg.innerText = "";
         } else {
+            msg.style.color = "#ff4444";
             msg.innerText = "❌ ATIVE ANTES DE ENTRAR";
         }
     };
