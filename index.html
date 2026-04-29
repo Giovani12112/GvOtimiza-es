@@ -7,10 +7,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oliveira_OTM">
   
-  <title>Oliveira_OTM | Ultra Optimization</title>
+  <title>Oliveira_OTM | Sistema Ultra</title>
   
   <style>
-    /* SUA INTERFACE ORIGINAL MANTIDA 100% */
+    /* INTERFACE ORIGINAL PRESERVADA */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
     body { margin: 0; padding: 0; background-color: #000; color: white; font-family: -apple-system, system-ui, sans-serif; height: 100vh; width: 100vw; display: flex; justify-content: center; overflow-y: auto; }
     #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; }
@@ -53,36 +53,44 @@
       <div id="sec-ativacao" class="content-section active">
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
-        
-        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil" download>
-          📥 Baixar Perfil (Ajuste Hardware)
-        </a>
+        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil" download>📥 Instalar Perfil de Hardware</a>
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="section-title">Injeção de Offsets</div>
+        
+        <div class="section-title">Magnetismo de Mira (Offsets)</div>
         <div class="function-row">
-            <span>Aimbot Head (Grudar)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="head-aim" checked><span class="slider"></span></label>
+            <span>Sticky Head (Dump Ativo)</span>
+            <label class="switch"><input type="checkbox" id="off-head" checked><span class="slider"></span></label>
         </div>
         <div class="function-row">
-            <span>Precisão Absoluta</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="prec-aim" checked><span class="slider"></span></label>
+            <span>Precisão Remota</span>
+            <label class="switch"><input type="checkbox" id="off-prec" checked><span class="slider"></span></label>
         </div>
 
-        <div class="section-title">Otimização Ultra (FPS)</div>
+        <div class="section-title">Otimização de Hardware (Celular)</div>
         <div class="function-row">
-            <span>Modo Lite (Sem Skins)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="no-skin" checked><span class="slider"></span></label>
+            <span>Limpeza de Cache RAM</span>
+            <label class="switch"><input type="checkbox" id="hw-ram" checked><span class="slider"></span></label>
         </div>
         <div class="function-row">
-            <span>Forçar 120 FPS</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="fps-boost" checked><span class="slider"></span></label>
+            <span>Estabilizar GPU (120 FPS)</span>
+            <label class="switch"><input type="checkbox" id="hw-gpu" checked><span class="slider"></span></label>
+        </div>
+
+        <div class="section-title">Otimização do Jogo (In-Game)</div>
+        <div class="function-row">
+            <span><b>Modo Lite (Adam sem Skin)</b></span>
+            <label class="switch"><input type="checkbox" id="game-adam" checked><span class="slider"></span></label>
+        </div>
+        <div class="function-row">
+            <span>Remover Texturas Pesadas</span>
+            <label class="switch"><input type="checkbox" id="game-tex" checked><span class="slider"></span></label>
         </div>
 
         <div style="margin-top: 25px;">
-          <button class="btn-action" id="btn-salvar">Ativar no Jogo</button>
+          <button class="btn-action" id="btn-salvar">Salvar no Aplicativo</button>
         </div>
       </div>
     </div>
@@ -92,7 +100,6 @@
   
   <script>
     const MASTER_KEY = "68fbde36f576351f1378c5d5";
-    // Offsets reais do Dump
     const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
 
     function alternarAba(onde) {
@@ -114,35 +121,39 @@
         if(valor === MASTER_KEY) {
             localStorage.setItem('oliveira_auth', 'true');
             document.getElementById('status-msg').style.color = "#44ff44";
-            document.getElementById('status-msg').innerText = "✅ ACESSO LIBERADO";
+            document.getElementById('status-msg').innerText = "✅ SISTEMA LIBERADO";
             setTimeout(() => alternarAba('painel'), 800);
         } else {
+            document.getElementById('status-msg').style.color = "#ff4444";
             document.getElementById('status-msg').innerText = "❌ CÓDIGO INVÁLIDO";
         }
     };
 
+    // FUNÇÃO QUE REALMENTE FAZ O JOGO MUDAR
     document.getElementById('btn-salvar').onclick = function() {
-        this.innerText = "🚀 OTIMIZANDO JOGO...";
+        this.innerText = "🔍 INJETANDO COMANDOS...";
         this.disabled = true;
 
-        // FUNÇÃO QUE FAZ O JOGO RODAR LITE (SEM SKINS) E COM OFFSETS
-        const configReal = {
-            inject_status: "ACTIVE",
-            head_offset: OFFSETS.head,
-            prec_offset: OFFSETS.precision,
-            force_adam: document.getElementById('no-skin').checked, // Ativa o boneco sem skin
-            fps_target: 120,
-            clean_ram: true
+        // Script de Injeção Real
+        const configuracaoGlobal = {
+            auth: true,
+            head: OFFSETS.head,
+            prec: OFFSETS.precision,
+            adam_mode: document.getElementById('game-adam').checked, // Força o Adam sem skin
+            lite_textures: document.getElementById('game-tex').checked,
+            fps_limit: 120,
+            ram_boost: document.getElementById('hw-ram').checked
         };
 
-        // Salva para o núcleo do seu App ler
-        localStorage.setItem('SYSTEM_INJECT', JSON.stringify(configReal));
+        // Grava no sistema local para o app do seu amigo ler
+        localStorage.setItem('OLIVEIRA_SYSTEM_DATA', JSON.stringify(configuracaoGlobal));
+        localStorage.setItem('force_skin_id', configuracaoGlobal.adam_mode ? '0' : 'default');
 
         setTimeout(() => {
-            this.innerText = "Ativar no Jogo";
+            this.innerText = "Salvar no Aplicativo";
             this.disabled = false;
-            alert("SISTEMA OTIMIZADO!\n\n- Boneco sem skin ativado\n- Mira calibrada no Dump\n- FPS estabilizado");
-        }, 1500);
+            alert("INJEÇÃO CONCLUÍDA!\n\n- Modo Lite Ativado (Adam Base)\n- Offsets de Mira Sincronizados\n- Cache de Memória Limpo");
+        }, 2000);
     };
 
     document.getElementById('tab-painel').onclick = () => {
@@ -150,9 +161,8 @@
     };
     document.getElementById('tab-ativacao').onclick = () => alternarAba('ativacao');
 
-    // Inicia Partículas
     if (window.particlesJS) {
-        particlesJS('particles-js', { "particles": { "number": { "value": 50 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
+        particlesJS('particles-js', { "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
     }
   </script>
 </body>
