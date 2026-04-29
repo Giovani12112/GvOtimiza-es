@@ -10,13 +10,7 @@
   <title>Oliveira_OTM</title>
   
   <style>
-    /* Otimização de Toque: Remove o delay de 300ms do navegador para resposta instantânea */
-    * { 
-      box-sizing: border-box; 
-      -webkit-tap-highlight-color: transparent; 
-      user-select: none; 
-      touch-action: manipulation; 
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
     
     body {
       margin: 0; padding: 0;
@@ -28,92 +22,42 @@
       overflow: hidden;
     }
 
-    #particles-js {
-      position: fixed;
-      width: 100%; height: 100%;
-      z-index: 1;
-      top: 0; left: 0;
-    }
+    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; }
 
     .app-container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 420px;
-      padding: 60px 20px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      position: relative; z-index: 10; width: 100%; max-width: 420px;
+      padding: 60px 20px 20px 20px; display: flex; flex-direction: column; height: 100%;
     }
 
-    .header h1 {
-      font-size: 36px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 25px;
-      letter-spacing: -1.5px;
-    }
+    .header h1 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 25px; letter-spacing: -1.5px; }
 
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+    .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
 
     .tab-item {
-      flex: 1; padding: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #333;
-      border-radius: 12px;
-      color: #777;
-      text-align: center;
-      font-weight: 700;
-      cursor: pointer;
+      flex: 1; padding: 14px; background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #333; border-radius: 12px; color: #777;
+      text-align: center; font-weight: 700; cursor: pointer;
     }
 
     .tab-item.active { background: #fff; color: #000; border-color: #fff; }
 
     .main-card {
-      background: rgba(20, 20, 20, 0.95);
-      padding: 25px;
-      border-radius: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(25px);
-      width: 100%;
-      max-height: 65vh;
-      overflow-y: auto;
+      background: rgba(20, 20, 20, 0.95); padding: 25px; border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px);
+      width: 100%; max-height: 65vh; overflow-y: auto;
     }
 
     .content-section { display: none; }
     .content-section.active { display: block; }
 
     input[type="text"] {
-      width: 100%;
-      padding: 20px;
-      background: #000 !important;
-      border: 1px solid #333;
-      border-radius: 15px;
-      color: #fff;
-      font-size: 18px;
-      text-align: center;
-      margin-bottom: 20px;
+      width: 100%; padding: 20px; background: #000 !important; border: 1px solid #333;
+      border-radius: 15px; color: #fff; font-size: 18px; text-align: center; margin-bottom: 20px;
     }
 
     .btn-action {
-      width: 100%;
-      padding: 18px;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 15px;
-      font-weight: 800;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .btn-action:disabled {
-      background: #555;
-      color: #888;
+      width: 100%; padding: 18px; background: #fff; color: #000; border: none;
+      border-radius: 15px; font-weight: 800; font-size: 18px; cursor: pointer;
     }
 
     .section-title { font-size: 12px; color: #555; text-transform: uppercase; margin: 15px 0 10px 0; font-weight: 800; }
@@ -126,19 +70,6 @@
     input:checked + .slider { background-color: #fff; }
     input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
 
-    .footer-download { margin-top: auto; padding-bottom: 30px; }
-    .btn-download {
-      width: 100%;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      border: 1px solid #333;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      display: flex; align-items: center; justify-content: center;
-    }
-
     #status-msg { text-align: center; margin-top: 15px; font-size: 13px; font-weight: 700; min-height: 15px; }
   </style>
 </head>
@@ -147,9 +78,7 @@
   <div id="particles-js"></div>
 
   <div class="app-container">
-    <div class="header">
-      <h1>Oliveira_OTM</h1>
-    </div>
+    <div class="header"><h1>Oliveira_OTM</h1></div>
 
     <div class="nav-tabs">
       <div class="tab-item active" id="tab-ativacao">Ativação</div>
@@ -158,152 +87,128 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#888;">Insira o seu código de acesso privado</p>
+        <p style="text-align:center; color:#888;">Digite o código para injetar no App</p>
         <input type="text" id="input-codigo" spellcheck="false" autocomplete="off">
-        <button class="btn-action" id="btn-ativar">Activate Agora</button>
+        <button class="btn-action" id="btn-ativar">Injetar Agora</button>
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="section-title">Otimização iOS/Android</div>
-        <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox" class="otm-check" id="boost-perf"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-
-        <div class="section-title">Performance Celular</div>
-        <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="section-title">Otimização Interna</div>
+        <div class="function-row"><span>Desbloquear 120 FPS</span><label class="switch"><input type="checkbox" class="otm-check" id="fps"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpar Cache do Jogo</span><label class="switch"><input type="checkbox" class="otm-check" id="cache"> <span class="slider"></span></label></div>
         
-        <div class="section-title">Ajustes de Mira</div>
-        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Reduzir Recoil Sensivity</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="section-title">Ajustes de Registro</div>
+        <div class="function-row"><span>Mira Magnética (Registro)</span><label class="switch"><input type="checkbox" class="otm-check" id="mira"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Zero Delay Touch</span><label class="switch"><input type="checkbox" class="otm-check" id="touch"> <span class="slider"></span></label></div>
 
-        <div class="section-title">Rede & Segurança</div>
-        <div class="function-row"><span>Estabilizar Ping 5G/Wi-Fi</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
-        
         <div style="margin-top: 20px;">
-          <button class="btn-action" id="apply-btn">Aplicar no Sistema</button>
+          <button class="btn-action" id="apply-btn">Salvar no App</button>
           <div id="apply-status" style="text-align:center; font-size:12px; margin-top:10px; color:#aaa;"></div>
         </div>
       </div>
-    </div>
-
-    <div class="footer-download">
-      <a href="/gvotimizacao-webclip.mobileconfig" class="btn-download">
-        📲 Instalar Perfil Diretamente
-      </a>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "opacity": { "value": 0.9, "random": true },
-        "size": { "value": 3, "random": true },
-        "line_linked": { "enable": true, "distance": 130, "color": "#ffffff", "opacity": 0.5, "width": 1.5 },
-        "move": { "enable": true, "speed": 2.5 }
-      }
-    });
+    // 1. Definição do Código de Segurança (Troque aqui para deslogar todos os apps)
+    const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
 
-    const CODIGO_VALIDO = "68fbde36f576351f1378c5d5";
-    const input = document.getElementById('input-codigo');
+    // 2. Verificação de Injeção ao Abrir o App
+    window.onload = () => {
+        const statusInjecao = localStorage.getItem('app_injetado');
+        const codigoNoApp = localStorage.getItem('codigo_ativo');
+
+        if (statusInjecao === 'true' && codigoNoApp === CODIGO_MESTRE) {
+            // Se o código bate, o App pula direto para o painel
+            document.getElementById('tab-painel').click();
+            carregarConfiguracoes();
+        } else {
+            // Se o código mudou, limpa o App e pede novo código
+            localStorage.clear();
+        }
+    };
+
+    function carregarConfiguracoes() {
+        const configs = JSON.parse(localStorage.getItem('user_configs') || '{}');
+        Object.keys(configs).forEach(id => {
+            const cb = document.getElementById(id);
+            if(cb) cb.checked = configs[id];
+        });
+    }
+
+    // 3. Lógica de Ativação
     const btnAtivar = document.getElementById('btn-ativar');
+    const input = document.getElementById('input-codigo');
     const msg = document.getElementById('status-msg');
-    const secAtivacao = document.getElementById('sec-ativacao');
-    const secPainel = document.getElementById('sec-painel');
+
+    btnAtivar.onclick = () => {
+      if(input.value.trim() === CODIGO_MESTRE) {
+        msg.style.color = "#44ff44";
+        msg.innerText = "✅ INJEÇÃO CONCLUÍDA NO APP!";
+        localStorage.setItem('app_injetado', 'true');
+        localStorage.setItem('codigo_ativo', CODIGO_MESTRE);
+        setTimeout(() => { document.getElementById('tab-painel').click(); }, 1200);
+      } else {
+        msg.style.color = "#ff4444";
+        msg.innerText = "❌ CÓDIGO INVÁLIDO OU EXPIRADO";
+      }
+    };
+
+    // 4. Lógica de Aplicação (Persistente no App)
     const applyBtn = document.getElementById('apply-btn');
     const applyStatus = document.getElementById('apply-status');
 
-    // 1. FUNÇÃO REAL: Prevenção de CPU Throttling
-    let wakeLock = null;
-    async function requestPerformance() {
-      try { 
-        if ('wakeLock' in navigator) { 
-          wakeLock = await navigator.wakeLock.request('screen'); 
-        } 
-      } catch (err) {}
-    }
-
-    // 2. FUNÇÃO REAL: Flush de RAM Física (Garbage Collection Trigger)
-    function forceRamFlush() {
-      let memoryHeuristic = [];
-      for(let i=0; i<1500000; i++) memoryHeuristic.push(i);
-      memoryHeuristic = null; // Libera o bloco, forçando o sistema a limpar o cache para o processo atual
-    }
-
-    // ATIVAÇÃO
-    btnAtivar.onclick = () => {
-      if(input.value.trim() === CODIGO_VALIDO) {
-        msg.style.color = "#44ff44";
-        msg.innerText = "✅ SISTEMA ATIVADO!";
-        localStorage.setItem('auth_final', 'true');
-        setTimeout(() => { document.getElementById('tab-painel').click(); }, 1000);
-      } else {
-        msg.style.color = "#ff4444";
-        msg.innerText = "❌ CÓDIGO INCORRETO";
-      }
-    };
-
-    // BOTÃO APLICAR SISTEMA
-    applyBtn.onclick = async () => {
-        const ativos = document.querySelectorAll('.otm-check:checked');
-        if(ativos.length === 0) return alert("Selecione pelo menos uma função!");
-
+    applyBtn.onclick = () => {
         applyBtn.disabled = true;
         applyBtn.innerText = "INJETANDO...";
-        applyStatus.innerText = "Sincronizando com Perfil de Registro...";
         
-        // Executa Modificações de Hardware se marcadas
-        if(document.getElementById('boost-perf').checked) await requestPerformance();
-        if(document.getElementById('ram-clean').checked) forceRamFlush();
+        // Salva o estado dos switches para o App nunca esquecer
+        const checkboxes = document.querySelectorAll('.otm-check');
+        const configs = {};
+        checkboxes.forEach(cb => configs[cb.id] = cb.checked);
+        localStorage.setItem('user_configs', JSON.stringify(configs));
 
         setTimeout(() => {
-            applyStatus.innerText = "Localizando diretório com.dts.freefireth...";
-            setTimeout(() => {
-                applyStatus.innerText = "Injetando scripts de resposta de toque...";
-                setTimeout(() => {
-                    applyStatus.style.color = "#44ff44";
-                    applyStatus.innerText = "✅ SISTEMA OTIMIZADO!";
-                    applyBtn.disabled = false;
-                    applyBtn.innerText = "Aplicar no Sistema";
-                    
-                    // Alerta o usuário para o passo final do Perfil
-                    if(confirm("Configurações injetadas! Deseja finalizar a instalação do Perfil para liberar o FPS?")) {
-                      window.location.href = "/gvotimizacao-webclip.mobileconfig";
-                    }
-                }, 1500);
-            }, 1500);
-        }, 1500);
+            applyStatus.style.color = "#44ff44";
+            applyStatus.innerText = "✅ ALTERAÇÕES FIXADAS NO APP!";
+            applyBtn.disabled = false;
+            applyBtn.innerText = "Salvar no App";
+            alert("Otimizações fixadas! Abra o Free Fire para testar.");
+        }, 2000);
     };
 
-    // NAVEGAÇÃO
+    // Navegação entre abas
     document.getElementById('tab-ativacao').onclick = function() {
         this.classList.add('active');
         document.getElementById('tab-painel').classList.remove('active');
-        secAtivacao.classList.add('active');
-        secPainel.classList.remove('active');
+        document.getElementById('sec-ativacao').classList.add('active');
+        document.getElementById('sec-painel').classList.remove('active');
     };
 
     document.getElementById('tab-painel').onclick = function() {
-        if(localStorage.getItem('auth_final') === 'true') {
+        if(localStorage.getItem('app_injetado') === 'true') {
             this.classList.add('active');
             document.getElementById('tab-ativacao').classList.remove('active');
-            secPainel.classList.add('active');
-            secAtivacao.classList.remove('active');
-            msg.innerText = "";
+            document.getElementById('sec-painel').classList.add('active');
+            document.getElementById('sec-ativacao').classList.remove('active');
         } else {
-            msg.style.color = "#ff4444";
-            msg.innerText = "❌ ATIVE ANTES DE ENTRAR";
+            msg.innerText = "❌ INJEÇÃO NECESSÁRIA";
         }
     };
+
+    // Partículas de fundo
+    particlesJS('particles-js', {
+      "particles": {
+        "number": { "value": 100 },
+        "color": { "value": "#ffffff" },
+        "size": { "value": 2 },
+        "line_linked": { "enable": true, "color": "#ffffff", "opacity": 0.2 },
+        "move": { "enable": true, "speed": 1 }
+      }
+    });
   </script>
 </body>
 </html>
