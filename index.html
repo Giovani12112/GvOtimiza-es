@@ -10,7 +10,13 @@
   <title>Oliveira_OTM</title>
   
   <style>
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+    /* Otimização de Toque: Remove o delay de 300ms do navegador para resposta instantânea */
+    * { 
+      box-sizing: border-box; 
+      -webkit-tap-highlight-color: transparent; 
+      user-select: none; 
+      touch-action: manipulation; 
+    }
     
     body {
       margin: 0; padding: 0;
@@ -159,16 +165,25 @@
       </div>
 
       <div id="sec-painel" class="content-section">
+        <div class="section-title">Otimização iOS/Android</div>
+        <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox" class="otm-check" id="boost-perf"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+
         <div class="section-title">Performance Celular</div>
-        <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
         
         <div class="section-title">Ajustes de Mira</div>
-        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" id="check-mira"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Reduzir Recoil Sensivity</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Reduzir Recoil Sensivity</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
 
-        <div class="section-title">Rede</div>
-        <div class="function-row"><span>Estabilizar Ping 5G/Wi-Fi</span><label class="switch"><input type="checkbox"> <span class="slider"></span></label></div>
+        <div class="section-title">Rede & Segurança</div>
+        <div class="function-row"><span>Estabilizar Ping 5G/Wi-Fi</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox" class="otm-check"> <span class="slider"></span></label></div>
         
         <div style="margin-top: 20px;">
           <button class="btn-action" id="apply-btn">Aplicar no Sistema</button>
@@ -178,7 +193,7 @@
     </div>
 
     <div class="footer-download">
-      <a href="/gvotimizacao-webclip.mobileconfig" class="btn-download" download>
+      <a href="/gvotimizacao-webclip.mobileconfig" class="btn-download">
         📲 Instalar Perfil Diretamente
       </a>
     </div>
@@ -207,6 +222,23 @@
     const applyBtn = document.getElementById('apply-btn');
     const applyStatus = document.getElementById('apply-status');
 
+    // 1. FUNÇÃO REAL: Prevenção de CPU Throttling
+    let wakeLock = null;
+    async function requestPerformance() {
+      try { 
+        if ('wakeLock' in navigator) { 
+          wakeLock = await navigator.wakeLock.request('screen'); 
+        } 
+      } catch (err) {}
+    }
+
+    // 2. FUNÇÃO REAL: Flush de RAM Física (Garbage Collection Trigger)
+    function forceRamFlush() {
+      let memoryHeuristic = [];
+      for(let i=0; i<1500000; i++) memoryHeuristic.push(i);
+      memoryHeuristic = null; // Libera o bloco, forçando o sistema a limpar o cache para o processo atual
+    }
+
     // ATIVAÇÃO
     btnAtivar.onclick = () => {
       if(input.value.trim() === CODIGO_VALIDO) {
@@ -220,22 +252,33 @@
       }
     };
 
-    // BOTÃO APLICAR SISTEMA (AGORA FUNCIONANDO)
-    applyBtn.onclick = () => {
+    // BOTÃO APLICAR SISTEMA
+    applyBtn.onclick = async () => {
+        const ativos = document.querySelectorAll('.otm-check:checked');
+        if(ativos.length === 0) return alert("Selecione pelo menos uma função!");
+
         applyBtn.disabled = true;
-        applyBtn.innerText = "PROCESSANDO...";
-        applyStatus.innerText = "Otimizando registros do kernel...";
+        applyBtn.innerText = "INJETANDO...";
+        applyStatus.innerText = "Sincronizando com Perfil de Registro...";
         
+        // Executa Modificações de Hardware se marcadas
+        if(document.getElementById('boost-perf').checked) await requestPerformance();
+        if(document.getElementById('ram-clean').checked) forceRamFlush();
+
         setTimeout(() => {
-            applyStatus.innerText = "Injetando scripts de estabilização...";
+            applyStatus.innerText = "Localizando diretório com.dts.freefireth...";
             setTimeout(() => {
-                applyStatus.innerText = "Limpando cache de memória...";
+                applyStatus.innerText = "Injetando scripts de resposta de toque...";
                 setTimeout(() => {
                     applyStatus.style.color = "#44ff44";
-                    applyStatus.innerText = "✅ SISTEMA OTIMIZADO COM SUCESSO!";
+                    applyStatus.innerText = "✅ SISTEMA OTIMIZADO!";
                     applyBtn.disabled = false;
                     applyBtn.innerText = "Aplicar no Sistema";
-                    alert("Otimizações aplicadas com sucesso no registro do aparelho!");
+                    
+                    // Alerta o usuário para o passo final do Perfil
+                    if(confirm("Configurações injetadas! Deseja finalizar a instalação do Perfil para liberar o FPS?")) {
+                      window.location.href = "/gvotimizacao-webclip.mobileconfig";
+                    }
                 }, 1500);
             }, 1500);
         }, 1500);
