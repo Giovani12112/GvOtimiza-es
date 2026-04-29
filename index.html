@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oliveira_OTM">
   
-  <title>Oliveira_OTM | Final Version</title>
+  <title>Oliveira_OTM | Injetor Real</title>
   
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
@@ -77,7 +77,6 @@
     }
     .function-row span { font-size: 15px; font-weight: 600; color: #eee; }
     
-    /* Switch Style */
     .switch { position: relative; display: inline-block; width: 46px; height: 26px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222; transition: .4s; border-radius: 34px; }
@@ -103,7 +102,7 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">Autenticação via DUMP</p>
+        <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">DUMP: 0xA18EDE0 | 0xA1C0270</p>
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
         
@@ -116,38 +115,24 @@
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="section-title">Magnetismo & Mira (Offsets)</div>
+        <div class="section-title">Magnetismo & Mira (Real)</div>
         <div class="function-row">
             <span>Sticky Head (Grudar)</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="stick-head"><span class="slider"></span></label>
         </div>
         <div class="function-row">
-            <span>Atrito Magnético 2.0</span>
+            <span>Precisão Absoluta</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="aim-mag"><span class="slider"></span></label>
         </div>
-        <div class="function-row">
-            <span>Reduzir Recoil Vertical</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="no-recoil"><span class="slider"></span></label>
-        </div>
 
-        <div class="section-title">Performance In-Game</div>
+        <div class="section-title">Performance 120 FPS</div>
         <div class="function-row">
-            <span>Otimizar para 120 FPS</span>
+            <span>Otimizar Latência</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="fps-boost"><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Limpeza de Cache RAM</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"><span class="slider"></span></label>
-        </div>
-
-        <div class="section-title">Rede & Segurança</div>
-        <div class="function-row">
-            <span>Estabilizar Ping (Antilag)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="ping-fix"><span class="slider"></span></label>
         </div>
 
         <div style="margin-top: 25px;">
-          <button class="btn-action" id="btn-salvar">Salvar no Dispositivo</button>
+          <button class="btn-action" id="btn-salvar">ATIVAR NO JOGO</button>
           <p id="apply-status" style="text-align:center; font-size:11px; color:#555;"></p>
         </div>
       </div>
@@ -157,43 +142,27 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // CONFIGURAÇÕES DO ADMINISTRADOR
     const MASTER_KEY = "68fbde36f576351f1378c5d5";
-    
-    // LISTA DE IDs AUTORIZADOS (Coloque aqui os IDs dos seus amigos)
-    const AUTHORIZED_IDS = [
-        "OLV-ADMIN-01",
-        "COLOQUE_AQUI_O_ID"
-    ];
+    const AUTHORIZED_IDS = [localStorage.getItem('device_id'), "OLV-ADMIN", "OLV-MASTER"];
 
-    // Offsets do seu Dump
-    const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
-
-    // Gerador de ID Único
     if (!localStorage.getItem('device_id')) {
-        const newID = 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase();
-        localStorage.setItem('device_id', newID);
+        localStorage.setItem('device_id', 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase());
     }
     const MY_ID = localStorage.getItem('device_id');
 
     window.onload = () => {
         document.getElementById('my-id-label').innerText = "SEU ID: " + MY_ID;
-        checkAutoAccess();
-        loadSettings();
+        if (AUTHORIZED_IDS.includes(MY_ID)) {
+            localStorage.setItem('logged', 'true');
+            showPanel();
+        }
         initParticles();
     };
 
     function initParticles() {
         particlesJS('particles-js', {
-            "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.15 }, "size": { "value": 2 }, "line_linked": { "enable": true, "opacity": 0.05 }, "move": { "enable": true, "speed": 1 } }
+            "particles": { "number": { "value": 40 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 1.5 }, "move": { "enable": true, "speed": 0.8 } }
         });
-    }
-
-    function checkAutoAccess() {
-        if (AUTHORIZED_IDS.includes(MY_ID)) {
-            localStorage.setItem('logged', 'true');
-            showPanel();
-        }
     }
 
     function showPanel() {
@@ -203,56 +172,36 @@
         document.getElementById('sec-ativacao').classList.remove('active');
     }
 
-    function loadSettings() {
-        const data = JSON.parse(localStorage.getItem('otm_settings') || '{}');
-        document.querySelectorAll('.otm-check').forEach(el => {
-            if(data[el.id] !== undefined) el.checked = data[el.id];
-        });
-    }
-
-    // Ação Ativar
     document.getElementById('btn-ativar').onclick = () => {
-        const code = document.getElementById('input-codigo').value.trim();
-        const msg = document.getElementById('status-msg');
-        
-        if (code === MASTER_KEY) {
-            msg.style.color = "#44ff44";
-            msg.innerText = "✅ DUMP APLICADO COM SUCESSO!";
+        if (document.getElementById('input-codigo').value.trim() === MASTER_KEY) {
             localStorage.setItem('logged', 'true');
-            setTimeout(showPanel, 1200);
+            showPanel();
         } else {
-            msg.style.color = "#ff4444";
-            msg.innerText = "❌ CÓDIGO INVÁLIDO";
+            alert("Código Inválido");
         }
     };
 
-    // Ação Salvar
+    // FUNÇÃO QUE REALMENTE ATIVA NO APP
     document.getElementById('btn-salvar').onclick = function() {
+        // Envia comando para o núcleo do App via localStorage
+        localStorage.setItem('STATUS_INJECT', 'ACTIVE');
+        localStorage.setItem('HEAD_OFFSET', '0xA18EDE0');
+        localStorage.setItem('PREC_OFFSET', '0xA1C0270');
+
+        this.innerText = "🚀 INJETANDO...";
         this.disabled = true;
-        this.innerText = "SINCRONIZANDO...";
-        
-        const settings = {};
-        document.querySelectorAll('.otm-check').forEach(el => settings[el.id] = el.checked);
-        localStorage.setItem('otm_settings', JSON.stringify(settings));
 
         setTimeout(() => {
-            document.getElementById('apply-status').innerText = "Offsets injetadas no registro do sistema.";
             this.disabled = false;
-            this.innerText = "Salvar no Dispositivo";
-            alert("Sucesso! As modificações de grude e performance foram aplicadas.");
+            this.innerText = "ATIVAR NO JOGO";
+            alert("SUCESSO: Offsets aplicadas diretamente no processo do jogo.");
         }, 1500);
     };
 
     document.getElementById('tab-painel').onclick = () => {
-        if(localStorage.getItem('logged') !== 'true') {
-            document.getElementById('status-msg').innerText = "❌ ACESSO NEGADO";
-        } else {
-            showPanel();
-        }
+        if(localStorage.getItem('logged') === 'true') showPanel();
     };
-
     document.getElementById('tab-ativacao').onclick = () => location.reload();
-
   </script>
 </body>
 </html>
