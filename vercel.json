@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/gvotimizacao-webclip.mobileconfig",
+      "source": "/gvotimizacao-webcliph.mobileconfig",
       "headers": [
         {
           "key": "Content-Type",
@@ -9,7 +9,7 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "attachment"
+          "value": "attachment; filename=gvotimizacao-webcliph.mobileconfig"
         }
       ]
     }
