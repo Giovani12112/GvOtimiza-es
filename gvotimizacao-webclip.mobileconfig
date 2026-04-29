@@ -12,9 +12,9 @@
             <key>Label</key>
             <string>Oliveira_OTM</string>
             <key>PayloadDescription</key>
-            <string>Configura o WebClip para Oliveira_OTM</string>
+            <string>Acesso ao Painel de Otimização Oliveira_OTM</string>
             <key>PayloadDisplayName</key>
-            <string>Oliveira_OTM WebClip</string>
+            <string>Oliveira_OTM</string>
             <key>PayloadIdentifier</key>
             <string>com.oliveira.otm.webclip</string>
             <key>PayloadType</key>
@@ -29,9 +29,9 @@
 
         <dict>
             <key>PayloadDescription</key>
-            <string>Ajustes de Acessibilidade para Otimização de Toque</string>
+            <string>Ajustes de Acessibilidade para Grude de Mira (Offsets)</string>
             <key>PayloadDisplayName</key>
-            <string>Oliveira_OTM Precision Scripts</string>
+            <string>Oliveira_OTM Injector Precision</string>
             <key>PayloadIdentifier</key>
             <string>com.apple.universalaccess.otm</string>
             <key>PayloadType</key>
@@ -43,19 +43,25 @@
             
             <key>touchAccommodationsEnabled</key>
             <true/>
+            
             <key>touchAccommodationsIgnoreRepeatDuration</key>
-            <real>0.1</real>
-            <key>touchAccommodationsTapAssistanceDuration</key>
-            <real>0.05</real>
+            <real>0.01</real>
+            
             <key>touchAccommodationsTapAssistance</key>
             <string>FinalTapLocation</string>
+            
+            <key>touchAccommodationsTapAssistanceDuration</key>
+            <real>0.01</real>
+            
+            <key>touchAccommodationsHoldDuration</key>
+            <real>0.0</real>
         </dict>
     </array>
     
     <key>PayloadDisplayName</key>
-    <string>Oliveira_OTM System</string>
+    <string>Oliveira_OTM System (Ativador)</string>
     <key>PayloadIdentifier</key>
-    <string>Oliveira.OTM.Ajustes</string>
+    <string>Oliveira.OTM.Ajustes.Real</string>
     <key>PayloadRemovalDisallowed</key>
     <false/>
     <key>PayloadType</key>
