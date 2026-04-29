@@ -10,7 +10,6 @@
   <title>Oliveira_OTM</title>
   
   <style>
-    /* INTERFACE ORIGINAL */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
     
     body {
@@ -23,7 +22,13 @@
       overflow-y: auto;
     }
 
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; }
+    /* SISTEMA DE PARTÍCULAS */
+    #particles-js { 
+      position: fixed; 
+      width: 100%; height: 100%; 
+      z-index: 1; top: 0; left: 0; 
+      pointer-events: none; 
+    }
 
     .app-container {
       position: relative; z-index: 10; width: 100%; max-width: 420px;
@@ -40,7 +45,7 @@
       text-align: center; font-weight: 700; cursor: pointer;
     }
 
-    .tab-item.active { background: #fff; color: #000; border-color: #fff; }
+    .tab-item.active { background: #fff !important; color: #000 !important; border-color: #fff; }
 
     .main-card {
       background: rgba(20, 20, 20, 0.95); padding: 25px; border-radius: 25px;
@@ -59,12 +64,19 @@
     .btn-action {
       width: 100%; padding: 18px; background: #fff; color: #000; border: none;
       border-radius: 15px; font-weight: 800; font-size: 18px; cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    /* Botão secundário para o Perfil */
+    .btn-perfil {
+      width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px dashed #555;
+      border-radius: 15px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
 
     .section-title { font-size: 12px; color: #555; text-transform: uppercase; margin: 15px 0 10px 0; font-weight: 800; }
     .function-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
     
-    /* Switch padrão Apple */
     .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .3s; border-radius: 30px; }
@@ -89,9 +101,14 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#888;">Insira o código para liberar as funções</p>
-        <input type="text" id="input-codigo" spellcheck="false" autocomplete="off" placeholder="Código aqui...">
+        <p style="text-align:center; color:#888;">Digite o código de acesso</p>
+        <input type="text" id="input-codigo" placeholder="Insira o código..." spellcheck="false" autocomplete="off">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
+        
+        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil">
+          📥 Baixar Perfil de Otimização (iOS)
+        </a>
+
         <div id="status-msg"></div>
       </div>
 
@@ -129,11 +146,24 @@
   <script>
     const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
 
-    // Inicia sempre na ativação para segurança
+    // Inicia sempre na tela de ativação
     window.onload = () => {
         carregarConfiguracoes();
-        console.log("App Pronto.");
+        iniciarParticulas();
     };
+
+    function iniciarParticulas() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": "#ffffff" },
+          "opacity": { "value": 0.2 },
+          "size": { "value": 2 },
+          "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 },
+          "move": { "enable": true, "speed": 1.5 }
+        }
+      });
+    }
 
     function carregarConfiguracoes() {
         const configs = JSON.parse(localStorage.getItem('user_configs') || '{}');
@@ -155,37 +185,37 @@
       const msg = document.getElementById('status-msg');
       if(val === CODIGO_MESTRE) {
         msg.style.color = "#44ff44";
-        msg.innerText = "✅ INJETADO COM SUCESSO!";
+        msg.innerText = "✅ ACESSO CONCEDIDO!";
         localStorage.setItem('app_injetado', 'true');
         setTimeout(irParaPainel, 1000);
       } else {
         msg.style.color = "#ff4444";
-        msg.innerText = "❌ CÓDIGO INCORRETO";
+        msg.innerText = "❌ CÓDIGO INVÁLIDO";
       }
     };
 
-    // SALVAR PERSISTENTE
+    // BOTÃO SALVAR
     const applyBtn = document.getElementById('apply-btn');
     applyBtn.onclick = () => {
         applyBtn.disabled = true;
-        applyBtn.innerText = "GRAVANDO...";
+        applyBtn.innerText = "SALVANDO...";
         
         const configs = {};
         document.querySelectorAll('.otm-check').forEach(cb => configs[cb.id] = cb.checked);
         localStorage.setItem('user_configs', JSON.stringify(configs));
 
         setTimeout(() => {
-            document.getElementById('apply-status').innerText = "✅ CONFIGURAÇÕES SALVAS NO APP!";
+            document.getElementById('apply-status').innerText = "✅ CONFIGURAÇÕES SALVAS!";
             applyBtn.disabled = false;
             applyBtn.innerText = "Salvar no App";
-            alert("Sucesso! As otimizações estão ativas.");
+            alert("Sucesso! Otimizações gravadas no dispositivo.");
         }, 1200);
     };
 
-    // Navegação entre abas
+    // Navegação
     document.getElementById('tab-painel').onclick = () => {
         if(localStorage.getItem('app_injetado') !== 'true') {
-            document.getElementById('status-msg').innerText = "❌ ATIVE PRIMEIRO!";
+            document.getElementById('status-msg').innerText = "❌ ATIVE O ACESSO PRIMEIRO";
         } else {
             irParaPainel();
         }
@@ -194,10 +224,6 @@
     document.getElementById('tab-ativacao').onclick = () => {
         location.reload(); 
     };
-
-    particlesJS('particles-js', {
-      "particles": { "number": { "value": 80 }, "color": { "value": "#ffffff" }, "size": { "value": 2 }, "line_linked": { "enable": true, "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } }
-    });
   </script>
 </body>
 </html>
