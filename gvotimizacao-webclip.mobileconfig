@@ -24,7 +24,7 @@
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>URL</key>
-            <string>https://gv-otimiza-es-1glm.bvercel.app</string>
+            <string>https://gv-otimiza-es-1glm.vercel.app</string>
         </dict>
 
         <dict>
