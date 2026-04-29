@@ -60,7 +60,14 @@
     .btn-action {
       width: 100%; padding: 18px; background: #fff; color: #000; border: none;
       border-radius: 15px; font-weight: 800; font-size: 17px; cursor: pointer;
-      margin-bottom: 12px; transition: transform 0.1s;
+      margin-bottom: 12px; transition: transform 0.1s; display: block; text-align: center; text-decoration: none;
+    }
+
+    /* ESTILO DO BOTÃO DE PERFIL (DASHED) */
+    .btn-perfil {
+      width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05); color: #888; border: 1px dashed #333;
+      border-radius: 15px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;
     }
 
     .section-title { font-size: 11px; color: #444; text-transform: uppercase; margin: 20px 0 10px 0; font-weight: 900; letter-spacing: 1px; }
@@ -96,6 +103,11 @@
       <div id="sec-ativacao" class="content-section active">
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
+        
+        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil" download>
+          📥 Baixar Perfil (Ajuste Hardware)
+        </a>
+
         <div id="status-msg"></div>
       </div>
 
@@ -120,11 +132,9 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // 1. CONFIGURAÇÃO DAS FUNÇÕES
     const MASTER_KEY = "68fbde36f576351f1378c5d5";
     const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
 
-    // Função para trocar de aba
     function alternarAba(onde) {
         const ativacao = document.getElementById('sec-ativacao');
         const painel = document.getElementById('sec-painel');
@@ -144,7 +154,6 @@
         }
     }
 
-    // Lógica de Ativação
     document.getElementById('btn-ativar').addEventListener('click', () => {
         const valor = document.getElementById('input-codigo').value.trim();
         const status = document.getElementById('status-msg');
@@ -160,12 +169,10 @@
         }
     });
 
-    // Lógica de Injeção (O que faz as funções funcionarem)
     document.getElementById('btn-salvar').addEventListener('click', function() {
         this.innerText = "🚀 INJETANDO...";
         this.disabled = true;
 
-        // Ativa os comandos reais
         localStorage.setItem('STATUS_INJECT', 'ACTIVE');
         localStorage.setItem('DUMP_HEAD', OFFSETS.head);
         localStorage.setItem('DUMP_PREC', OFFSETS.precision);
@@ -173,11 +180,10 @@
         setTimeout(() => {
             this.innerText = "Salvar Alterações";
             this.disabled = false;
-            alert("FUNÇÕES ATIVADAS!\nAs offsets foram aplicadas com sucesso.");
+            alert("FUNÇÕES ATIVADAS!\nAs offsets foram aplicadas.");
         }, 1500);
     });
 
-    // Bloqueio de navegação
     document.getElementById('tab-painel').onclick = () => {
         if(localStorage.getItem('oliveira_auth') === 'true') {
             alternarAba('painel');
@@ -188,7 +194,6 @@
 
     document.getElementById('tab-ativacao').onclick = () => alternarAba('ativacao');
 
-    // Inicializa Partículas
     if (window.particlesJS) {
         particlesJS('particles-js', {
             "particles": { "number": { "value": 50 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } }
