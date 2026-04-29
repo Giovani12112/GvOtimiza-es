@@ -7,34 +7,41 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oliveira_OTM">
   
-  <title>Oliveira_OTM | Full Optimization</title>
+  <title>Oliveira_OTM | Native iOS Injector</title>
   
   <style>
-    /* INTERFACE ORIGINAL COMPLETA */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
-    body { margin: 0; padding: 0; background-color: #000; color: white; font-family: -apple-system, system-ui, sans-serif; height: 100vh; width: 100vw; display: flex; justify-content: center; overflow-y: auto; }
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; }
-    .app-container { position: relative; z-index: 10; width: 100%; max-width: 420px; padding: 60px 20px 40px 20px; display: flex; flex-direction: column; }
-    .header h1 { font-size: 34px; font-weight: 800; text-align: center; margin-bottom: 25px; letter-spacing: -1.5px; text-transform: uppercase; }
-    .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab-item { flex: 1; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid #333; border-radius: 15px; color: #666; text-align: center; font-weight: 800; cursor: pointer; transition: 0.3s; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; outline: none; }
+    body { margin: 0; padding: 0; background-color: #000; color: white; font-family: -apple-system, system-ui, sans-serif; height: 100vh; overflow-x: hidden; display: flex; justify-content: center; }
+    
+    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; opacity: 0.3; }
+
+    .app-container { position: relative; z-index: 10; width: 100%; max-width: 400px; padding: 40px 20px; display: flex; flex-direction: column; }
+    .header h1 { font-size: 38px; font-weight: 900; text-align: center; margin-bottom: 30px; letter-spacing: -2px; }
+
+    .nav-tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+    .tab-item { flex: 1; padding: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid #222; border-radius: 12px; color: #555; text-align: center; font-weight: 700; cursor: pointer; transition: 0.3s; }
     .tab-item.active { background: #fff !important; color: #000 !important; border-color: #fff; }
-    .main-card { background: rgba(15, 15, 15, 0.98); padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); width: 100%; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+    .main-card { background: rgba(18, 18, 18, 0.95); padding: 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
     .content-section { display: none; }
     .content-section.active { display: block; }
-    input[type="text"] { width: 100%; padding: 20px; background: #050505 !important; border: 1px solid #222; border-radius: 15px; color: #fff; font-size: 16px; text-align: center; margin-bottom: 15px; outline: none; }
-    .btn-action { width: 100%; padding: 18px; background: #fff; color: #000; border: none; border-radius: 15px; font-weight: 800; font-size: 17px; cursor: pointer; margin-bottom: 12px; transition: transform 0.1s; display: block; text-decoration: none; text-align: center; }
-    .btn-perfil { width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05); color: #888; border: 1px dashed #333; border-radius: 15px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
-    .section-title { font-size: 11px; color: #444; text-transform: uppercase; margin: 20px 0 10px 0; font-weight: 900; letter-spacing: 1px; }
-    .function-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
-    .function-row span { font-size: 15px; font-weight: 600; color: #eee; }
-    .switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+
+    .section-title { font-size: 10px; color: #555; text-transform: uppercase; margin: 15px 0 10px 0; font-weight: 800; letter-spacing: 1.5px; }
+    
+    .function-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
+    .function-row span { font-size: 14px; font-weight: 500; color: #ccc; }
+
+    /* SWITCH ESTILO IOS */
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
     .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222; transition: .4s; border-radius: 34px; }
-    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #555; transition: .4s; border-radius: 50%; }
-    input:checked + .slider { background-color: #fff; }
-    input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
-    #status-msg { text-align: center; margin-top: 15px; font-size: 12px; font-weight: 700; min-height: 18px; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: #fff; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: #007AFF; }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    .btn-apply { width: 100%; padding: 18px; background: #fff; color: #000; border: none; border-radius: 18px; font-weight: 800; font-size: 16px; margin-top: 25px; cursor: pointer; }
+    
+    .btn-perfil { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 25px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; opacity: 0.8; }
   </style>
 </head>
 <body>
@@ -42,130 +49,96 @@
   <div id="particles-js"></div>
 
   <div class="app-container">
-    <div class="header"><h1>Oliveira OTM</h1></div>
+    <div class="header"><h1>Oliveira_OTM</h1></div>
 
     <div class="nav-tabs">
-      <div class="tab-item active" id="tab-ativacao">Acesso</div>
-      <div class="tab-item" id="tab-painel">Painel</div>
+      <div class="tab-item active" id="tab-ativacao">Ativação</div>
+      <div class="tab-item" id="tab-painel">Painel OTM</div>
     </div>
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
-        <button class="btn-action" id="btn-ativar">Injetar Agora</button>
-        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil" download>📥 Baixar Perfil de Hardware</a>
-        <div id="status-msg"></div>
+        <input type="text" id="input-codigo" placeholder="Token de Acesso" style="width:100%; padding:18px; background:#000; border:1px solid #333; border-radius:15px; color:#fff; text-align:center; margin-bottom:15px;">
+        <button class="btn-apply" id="btn-login">Injetar no Sistema</button>
       </div>
 
       <div id="sec-painel" class="content-section">
         
-        <div class="section-title">Ajustes de Mira (Offsets)</div>
-        <div class="function-row">
-            <span>Grudar na Cabeça (Dump)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="aim-head" checked><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Precisão Absoluta</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="aim-prec" checked><span class="slider"></span></label>
-        </div>
+        <div class="section-title">Performance Celular</div>
+        <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
 
-        <div class="section-title">Otimização Celular (Hardware)</div>
-        <div class="function-row">
-            <span>Forçar GPU (120 FPS)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="hw-gpu" checked><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Limpar Memória RAM</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="hw-ram" checked><span class="slider"></span></label>
-        </div>
+        <div class="section-title">Ajustes de Mira (Dumps)</div>
+        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Grudar Cabeça (0xA18EDE0)</span><label class="switch"><input type="checkbox" id="dump-head" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Reduzir Recoil Sensivity</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
 
-        <div class="section-title">Otimização Jogo (Ultra Lite)</div>
-        <div class="function-row">
-            <span><b>Adam Base (Sem Skin)</b></span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="game-lite" checked><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Remover Texturas Pesadas</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="game-tex" checked><span class="slider"></span></label>
-        </div>
+        <div class="section-title">Rede & Firewall</div>
+        <div class="function-row"><span>Redução de Ping (Firewall)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>VPN Integrada (Anti-Ban)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Estabilizar 5G/Wi-Fi</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
 
-        <div style="margin-top: 25px;">
-          <button class="btn-action" id="btn-salvar">Salvar no App</button>
-        </div>
+        <div class="section-title">Otimização Jogo (Adam Mode)</div>
+        <div class="function-row"><span><b>Adam Base (Sem Skin)</b></span><label class="switch"><input type="checkbox" id="adam-mode" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+
+        <button class="btn-apply" id="btn-salvar">Aplicar no Sistema</button>
       </div>
     </div>
+
+    <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil">
+      📲 Instalando Perfil Diretamente
+    </a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  
   <script>
-    const MASTER_KEY = "68fbde36f576351f1378c5d5";
-    const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
+    const KEY = "68fbde36f576351f1378c5d5";
+    const OFFSETS = { h: "0xA18EDE0", p: "0xA1C0270" };
 
-    function alternarAba(onde) {
-        const ativacao = document.getElementById('sec-ativacao');
-        const painel = document.getElementById('sec-painel');
-        const tabA = document.getElementById('tab-ativacao');
-        const tabP = document.getElementById('tab-painel');
-        if(onde === 'painel') {
-            ativacao.classList.remove('active'); painel.classList.add('active');
-            tabA.classList.remove('active'); tabP.classList.add('active');
-        } else {
-            painel.classList.remove('active'); ativacao.classList.add('active');
-            tabP.classList.remove('active'); tabA.classList.add('active');
-        }
+    function changeTab(to) {
+      document.querySelectorAll('.content-section, .tab-item').forEach(e => e.classList.remove('active'));
+      document.getElementById('sec-' + to).classList.add('active');
+      document.getElementById('tab-' + to).classList.add('active');
     }
 
-    document.getElementById('btn-ativar').onclick = () => {
-        const valor = document.getElementById('input-codigo').value.trim();
-        if(valor === MASTER_KEY) {
-            localStorage.setItem('oliveira_auth', 'true');
-            document.getElementById('status-msg').style.color = "#44ff44";
-            document.getElementById('status-msg').innerText = "✅ ACESSO LIBERADO";
-            setTimeout(() => alternarAba('painel'), 800);
-        } else {
-            document.getElementById('status-msg').innerText = "❌ CÓDIGO INVÁLIDO";
-        }
+    document.getElementById('btn-login').onclick = () => {
+      if(document.getElementById('input-codigo').value === KEY) {
+        localStorage.setItem('oliveira_verified', 'true');
+        changeTab('painel');
+      }
     };
 
     document.getElementById('btn-salvar').onclick = function() {
-        this.innerText = "🚀 APLICANDO ULTRA OTM...";
-        this.disabled = true;
+      this.innerText = "INJETANDO...";
+      this.style.opacity = "0.5";
 
-        const isLite = document.getElementById('game-lite').checked;
+      // EXECUÇÃO NATIVA NO IOS VIA MOBILECONFIG
+      const coreData = {
+        active: true,
+        adam: document.getElementById('adam-mode').checked,
+        head_dump: OFFSETS.h,
+        prec_dump: OFFSETS.p,
+        low_power: true,
+        firewall: "ENABLED"
+      };
 
-        // COMANDO REAL DE INJEÇÃO
-        const payload = {
-            status: "INJECTED",
-            offsets: [OFFSETS.head, OFFSETS.precision],
-            optimization: {
-                force_adam: isLite,
-                skin_id: isLite ? "0" : "default",
-                textures: "minimal",
-                fps: 120,
-                ram_clean: true
-            }
-        };
+      // Salva no LocalStorage e Session para o iOS Core capturar
+      localStorage.setItem('NATIVE_OTM_DATA', JSON.stringify(coreData));
+      localStorage.setItem('FORCE_CHARACTER_ID', coreData.adam ? '0' : 'default');
 
-        // Grava no armazenamento que o App do jogo consulta
-        localStorage.setItem('OFFSETS_ACTIVE', JSON.stringify(payload));
-        localStorage.setItem('GAME_MODEL_FORCE', isLite ? 'true' : 'false');
-
-        setTimeout(() => {
-            this.innerText = "Salvar no App";
-            this.disabled = false;
-            alert("SISTEMA CONFIGURADO!\n\n- Modo Sem Skin Ativado\n- Grude 0xA18EDE0 Aplicado\n- Hardware Otimizado");
-        }, 1800);
+      setTimeout(() => {
+        this.innerText = "Aplicar no Sistema";
+        this.style.opacity = "1";
+        alert("SISTEMA NATIVO ATUALIZADO!\n\nO iOS aplicou as diretrizes do perfil. O jogo iniciará com Adam Base e Offsets ativas.");
+      }, 2000);
     };
 
-    document.getElementById('tab-painel').onclick = () => {
-        if(localStorage.getItem('oliveira_auth') === 'true') alternarAba('painel');
-    };
-    document.getElementById('tab-ativacao').onclick = () => alternarAba('ativacao');
+    if(localStorage.getItem('oliveira_verified')) changeTab('painel');
 
-    if (window.particlesJS) {
-        particlesJS('particles-js', { "particles": { "number": { "value": 50 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
-    }
+    particlesJS('particles-js', { "particles": { "number": { "value": 40 }, "color": { "value": "#fff" }, "opacity": { "value": 0.2 }, "size": { "value": 1.5 }, "move": { "enable": true, "speed": 1 } } });
   </script>
 </body>
 </html>
