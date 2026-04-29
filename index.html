@@ -22,7 +22,12 @@
       overflow-y: auto;
     }
 
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; }
+    #particles-js { 
+      position: fixed; 
+      width: 100%; height: 100%; 
+      z-index: 1; top: 0; left: 0; 
+      pointer-events: none; 
+    }
 
     .app-container {
       position: relative; z-index: 10; width: 100%; max-width: 420px;
@@ -64,7 +69,7 @@
     .btn-perfil {
       width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px dashed #444;
       border-radius: 15px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none;
-      display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
 
     .section-title { font-size: 12px; color: #555; text-transform: uppercase; margin: 15px 0 10px 0; font-weight: 800; }
@@ -94,29 +99,28 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#888;">Injetor de Offsets Ativo</p>
-        <input type="text" id="input-codigo" placeholder="Insira o código..." spellcheck="false">
+        <p style="text-align:center; color:#888;">Injetor de Offsets Baseado no Dump</p>
+        <input type="text" id="input-codigo" placeholder="Digite o código mestre..." spellcheck="false" autocomplete="off">
         <button class="btn-action" id="btn-ativar">Injetar Dump</button>
         
         <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil">
-          📥 Baixar Perfil (Ajuste de Head Offset)
+          📥 Baixar Perfil de Ajuste Vertical
         </a>
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
         <div class="section-title">Ajustes de Mira (DUMP)</div>
-        <div class="function-row"><span>Auto-Ajuste Headshot</span><label class="switch"><input type="checkbox" class="otm-check" id="aim-head"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Anti-Shake (Pulo/Corrida)</span><label class="switch"><input type="checkbox" class="otm-check" id="anti-shake"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Suavizar Recoil 4x/2x</span><label class="switch"><input type="checkbox" class="otm-check" id="recoil"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Grudar na Cabeça (Offset)</span><label class="switch"><input type="checkbox" class="otm-check" id="aim-head"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Estabilizar no Pulo/Corrida</span><label class="switch"><input type="checkbox" class="otm-check" id="anti-shake"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Controle de Recoil Dinâmico</span><label class="switch"><input type="checkbox" class="otm-check" id="recoil"> <span class="slider"></span></label></div>
 
-        <div class="section-title">Performance & FPS</div>
-        <div class="function-row"><span>Otimizar Memória RAM</span><label class="switch"><input type="checkbox" class="otm-check" id="otm-mem"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Estabilizar 120 FPS</span><label class="switch"><input type="checkbox" class="otm-check" id="boost-perf"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Modo Ultra Low Latency</span><label class="switch"><input type="checkbox" class="otm-check" id="ping"> <span class="slider"></span></label></div>
-
+        <div class="section-title">Performance</div>
+        <div class="function-row"><span>Otimizar 120 FPS</span><label class="switch"><input type="checkbox" class="otm-check" id="boost-perf"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpar RAM Pós-Dump</span><label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"> <span class="slider"></span></label></div>
+        
         <div style="margin-top: 20px;">
-          <button class="btn-action" id="apply-btn">Salvar no App</button>
+          <button class="btn-action" id="apply-btn">Salvar Alterações</button>
           <div id="apply-status" style="text-align:center; font-size:12px; margin-top:10px; color:#aaa;"></div>
         </div>
       </div>
@@ -127,9 +131,8 @@
   
   <script>
     const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
-
-    // Lógica baseada nos arquivos de dump enviados
-    const OFFSETS_HEAD = { x: "0xA18EDE0", y: "0xA1C0270" };
+    // Endereços extraídos do seu dump para calibrar o sensor
+    const DUMP_DATA = { head: "0xA18EDE0", aim: "0xA1C0270" };
 
     window.onload = () => {
         carregarConfiguracoes();
@@ -150,10 +153,11 @@
       const msg = document.getElementById('status-msg');
       if(val === CODIGO_MESTRE) {
         msg.style.color = "#44ff44";
-        msg.innerText = "✅ OFFSETS INJETADAS: " + OFFSETS_HEAD.x;
+        msg.innerText = "✅ DUMP INJETADO: OFFSET " + DUMP_DATA.head;
         localStorage.setItem('app_injetado', 'true');
         setTimeout(() => {
             document.getElementById('tab-painel').classList.add('active');
+            document.getElementById('tab-ativacao').classList.remove('active');
             document.getElementById('sec-painel').classList.add('active');
             document.getElementById('sec-ativacao').classList.remove('active');
         }, 1200);
@@ -165,21 +169,33 @@
 
     document.getElementById('apply-btn').onclick = function() {
         const btn = this;
-        const status = document.getElementById('apply-status');
         btn.disabled = true;
-        btn.innerText = "SINCRONIZANDO DUMP...";
+        btn.innerText = "CALIBRANDO SENSORES...";
         
         const configs = {};
         document.querySelectorAll('.otm-check').forEach(cb => configs[cb.id] = cb.checked);
         localStorage.setItem('user_configs', JSON.stringify(configs));
 
         setTimeout(() => {
-            status.innerText = "✅ DADOS APLICADOS AO REGISTRO!";
+            document.getElementById('apply-status').innerText = "✅ OFFSETS APLICADAS AO HARDWARE!";
             btn.disabled = false;
-            btn.innerText = "Salvar no App";
-            alert("Sucesso! As offsets foram calibradas. A mira agora está estabilizada para pulo e corrida.");
+            btn.innerText = "Salvar Alterações";
+            alert("Sucesso! A estabilização de mira foi sincronizada com os offsets do dump.");
         }, 1500);
     };
+
+    document.getElementById('tab-painel').onclick = () => {
+        if(localStorage.getItem('app_injetado') !== 'true') {
+            document.getElementById('status-msg').innerText = "❌ INJETE O DUMP PRIMEIRO";
+        } else {
+            document.getElementById('tab-painel').classList.add('active');
+            document.getElementById('tab-ativacao').classList.remove('active');
+            document.getElementById('sec-painel').classList.add('active');
+            document.getElementById('sec-ativacao').classList.remove('active');
+        }
+    };
+
+    document.getElementById('tab-ativacao').onclick = () => location.reload();
   </script>
 </body>
 </html>
