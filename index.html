@@ -9,7 +9,6 @@
   <title>Oliveira_OTM | Native Injector v3</title>
   
   <style>
-    /* RESET E BASE */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; outline: none; }
     body { margin: 0; padding: 0; background-color: #08080a; color: white; font-family: -apple-system, system-ui, sans-serif; height: 100vh; overflow-x: hidden; display: flex; justify-content: center; }
     
@@ -18,34 +17,46 @@
     .app-container { position: relative; z-index: 10; width: 100%; max-width: 410px; padding: 40px 20px; display: flex; flex-direction: column; }
     .header h1 { font-size: 32px; font-weight: 900; text-align: center; margin-bottom: 30px; letter-spacing: -1.5px; text-transform: uppercase; color: #fff; }
 
-    /* ABAS */
     .nav-tabs { display: flex; gap: 12px; margin-bottom: 25px; }
-    .tab-item { flex: 1; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid #1a1a1a; border-radius: 14px; color: #444; text-align: center; font-weight: 800; cursor: pointer; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-size: 14px; }
-    .tab-item.active { background: #fff !important; color: #000 !important; border-color: #fff; transform: translateY(-2px); }
+    .tab-item { flex: 1; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid #1a1a1a; border-radius: 14px; color: #444; text-align: center; font-weight: 800; cursor: pointer; transition: 0.4s; font-size: 14px; }
+    .tab-item.active { background: #fff !important; color: #000 !important; border-color: #fff; }
 
-    /* CARD PRINCIPAL */
-    .main-card { background: rgba(15, 15, 18, 0.98); padding: 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-    .content-section { display: none; animation: fadeIn 0.4s ease; }
+    .main-card { background: rgba(15, 15, 18, 0.98); padding: 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); }
+    .content-section { display: none; }
     .content-section.active { display: block; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* FUNÇÕES */
     .section-title { font-size: 11px; color: #007AFF; text-transform: uppercase; margin: 20px 0 12px 0; font-weight: 900; letter-spacing: 2px; }
     .function-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
     .function-row span { font-size: 15px; font-weight: 600; color: #e0e0e0; }
 
-    /* SWITCH ESTILO IOS */
     .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #2c2c2e; transition: .4s; border-radius: 34px; }
-    .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: #fff; transition: .4s; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+    .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: #fff; transition: .4s; border-radius: 50%; }
     input:checked + .slider { background-color: #30d158; }
     input:checked + .slider:before { transform: translateX(22px); }
 
-    /* BOTÃO APLICAR */
-    .btn-apply { width: 100%; padding: 20px; background: #fff; color: #000; border: none; border-radius: 20px; font-weight: 900; font-size: 17px; margin-top: 30px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-    .btn-apply:active { transform: scale(0.96); opacity: 0.8; }
+    .btn-apply { width: 100%; padding: 20px; background: #fff; color: #000; border: none; border-radius: 20px; font-weight: 900; font-size: 17px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
+    
+    /* BOTÃO DE BAIXAR PERFIL (CONFORME SUA IMAGEM) */
+    .btn-download-profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #333;
+      border-radius: 15px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    .btn-download-profile:active { background: #222; }
 
     input[type="text"] { width: 100%; padding: 20px; background: #121214; border: 1px solid #222; border-radius: 15px; color: #fff; font-size: 16px; text-align: center; margin-bottom: 15px; }
   </style>
@@ -69,7 +80,6 @@
       </div>
 
       <div id="sec-painel" class="content-section">
-        
         <div class="section-title">Ajustes de Mira (Anti-Shake)</div>
         <div class="function-row"><span>Grudar na Cabeça (0xA18)</span><label class="switch"><input type="checkbox" id="f-head" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Smoothing (Zero Tremor)</span><label class="switch"><input type="checkbox" id="f-smooth" checked><span class="slider"></span></label></div>
@@ -90,6 +100,10 @@
         <div class="function-row"><span><b>Adam Base (Sem Skin)</b></span><label class="switch"><input type="checkbox" id="f-adam" checked><span class="slider"></span></label></div>
 
         <button class="btn-apply" id="btn-save">Salvar no Sistema</button>
+
+        <a href="seu-arquivo.mobileconfig" class="btn-download-profile">
+          📲 Instalar Perfil Diretamente
+        </a>
       </div>
     </div>
   </div>
@@ -97,7 +111,7 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     const MASTER = "68fbde36f576351f1378c5d5";
-    const DUMPS = { head: "0xA18EDE0", aim: "0xA1C0270" };
+    const DUMPS = { head: "0xA18EDE0" };
 
     function changeTab(to) {
       if(to === 'painel' && !localStorage.getItem('auth')) return;
@@ -114,33 +128,26 @@
     }
 
     document.getElementById('btn-save').onclick = function() {
-      this.innerText = "INJETANDO...";
-      
+      this.innerText = "SINCRONIZANDO...";
       const config = {
-        smooth: document.getElementById('f-smooth').checked ? 0.92 : 0, // Fator de estabilidade
-        lock_y: document.getElementById('f-ylock').checked, // Trava no pixel da cabeça
+        smooth: document.getElementById('f-smooth').checked ? 0.95 : 0,
+        lock_y: document.getElementById('f-ylock').checked,
         offset: DUMPS.head,
         adam: document.getElementById('f-adam').checked
       };
 
-      // SALVAMENTO DE ALTA PRIORIDADE PARA IOS
       localStorage.setItem('OLIVEIRA_SYSTEM_DATA', JSON.stringify(config));
       localStorage.setItem('character_override', config.adam ? '0' : 'default');
-      
-      // Comandos de limpeza de cache de renderização (iOS)
-      if(config.lock_y) {
-         localStorage.setItem('Y_AXIS_CLAMP', 'HEAD_OFFSET_VAL');
-      }
 
       setTimeout(() => {
         this.innerText = "Salvar no Sistema";
-        alert("SISTEMA CONFIGURADO!\n\n1. Mira estabilizada (Smoothing 92%)\n2. Trava de Eixo Y ativa (Não passa da cabeça)\n3. Adam Base pronto para o jogo.");
+        alert("SISTEMA SINCRONIZADO!\n\nSe a mira tremer, verifique se o Perfil iOS está instalado corretamente.");
       }, 2000);
     };
 
     if(localStorage.getItem('auth')) changeTab('painel');
 
-    particlesJS('particles-js', { "particles": { "number": { "value": 40 }, "color": { "value": "#fff" }, "opacity": { "value": 0.1 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
+    particlesJS('particles-js', { "particles": { "number": { "value": 40 }, "opacity": { "value": 0.1 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
   </script>
 </body>
 </html>
