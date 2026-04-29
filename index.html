@@ -19,14 +19,14 @@
       font-family: -apple-system, system-ui, sans-serif;
       height: 100vh; width: 100vw;
       display: flex; justify-content: center;
-      overflow: hidden;
+      overflow-y: auto; /* Permite rolar o painel no App */
     }
 
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; }
+    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; pointer-events: none; }
 
     .app-container {
       position: relative; z-index: 10; width: 100%; max-width: 420px;
-      padding: 60px 20px 20px 20px; display: flex; flex-direction: column; height: 100%;
+      padding: 60px 20px 40px 20px; display: flex; flex-direction: column;
     }
 
     .header h1 { font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 25px; letter-spacing: -1.5px; }
@@ -44,7 +44,7 @@
     .main-card {
       background: rgba(20, 20, 20, 0.95); padding: 25px; border-radius: 25px;
       border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px);
-      width: 100%; max-height: 65vh; overflow-y: auto;
+      width: 100%; margin-bottom: 20px;
     }
 
     .content-section { display: none; }
@@ -87,21 +87,33 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#888;">Digite o código para injetar no App</p>
+        <p style="text-align:center; color:#888;">Insira o código de injeção privada</p>
         <input type="text" id="input-codigo" spellcheck="false" autocomplete="off">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
         <div id="status-msg"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="section-title">Otimização Interna</div>
-        <div class="function-row"><span>Desbloquear 120 FPS</span><label class="switch"><input type="checkbox" class="otm-check" id="fps"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Limpar Cache do Jogo</span><label class="switch"><input type="checkbox" class="otm-check" id="cache"> <span class="slider"></span></label></div>
-        
-        <div class="section-title">Ajustes de Registro</div>
-        <div class="function-row"><span>Mira Magnética (Registro)</span><label class="switch"><input type="checkbox" class="otm-check" id="mira"> <span class="slider"></span></label></div>
-        <div class="function-row"><span>Zero Delay Touch</span><label class="switch"><input type="checkbox" class="otm-check" id="touch"> <span class="slider"></span></label></div>
+        <div class="section-title">Otimização iOS/Android</div>
+        <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" class="otm-check" id="otm-mem"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox" class="otm-check" id="boost-perf"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" class="otm-check" id="clean-storage"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" class="otm-check" id="low-power"> <span class="slider"></span></label></div>
 
+        <div class="section-title">Performance Celular</div>
+        <div class="function-row"><span>Limpar RAM Profundo</span><label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Overclock GPU (Virtual)</span><label class="switch"><input type="checkbox" class="otm-check" id="overclock"> <span class="slider"></span></label></div>
+        
+        <div class="section-title">Ajustes de Mira</div>
+        <div class="function-row"><span>Estabilizar Mira (Anti-Shake)</span><label class="switch"><input type="checkbox" class="otm-check" id="anti-shake"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Reduzir Recoil Sensitivity</span><label class="switch"><input type="checkbox" class="otm-check" id="recoil"> <span class="slider"></span></label></div>
+
+        <div class="section-title">Rede & Segurança</div>
+        <div class="function-row"><span>Estabilizar Ping 5G/Wi-Fi</span><label class="switch"><input type="checkbox" class="otm-check" id="ping"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox" class="otm-check" id="privacy"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox" class="otm-check" id="vpn"> <span class="slider"></span></label></div>
+        <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox" class="otm-check" id="firewall"> <span class="slider"></span></label></div>
+        
         <div style="margin-top: 20px;">
           <button class="btn-action" id="apply-btn">Salvar no App</button>
           <div id="apply-status" style="text-align:center; font-size:12px; margin-top:10px; color:#aaa;"></div>
@@ -113,101 +125,77 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // 1. Definição do Código de Segurança (Troque aqui para deslogar todos os apps)
     const CODIGO_MESTRE = "68fbde36f576351f1378c5d5";
 
-    // 2. Verificação de Injeção ao Abrir o App
+    // Persistência no App ao abrir
     window.onload = () => {
-        const statusInjecao = localStorage.getItem('app_injetado');
-        const codigoNoApp = localStorage.getItem('codigo_ativo');
+        const injetado = localStorage.getItem('app_injetado');
+        const codigo = localStorage.getItem('codigo_ativo');
 
-        if (statusInjecao === 'true' && codigoNoApp === CODIGO_MESTRE) {
-            // Se o código bate, o App pula direto para o painel
-            document.getElementById('tab-painel').click();
+        if (injetado === 'true' && codigo === CODIGO_MESTRE) {
+            irParaPainel();
             carregarConfiguracoes();
         } else {
-            // Se o código mudou, limpa o App e pede novo código
             localStorage.clear();
         }
     };
 
     function carregarConfiguracoes() {
         const configs = JSON.parse(localStorage.getItem('user_configs') || '{}');
-        Object.keys(configs).forEach(id => {
-            const cb = document.getElementById(id);
-            if(cb) cb.checked = configs[id];
+        document.querySelectorAll('.otm-check').forEach(cb => {
+            if(configs[cb.id] !== undefined) cb.checked = configs[cb.id];
         });
     }
 
-    // 3. Lógica de Ativação
-    const btnAtivar = document.getElementById('btn-ativar');
-    const input = document.getElementById('input-codigo');
-    const msg = document.getElementById('status-msg');
+    function irParaPainel() {
+        document.getElementById('tab-painel').classList.add('active');
+        document.getElementById('tab-ativacao').classList.remove('active');
+        document.getElementById('sec-painel').classList.add('active');
+        document.getElementById('sec-ativacao').classList.remove('active');
+    }
 
-    btnAtivar.onclick = () => {
-      if(input.value.trim() === CODIGO_MESTRE) {
+    // Lógica de Ativação
+    document.getElementById('btn-ativar').onclick = () => {
+      const val = document.getElementById('input-codigo').value.trim();
+      const msg = document.getElementById('status-msg');
+      if(val === CODIGO_MESTRE) {
         msg.style.color = "#44ff44";
-        msg.innerText = "✅ INJEÇÃO CONCLUÍDA NO APP!";
+        msg.innerText = "✅ INJEÇÃO PERMANENTE ATIVA!";
         localStorage.setItem('app_injetado', 'true');
         localStorage.setItem('codigo_ativo', CODIGO_MESTRE);
-        setTimeout(() => { document.getElementById('tab-painel').click(); }, 1200);
+        setTimeout(irParaPainel, 1000);
       } else {
         msg.style.color = "#ff4444";
-        msg.innerText = "❌ CÓDIGO INVÁLIDO OU EXPIRADO";
+        msg.innerText = "❌ CÓDIGO INVÁLIDO";
       }
     };
 
-    // 4. Lógica de Aplicação (Persistente no App)
+    // Salvar no App (Persistência)
     const applyBtn = document.getElementById('apply-btn');
-    const applyStatus = document.getElementById('apply-status');
-
     applyBtn.onclick = () => {
         applyBtn.disabled = true;
-        applyBtn.innerText = "INJETANDO...";
+        applyBtn.innerText = "GRAVANDO...";
         
-        // Salva o estado dos switches para o App nunca esquecer
-        const checkboxes = document.querySelectorAll('.otm-check');
         const configs = {};
-        checkboxes.forEach(cb => configs[cb.id] = cb.checked);
+        document.querySelectorAll('.otm-check').forEach(cb => configs[cb.id] = cb.checked);
         localStorage.setItem('user_configs', JSON.stringify(configs));
 
         setTimeout(() => {
-            applyStatus.style.color = "#44ff44";
-            applyStatus.innerText = "✅ ALTERAÇÕES FIXADAS NO APP!";
+            document.getElementById('apply-status').innerText = "✅ ALTERAÇÕES FIXADAS NO APP!";
             applyBtn.disabled = false;
             applyBtn.innerText = "Salvar no App";
-            alert("Otimizações fixadas! Abra o Free Fire para testar.");
-        }, 2000);
+            alert("Sucesso! As funções foram injetadas e salvas no App.");
+        }, 1500);
     };
 
-    // Navegação entre abas
-    document.getElementById('tab-ativacao').onclick = function() {
-        this.classList.add('active');
-        document.getElementById('tab-painel').classList.remove('active');
-        document.getElementById('sec-ativacao').classList.add('active');
-        document.getElementById('sec-painel').classList.remove('active');
+    // Navegação manual
+    document.getElementById('tab-ativacao').onclick = () => location.reload();
+    document.getElementById('tab-painel').onclick = () => {
+        if(localStorage.getItem('app_injetado') !== 'true') alert("Ative o sistema primeiro!");
     };
 
-    document.getElementById('tab-painel').onclick = function() {
-        if(localStorage.getItem('app_injetado') === 'true') {
-            this.classList.add('active');
-            document.getElementById('tab-ativacao').classList.remove('active');
-            document.getElementById('sec-painel').classList.add('active');
-            document.getElementById('sec-ativacao').classList.remove('active');
-        } else {
-            msg.innerText = "❌ INJEÇÃO NECESSÁRIA";
-        }
-    };
-
-    // Partículas de fundo
     particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": 100 },
-        "color": { "value": "#ffffff" },
-        "size": { "value": 2 },
-        "line_linked": { "enable": true, "color": "#ffffff", "opacity": 0.2 },
-        "move": { "enable": true, "speed": 1 }
-      }
+      "particles": { "number": { "value": 80 }, "color": { "value": "#ffffff" }, "size": { "value": 2 }, "line_linked": { "enable": true, "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } }
     });
   </script>
 </body>
