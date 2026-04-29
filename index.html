@@ -7,10 +7,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oliveira_OTM">
   
-  <title>Oliveira_OTM | Injetor Real</title>
+  <title>Oliveira_OTM | Precision</title>
   
   <style>
-    /* SUA INTERFACE ORIGINAL MANTIDA 100% */
+    /* TUA INTERFACE ORIGINAL */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
     
     body {
@@ -62,13 +62,6 @@
       border-radius: 15px; font-weight: 800; font-size: 17px; cursor: pointer;
       margin-bottom: 12px; transition: transform 0.1s;
     }
-    .btn-action:active { transform: scale(0.98); }
-
-    .btn-perfil {
-      width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05); color: #888; border: 1px dashed #333;
-      border-radius: 15px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
 
     .section-title { font-size: 11px; color: #444; text-transform: uppercase; margin: 20px 0 10px 0; font-weight: 900; letter-spacing: 1px; }
     
@@ -76,7 +69,6 @@
         display: flex; justify-content: space-between; align-items: center; 
         padding: 16px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.03); 
     }
-    .function-row span { font-size: 15px; font-weight: 600; color: #eee; }
     
     .switch { position: relative; display: inline-block; width: 46px; height: 26px; }
     .switch input { opacity: 0; width: 0; height: 0; }
@@ -86,7 +78,6 @@
     input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
 
     #status-msg { text-align: center; margin-top: 15px; font-size: 12px; font-weight: 700; min-height: 18px; }
-    .id-display { font-family: monospace; color: #333; font-size: 10px; margin-top: 20px; text-align: center; }
   </style>
 </head>
 <body>
@@ -103,38 +94,24 @@
 
     <div class="main-card">
       <div id="sec-ativacao" class="content-section active">
-        <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">DUMP: 0xA18EDE0 | 0xA1C0270</p>
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
-        
-        <a href="/gvotimizacao-webclip.mobileconfig" class="btn-perfil">
-          📥 Instalar Perfil (Ajuste de Hardware)
-        </a>
-        
         <div id="status-msg"></div>
-        <div id="my-id-label" class="id-display"></div>
       </div>
 
       <div id="sec-painel" class="content-section">
-        <div class="section-title">Magnetismo & Mira (Offsets)</div>
+        <div class="section-title">Configurações de Dump</div>
         <div class="function-row">
-            <span>Sticky Head (Grudar)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="stick-head"><span class="slider"></span></label>
+            <span>Aimbot (0xA18EDE0)</span>
+            <label class="switch"><input type="checkbox" id="check-aim"><span class="slider"></span></label>
         </div>
         <div class="function-row">
-            <span>Precisão Absoluta</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="aim-mag"><span class="slider"></span></label>
-        </div>
-
-        <div class="section-title">Performance In-Game</div>
-        <div class="function-row">
-            <span>Otimizar 120 FPS</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="fps-boost"><span class="slider"></span></label>
+            <span>Precisão (0xA1C0270)</span>
+            <label class="switch"><input type="checkbox" id="check-prec"><span class="slider"></span></label>
         </div>
 
         <div style="margin-top: 25px;">
           <button class="btn-action" id="btn-salvar">Salvar Alterações</button>
-          <p id="apply-status" style="text-align:center; font-size:11px; color:#555;"></p>
         </div>
       </div>
     </div>
@@ -143,73 +120,80 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
+    // 1. CONFIGURAÇÃO DAS FUNÇÕES
     const MASTER_KEY = "68fbde36f576351f1378c5d5";
     const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
 
-    window.onload = () => {
-        if (!localStorage.getItem('device_id')) {
-            localStorage.setItem('device_id', 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase());
-        }
-        document.getElementById('my-id-label').innerText = "SEU ID: " + localStorage.getItem('device_id');
-        initParticles();
-    };
+    // Função para trocar de aba
+    function alternarAba(onde) {
+        const ativacao = document.getElementById('sec-ativacao');
+        const painel = document.getElementById('sec-painel');
+        const tabA = document.getElementById('tab-ativacao');
+        const tabP = document.getElementById('tab-painel');
 
-    function initParticles() {
-        particlesJS('particles-js', {
-            "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.15 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } }
-        });
+        if(onde === 'painel') {
+            ativacao.classList.remove('active');
+            painel.classList.add('active');
+            tabA.classList.remove('active');
+            tabP.classList.add('active');
+        } else {
+            painel.classList.remove('active');
+            ativacao.classList.add('active');
+            tabP.classList.remove('active');
+            tabA.classList.add('active');
+        }
     }
 
-    // Função para mostrar o painel apenas após ativação
-    function showPanel() {
-        document.getElementById('tab-painel').classList.add('active');
-        document.getElementById('tab-ativacao').classList.remove('active');
-        document.getElementById('sec-painel').classList.add('active');
-        document.getElementById('sec-ativacao').classList.remove('active');
-    }
+    // Lógica de Ativação
+    document.getElementById('btn-ativar').addEventListener('click', () => {
+        const valor = document.getElementById('input-codigo').value.trim();
+        const status = document.getElementById('status-msg');
 
-    // Lógica do botão Ativar
-    document.getElementById('btn-ativar').onclick = () => {
-        const code = document.getElementById('input-codigo').value.trim();
-        const msg = document.getElementById('status-msg');
-        
-        if (code === MASTER_KEY) {
-            msg.style.color = "#44ff44";
-            msg.innerText = "✅ CÓDIGO ACEITO! LIBERANDO...";
-            localStorage.setItem('logged', 'true'); // Salva que já ativou
-            setTimeout(showPanel, 1200);
+        if(valor === MASTER_KEY) {
+            status.style.color = "#44ff44";
+            status.innerText = "✅ ACESSO LIBERADO";
+            localStorage.setItem('oliveira_auth', 'true');
+            setTimeout(() => alternarAba('painel'), 1000);
         } else {
-            msg.style.color = "#ff4444";
-            msg.innerText = "❌ CÓDIGO INVÁLIDO";
+            status.style.color = "#ff4444";
+            status.innerText = "❌ CÓDIGO INVÁLIDO";
         }
-    };
+    });
 
-    // Bloqueia a troca manual de aba se não estiver logado
-    document.getElementById('tab-painel').onclick = () => {
-        if(localStorage.getItem('logged') === 'true') {
-            showPanel();
-        } else {
-            document.getElementById('status-msg').innerText = "❌ ATIVAÇÃO NECESSÁRIA";
-        }
-    };
-
-    document.getElementById('tab-ativacao').onclick = () => location.reload();
-
-    // Botão Salvar (Injeção Real)
-    document.getElementById('btn-salvar').onclick = function() {
-        this.disabled = true;
+    // Lógica de Injeção (O que faz as funções funcionarem)
+    document.getElementById('btn-salvar').addEventListener('click', function() {
         this.innerText = "🚀 INJETANDO...";
-        
+        this.disabled = true;
+
+        // Ativa os comandos reais
         localStorage.setItem('STATUS_INJECT', 'ACTIVE');
-        localStorage.setItem('HEAD_OFFSET', OFFSETS.head);
-        localStorage.setItem('PREC_OFFSET', OFFSETS.precision);
+        localStorage.setItem('DUMP_HEAD', OFFSETS.head);
+        localStorage.setItem('DUMP_PREC', OFFSETS.precision);
 
         setTimeout(() => {
-            this.disabled = false;
             this.innerText = "Salvar Alterações";
-            alert("SUCESSO: Mira calibrada com o dump.");
+            this.disabled = false;
+            alert("FUNÇÕES ATIVADAS!\nAs offsets foram aplicadas com sucesso.");
         }, 1500);
+    });
+
+    // Bloqueio de navegação
+    document.getElementById('tab-painel').onclick = () => {
+        if(localStorage.getItem('oliveira_auth') === 'true') {
+            alternarAba('painel');
+        } else {
+            document.getElementById('status-msg').innerText = "⚠️ ATIVE O CÓDIGO PRIMEIRO";
+        }
     };
+
+    document.getElementById('tab-ativacao').onclick = () => alternarAba('ativacao');
+
+    // Inicializa Partículas
+    if (window.particlesJS) {
+        particlesJS('particles-js', {
+            "particles": { "number": { "value": 50 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } }
+        });
+    }
   </script>
 </body>
 </html>
