@@ -97,13 +97,13 @@
     <div class="header"><h1>Oliveira OTM</h1></div>
 
     <div class="nav-tabs">
-      <div class="tab-item" id="tab-ativacao">Acesso</div>
-      <div class="tab-item active" id="tab-painel">Painel</div>
+      <div class="tab-item active" id="tab-ativacao">Acesso</div>
+      <div class="tab-item" id="tab-painel">Painel</div>
     </div>
 
     <div class="main-card">
-      <div id="sec-ativacao" class="content-section">
-        <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">Autenticação via DUMP</p>
+      <div id="sec-ativacao" class="content-section active">
+        <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">DUMP: 0xA18EDE0 | 0xA1C0270</p>
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
         
@@ -115,35 +115,21 @@
         <div id="my-id-label" class="id-display"></div>
       </div>
 
-      <div id="sec-painel" class="content-section active">
+      <div id="sec-painel" class="content-section">
         <div class="section-title">Magnetismo & Mira (Offsets)</div>
         <div class="function-row">
             <span>Sticky Head (Grudar)</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="stick-head"><span class="slider"></span></label>
         </div>
         <div class="function-row">
-            <span>Atrito Magnético 2.0</span>
+            <span>Precisão Absoluta</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="aim-mag"><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Reduzir Recoil Vertical</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="no-recoil"><span class="slider"></span></label>
         </div>
 
         <div class="section-title">Performance In-Game</div>
         <div class="function-row">
-            <span>Otimizar para 120 FPS</span>
+            <span>Otimizar 120 FPS</span>
             <label class="switch"><input type="checkbox" class="otm-check" id="fps-boost"><span class="slider"></span></label>
-        </div>
-        <div class="function-row">
-            <span>Limpeza de Cache RAM</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="ram-clean"><span class="slider"></span></label>
-        </div>
-
-        <div class="section-title">Rede & Segurança</div>
-        <div class="function-row">
-            <span>Estabilizar Ping (Antilag)</span>
-            <label class="switch"><input type="checkbox" class="otm-check" id="ping-fix"><span class="slider"></span></label>
         </div>
 
         <div style="margin-top: 25px;">
@@ -157,21 +143,15 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // LÓGICA DE INICIALIZAÇÃO DIRETA NO PAINEL
+    const MASTER_KEY = "68fbde36f576351f1378c5d5";
     const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
 
     window.onload = () => {
-        // Gera ID se não existir
         if (!localStorage.getItem('device_id')) {
             localStorage.setItem('device_id', 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
         document.getElementById('my-id-label').innerText = "SEU ID: " + localStorage.getItem('device_id');
-        
-        // Inicia partículas
         initParticles();
-        
-        // Garante que o painel está visível ao abrir
-        showPanel();
     };
 
     function initParticles() {
@@ -180,6 +160,7 @@
         });
     }
 
+    // Função para mostrar o painel apenas após ativação
     function showPanel() {
         document.getElementById('tab-painel').classList.add('active');
         document.getElementById('tab-ativacao').classList.remove('active');
@@ -187,7 +168,34 @@
         document.getElementById('sec-ativacao').classList.remove('active');
     }
 
-    // BOTÃO SALVAR (ATIVAÇÃO REAL)
+    // Lógica do botão Ativar
+    document.getElementById('btn-ativar').onclick = () => {
+        const code = document.getElementById('input-codigo').value.trim();
+        const msg = document.getElementById('status-msg');
+        
+        if (code === MASTER_KEY) {
+            msg.style.color = "#44ff44";
+            msg.innerText = "✅ CÓDIGO ACEITO! LIBERANDO...";
+            localStorage.setItem('logged', 'true'); // Salva que já ativou
+            setTimeout(showPanel, 1200);
+        } else {
+            msg.style.color = "#ff4444";
+            msg.innerText = "❌ CÓDIGO INVÁLIDO";
+        }
+    };
+
+    // Bloqueia a troca manual de aba se não estiver logado
+    document.getElementById('tab-painel').onclick = () => {
+        if(localStorage.getItem('logged') === 'true') {
+            showPanel();
+        } else {
+            document.getElementById('status-msg').innerText = "❌ ATIVAÇÃO NECESSÁRIA";
+        }
+    };
+
+    document.getElementById('tab-ativacao').onclick = () => location.reload();
+
+    // Botão Salvar (Injeção Real)
     document.getElementById('btn-salvar').onclick = function() {
         this.disabled = true;
         this.innerText = "🚀 INJETANDO...";
@@ -199,20 +207,9 @@
         setTimeout(() => {
             this.disabled = false;
             this.innerText = "Salvar Alterações";
-            alert("SUCESSO!\nGrude ativo: 0xA18EDE0");
+            alert("SUCESSO: Mira calibrada com o dump.");
         }, 1500);
     };
-
-    // Navegação manual (se quiser voltar)
-    document.getElementById('tab-ativacao').onclick = () => {
-        document.getElementById('tab-ativacao').classList.add('active');
-        document.getElementById('tab-painel').classList.remove('active');
-        document.getElementById('sec-ativacao').classList.add('active');
-        document.getElementById('sec-painel').classList.remove('active');
-    };
-    
-    document.getElementById('tab-painel').onclick = showPanel;
-
   </script>
 </body>
 </html>
