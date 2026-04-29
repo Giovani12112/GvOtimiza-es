@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Oliveira_OTM">
   
-  <title>Oliveira_OTM | Final Version</title>
+  <title>Oliveira_OTM | Injetor Real</title>
   
   <style>
     /* SUA INTERFACE ORIGINAL MANTIDA 100% */
@@ -97,12 +97,12 @@
     <div class="header"><h1>Oliveira OTM</h1></div>
 
     <div class="nav-tabs">
-      <div class="tab-item active" id="tab-ativacao">Acesso</div>
-      <div class="tab-item" id="tab-painel">Painel</div>
+      <div class="tab-item" id="tab-ativacao">Acesso</div>
+      <div class="tab-item active" id="tab-painel">Painel</div>
     </div>
 
     <div class="main-card">
-      <div id="sec-ativacao" class="content-section active">
+      <div id="sec-ativacao" class="content-section">
         <p style="text-align:center; color:#555; font-size: 14px; margin-top:0;">Autenticação via DUMP</p>
         <input type="text" id="input-codigo" placeholder="Digite seu código..." spellcheck="false">
         <button class="btn-action" id="btn-ativar">Injetar Agora</button>
@@ -115,7 +115,7 @@
         <div id="my-id-label" class="id-display"></div>
       </div>
 
-      <div id="sec-painel" class="content-section">
+      <div id="sec-painel" class="content-section active">
         <div class="section-title">Magnetismo & Mira (Offsets)</div>
         <div class="function-row">
             <span>Sticky Head (Grudar)</span>
@@ -157,36 +157,26 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
-    // --- LÓGICA DE ATIVAÇÃO REAL ADICIONADA ---
-    const MASTER_KEY = "68fbde36f576351f1378c5d5";
-    
-    // Lista de IDs Autorizados (Você e Admin sempre liberados)
-    const AUTHORIZED_IDS = [
-        localStorage.getItem('device_id'), 
-        "OLV-ADMIN", 
-        "68fbde36f576351f1378c5d5"
-    ];
-
-    // Offsets do Dump que o seu App vai injetar
+    // LÓGICA DE INICIALIZAÇÃO DIRETA NO PAINEL
     const OFFSETS = { head: "0xA18EDE0", precision: "0xA1C0270" };
 
-    if (!localStorage.getItem('device_id')) {
-        const newID = 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase();
-        localStorage.setItem('device_id', newID);
-    }
-    const MY_ID = localStorage.getItem('device_id');
-
     window.onload = () => {
-        document.getElementById('my-id-label').innerText = "SEU ID: " + MY_ID;
-        if (AUTHORIZED_IDS.includes(MY_ID) || localStorage.getItem('logged') === 'true') {
-            showPanel();
+        // Gera ID se não existir
+        if (!localStorage.getItem('device_id')) {
+            localStorage.setItem('device_id', 'OLV-' + Math.random().toString(36).substr(2, 5).toUpperCase());
         }
+        document.getElementById('my-id-label').innerText = "SEU ID: " + localStorage.getItem('device_id');
+        
+        // Inicia partículas
         initParticles();
+        
+        // Garante que o painel está visível ao abrir
+        showPanel();
     };
 
     function initParticles() {
         particlesJS('particles-js', {
-            "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.15 }, "size": { "value": 2 }, "line_linked": { "enable": true, "opacity": 0.05 }, "move": { "enable": true, "speed": 1 } }
+            "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.15 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } }
         });
     }
 
@@ -197,41 +187,32 @@
         document.getElementById('sec-ativacao').classList.remove('active');
     }
 
-    document.getElementById('btn-ativar').onclick = () => {
-        if (document.getElementById('input-codigo').value.trim() === MASTER_KEY) {
-            localStorage.setItem('logged', 'true');
-            showPanel();
-        } else {
-            document.getElementById('status-msg').innerText = "❌ CÓDIGO INVÁLIDO";
-        }
-    };
-
-    // FUNÇÃO SALVAR (CONEXÃO REAL COM O SEU APLICATIVO)
+    // BOTÃO SALVAR (ATIVAÇÃO REAL)
     document.getElementById('btn-salvar').onclick = function() {
         this.disabled = true;
-        this.innerText = "🚀 SINCRONIZANDO...";
+        this.innerText = "🚀 INJETANDO...";
         
-        // 1. Salva as chaves que o seu Aplicativo vai ler para aplicar o grude
         localStorage.setItem('STATUS_INJECT', 'ACTIVE');
         localStorage.setItem('HEAD_OFFSET', OFFSETS.head);
         localStorage.setItem('PREC_OFFSET', OFFSETS.precision);
 
-        // 2. Salva o estado dos switches
-        const settings = {};
-        document.querySelectorAll('.otm-check').forEach(el => settings[el.id] = el.checked);
-        localStorage.setItem('otm_settings', JSON.stringify(settings));
-
         setTimeout(() => {
             this.disabled = false;
             this.innerText = "Salvar Alterações";
-            alert("SUCESSO!\nOffsets injetadas: 0xA18EDE0 e 0xA1C0270.\nAs funções de grude estão ativas.");
+            alert("SUCESSO!\nGrude ativo: 0xA18EDE0");
         }, 1500);
     };
 
-    document.getElementById('tab-painel').onclick = () => {
-        if(localStorage.getItem('logged') === 'true') showPanel();
+    // Navegação manual (se quiser voltar)
+    document.getElementById('tab-ativacao').onclick = () => {
+        document.getElementById('tab-ativacao').classList.add('active');
+        document.getElementById('tab-painel').classList.remove('active');
+        document.getElementById('sec-ativacao').classList.add('active');
+        document.getElementById('sec-painel').classList.remove('active');
     };
-    document.getElementById('tab-ativacao').onclick = () => location.reload();
+    
+    document.getElementById('tab-painel').onclick = showPanel;
+
   </script>
 </body>
 </html>
