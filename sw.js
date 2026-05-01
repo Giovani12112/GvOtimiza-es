@@ -6,7 +6,7 @@ const ASSETS = [
   "/app.js",
   "/manifest.webmanifest",
   "/icon.svg",
-  "/gvotimizacao-webclip.mobileconfig"
+  "/Oliveira_OTM_Assinado.mobileconfig"
 ];
 
 // Instalação: Guarda os ficheiros novos no cache
