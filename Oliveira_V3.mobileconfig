@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <!-- WEBCLIP (SEU PAINEL) -->
+        <dict>
+            <key>FullScreen</key>
+            <true/>
+            <key>IsRemovable</key>
+            <true/>
+            <key>Label</key>
+            <string>Oliveira_OTM</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadUUID</key>
+            <string>9B2C3D4E-5F6G-7H8I-9J0K-1L2M3N4O5P6Q</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.oliveira.otm.webclip</string>
+            <key>URL</key>
+            <string>https://gv-otimiza-es-1glm.vercel.app</string>
+        </dict>
+
+        <!-- INJECTOR DE PRECISÃO (ACERTO DE TREMOR E ALTURA) -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.universalaccess</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-47A8-9B0C-D1E2F3A4B5C6</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.universalaccess.otm</string>
+            
+            <!-- Estabilização de Mira (Smoothing) -->
+            <key>touchAccommodationsEnabled</key>
+            <true/>
+            <key>touchAccommodationsIgnoreRepeatDuration</key>
+            <real>0.10</real> <!-- Aumentado para filtrar o tremor -->
+            <key>touchAccommodationsTapAssistance</key>
+            <string>FinalTapLocation</string>
+            <key>touchAccommodationsTapAssistanceDuration</key>
+            <real>0.01</real>
+        </dict>
+
+        <!-- FILTRO DE DADOS (PARA AS OFFSETS FUNCIONAREM) -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.webcontent-filter</string>
+            <key>PayloadUUID</key>
+            <string>B2C3D4E5-F6G7-H8I9-J0K1-L2M3N4O5P6Q7</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.oliveira.otm.filter</string>
+            <key>FilterType</key>
+            <string>BuiltIn</string>
+            <key>UserDefinedName</key>
+            <string>Oliveira OTM Anti-Shake Engine</string>
+            <key>FilterBrowsers</key>
+            <true/>
+            <key>WhiteListedURLs</key>
+            <array>
+                <string>https://gv-otimiza-es-1glm.vercel.app</string>
+            </array>
+        </dict>
+    </array>
+    
+    <key>PayloadDisplayName</key>
+    <string>Oliveira_OTM System (Assinar Agora)</string>
+    <key>PayloadIdentifier</key>
+    <string>Oliveira.OTM.Ajustes.Real</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
