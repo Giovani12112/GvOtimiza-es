@@ -51,17 +51,17 @@
       gap: 10px;
       width: 100%;
       padding: 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #333;
+      background: rgba(48, 209, 88, 0.1);
+      border: 1px solid #30d158;
       border-radius: 18px;
-      color: #fff;
+      color: #30d158;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
       margin-top: 20px;
       transition: 0.3s;
     }
-    .btn-download-profile:active { transform: scale(0.98); background: #1a1a1a; }
+    .btn-download-profile:active { transform: scale(0.98); background: rgba(48, 209, 88, 0.2); }
 
     input[type="text"] { width: 100%; padding: 20px; background: #121214; border: 1px solid #222; border-radius: 15px; color: #fff; font-size: 16px; text-align: center; margin-bottom: 15px; }
   </style>
@@ -82,34 +82,28 @@
       <div id="sec-ativacao" class="content-section active">
         <input type="text" id="token" placeholder="Token Master" spellcheck="false">
         <button class="btn-apply" onclick="validar()">Validar Dispositivo</button>
+        
+        <!-- BOTÃO DE DOWNLOAD NA TELA INICIAL -->
+        <a href="Oliveira_V3_Assinado.mobileconfig" class="btn-download-profile">
+          📲 Baixar Perfil Oliveira_V3
+        </a>
       </div>
 
       <div id="sec-painel" class="content-section">
         
-        <div class="section-title">Ajustes de Mira (Dumps)</div>
-        <div class="function-row"><span>Grudar na Cabeça (Offset)</span><label class="switch"><input type="checkbox" id="f-head" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Smoothing (Zero Tremor)</span><label class="switch"><input type="checkbox" id="f-smooth" checked><span class="slider"></span></label></div>
+        <div class="section-title">Ajustes de Mira (Dumps Ativos)</div>
+        <div class="function-row"><span>Grudar na Cabeça (0x3e8)</span><label class="switch"><input type="checkbox" id="f-head" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Smoothing (Anti-Shake)</span><label class="switch"><input type="checkbox" id="f-smooth" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Y-Lock (Corte de Altura)</span><label class="switch"><input type="checkbox" id="f-ylock" checked><span class="slider"></span></label></div>
 
         <div class="section-title">Hardware & Performance</div>
         <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
 
         <div class="section-title">Rede & Segurança</div>
-        <div class="function-row"><span>Redução de Ping (Firewall)</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-
-        <div class="section-title">Jogo (Ultra Lite)</div>
-        <div class="function-row"><span><b>Adam Base (Sem Skin)</b></span><label class="switch"><input type="checkbox" id="f-adam" checked><span class="slider"></span></label></div>
+        <div class="function-row"><span>Redução de Ping</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
 
         <button class="btn-apply" id="btn-save">Salvar no App</button>
-
-        <a href="Oliveira_V3_Assinado.mobileconfig" download>Instalar Perfil Direto</a>
-          📲 Instalar Perfil Diretamente
-        </a>
       </div>
     </div>
   </div>
@@ -117,7 +111,12 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     const KEY = "68fbde36f576351f1378c5d5";
-    const HEAD_OFFSET = "0xA18EDE0";
+    // OFFSETS DO ARQUIVO b0nes.txt
+    const OFFSETS = {
+        head: "0x3e8",   //[cite: 1]
+        chest: "0x3f0",  //[cite: 1]
+        ylock: "0x3fc"   //[cite: 1]
+    };
 
     function changeTab(to) {
       if(to === 'painel' && !localStorage.getItem('auth')) return;
@@ -134,21 +133,19 @@
     }
 
     document.getElementById('btn-save').onclick = function() {
-      this.innerText = "CALIBRANDO...";
+      this.innerText = "INJETANDO OFFSETS...";
       const config = {
-        smooth: document.getElementById('f-smooth').checked ? 0.98 : 0,
+        smooth: document.getElementById('f-smooth').checked ? 0.15 : 0,
         lock_y: document.getElementById('f-ylock').checked,
-        offset: HEAD_OFFSET,
-        adam: document.getElementById('f-adam').checked
+        head_offset: OFFSETS.head, // Usando 0x3e8[cite: 1]
+        root_offset: OFFSETS.ylock  // Usando 0x3fc[cite: 1]
       };
 
-      // Gravação no núcleo do sistema iOS (Mobileconfig)
       localStorage.setItem('SYSTEM_INJECTION', JSON.stringify(config));
-      localStorage.setItem('character_override', config.adam ? '0' : 'default');
 
       setTimeout(() => {
         this.innerText = "Salvar no App";
-        alert("SISTEMA SINCRONIZADO!\n\nUse o botão abaixo caso ainda não tenha o Perfil instalado.");
+        alert("SISTEMA SINCRONIZADO!\n\nAs offsets 0x3e8 foram injetadas com sucesso.");
       }, 2000);
     };
 
