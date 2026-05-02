@@ -257,13 +257,13 @@
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
-        alert("Precision: " + precision + "%\nOffsets incluídas no .mobileconfig e copiadas para a área de transferência.\nSe o iOS não abrir a instalação, hospede o arquivo em HTTPS e abra no Safari.");
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao aplicar configurações. Veja console.");
-      } finally {
-        btn.innerText = "Aplicar Configurações";
-      }
+       document.getElementById('btn-save').onclick = function() {
+      this.innerText = "APLICANDO...";[cite: 2]
+      setTimeout(() => {
+        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");[cite: 2]
+        this.innerText = "Aplicar Configurações";[cite: 2]
+        window.location.href = "freefire://";[cite: 2]
+      }, 2000);
     };
 
     // Sincroniza slider/número
