@@ -246,14 +246,7 @@
           memory: !!document.getElementById('fn-mem').checked,
           boost: !!document.getElementById('fn-boost').checked
         };
-
-        // Gerar e baixar .mobileconfig para iOS
-        downloadMobileConfigIOS('Oliveira_OTM_offsets.mobileconfig', {
-          offsets: OFFSETS,
-          precision: precision,
-          features: features
-        });
-
+        
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
