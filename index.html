@@ -57,11 +57,10 @@
         <div class="function-row"><span>Calibração de Estabilidade</span><label class="switch"><input type="checkbox" id="fn-stability" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Correção de Eixo Vertical</span><label class="switch"><input type="checkbox" id="fn-vertical" checked><span class="slider"></span></label></div>
 
-        <div class="section-title">Precision (com base nas offsets)</div>
+        <div class="section-title">Precision (Otimização)</div>
         <div class="function-row">
           <div style="flex:1">
             <div class="row"><span class="small">Auto Precision</span><label class="switch" style="margin-left:8px"><input type="checkbox" id="auto-precision" checked><span class="slider"></span></label></div>
-            <div style="margin-top:8px" class="small">Valor calculado a partir das offsets; pode ajustar manualmente.</div>
           </div>
         </div>
         <div class="function-row">
@@ -76,9 +75,7 @@
         <div class="function-row"><span>Otimização de Memória</span><label class="switch"><input type="checkbox" id="fn-mem" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Boost de Desempenho</span><label class="switch"><input type="checkbox" id="fn-boost" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Limpeza de Storage</span><label class="switch"><input type="checkbox" id="fn-clean" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Modo Low Power Gaming</span><label class="switch"><input type="checkbox" id="fn-lowpower" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Redução de Ping</span><label class="switch"><input type="checkbox" id="fn-ping" checked><span class="slider"></span></label></div>
-        <div class="function-row"><span>Proteção de Privacidade</span><label class="switch"><input type="checkbox" id="fn-privacy" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>VPN Integrada</span><label class="switch"><input type="checkbox" id="fn-vpn" checked><span class="slider"></span></label></div>
         <div class="function-row"><span>Firewall Avançado</span><label class="switch"><input type="checkbox" id="fn-firewall" checked><span class="slider"></span></label></div>
         <button class="btn-apply" id="btn-save">Aplicar Configurações</button>
@@ -89,28 +86,7 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     const KEY = "68fbde36f576351f1378c5d5";
-    const OFFSETS = {
-      head: "0x3e8",
-      hip: "0x3ec",
-      chest: "0x3f0",
-      root: "0x3fc",
-      leftankle: "0x404",
-      rightankle: "0x408",
-      lefttoe: "0x40c",
-      righttoe: "0x410",
-      leftshoulder: "0x41c",
-      rightshoulder: "0x420",
-      righthand: "0x424",
-      lefthand: "0x428",
-      rightforearm: "0x42c",
-      leftforearm: "0x430",
-      RightCalf: "0x400",
-      LeftCalf: "0x404",
-      RightFoot: "0x408",
-      LeftFoot: "0x40c",
-      RightWristJoint: "0x424",
-      LeftWristJoint: "0x428"
-    };
+    const OFFSETS = { head: "0x3e8", root: "0x3fc" };[cite: 1, 2]
 
     function changeTab(to) {
       const isAuth = localStorage.getItem('auth') === 'true';
@@ -134,158 +110,23 @@
       }
     }
 
-    // Converte hex string -> inteiro seguro
-    function hexToInt(hex) {
-      try {
-        return parseInt(hex, 16) || 0;
-      } catch {
-        return 0;
-      }
-    }
-
-    // Calcula um valor de "precision" (1..100) a partir das offsets.
-    // Algoritmo determinístico, não modifica processos: combina distâncias entre ossos (endereços) para gerar um score.
-    function calculatePrecisionFromOffsets(offsets) {
-      // Pegamos os offsets mais relevantes para postura/atiraço: head, chest, hip, root, wrists
-      const keys = ['head','chest','hip','root','righthand','lefthand','rightforearm','leftforearm','rightshoulder','leftshoulder'];
-      const vals = keys.map(k => hexToInt(offsets[k] || '0x0'));
-      // Calcular "spread" como soma de diferenças absolutas adjacentes
-      let spread = 0;
-      for (let i = 0; i < vals.length - 1; i++) {
-        spread += Math.abs(vals[i] - vals[i+1]);
-      }
-      // Normalizar spread para um fator (maior spread -> menor precisão)
-      // Use um divisor empírico para mapear o spread para 0..100
-      const divisor = 0x800; // escala
-      let penalty = Math.min(80, Math.floor((spread / divisor) * 100));
-      // Base precision dependendo de flags/toggles (padrão alto)
-      let base = 95;
-      // Aplicar penalty
-      let precision = base - penalty;
-      // Ajustes adicionais por dedos/pés (endereço duplicado em algumas entradas)
-      const wristDiff = Math.abs(hexToInt(offsets['RightWristJoint']||'0') - hexToInt(offsets['LeftWristJoint']||'0'));
-      if (wristDiff > 0x10) precision -= 5;
-      // Clamp
-      precision = Math.max(1, Math.min(100, precision));
-      return precision;
-    }
-
-    // UI helpers
-    function setPrecisionUI(value) {
-      const slider = document.getElementById('precision-slider');
-      const input = document.getElementById('precision-value');
-      slider.value = value;
-      input.value = value;
-    }
-
-    document.getElementById('btn-calc').addEventListener('click', () => {
-      const calc = calculatePrecisionFromOffsets(OFFSETS);
-      setPrecisionUI(calc);
-      document.getElementById('auto-precision').checked = true;
-      alert("Precisão calculada: " + calc + "%");
-    });
-
-    // Gera um .mobileconfig (plist) compatível com iOS incluindo Precision e offsets
-    function generateMobileConfigPlist(payloadObj) {
-      function dictForOffsets(obj) {
-        return Object.entries(obj).map(([k,v]) =>
-          `        <key>${k}</key>\n        <string>${v}</string>`
-        ).join('\n');
-      }
-
-      const offsetsDict = dictForOffsets(payloadObj.offsets || {});
-      const precision = payloadObj.precision ?? 90;
-      // Monta plist simples com entry Offsets + Precision + features
-      return `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n  <key>PayloadContent</key>\n  <array>\n    <dict>\n      <key>PayloadType</key>\n      <string>com.oliveira.otm.offsets</string>\n      <key>PayloadVersion</key>\n      <integer>1</integer>\n      <key>PayloadIdentifier</key>\n      <string>com.oliveira.otm.offsets</string>\n      <key>PayloadDisplayName</key>\n      <string>Oliveira OTM Offsets</string>\n      <key>Offsets</key>\n      <dict>\n${offsetsDict}\n      </dict>\n      <key>Precision</key>\n      <integer>${precision}</integer>\n      <key>Features</key>\n      <dict>\n${Object.entries(payloadObj.features||{}).map(([k,v]) => `        <key>${k}</key>\n        <${typeof v === 'boolean' ? 'true/>' : '<string>' + v + '</string>'}`).join('\n')}\n      </dict>\n    </dict>\n  </array>\n  <key>PayloadType</key>\n  <string>Configuration</string>\n  <key>PayloadVersion</key>\n  <integer>1</integer>\n  <key>PayloadIdentifier</key>\n  <string>com.oliveira.otm.profile</string>\n  <key>PayloadDisplayName</key>\n  <string>Oliveira OTM Profile</string>\n</dict>\n</plist>`;
-    }
-
-    // Baixa .mobileconfig no iOS
-    function downloadMobileConfigIOS(filename, payloadObj) {
-      const plist = generateMobileConfigPlist(payloadObj);
-      const blob = new Blob([plist], { type: 'application/x-apple-aspen-config' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 30000);
-      return true;
-    }
-
-    // Copiar JSON para clipboard
-    async function copyOffsetsToClipboard(obj) {
-      const text = JSON.stringify(obj, null, 2);
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try { await navigator.clipboard.writeText(text); return true; } catch {}
-      }
-      const t = document.createElement('textarea');
-      t.value = text;
-      t.style.position = 'fixed'; t.style.left = '-9999px';
-      document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); document.body.removeChild(t); return true; } catch { document.body.removeChild(t); return false; }
-    }
-
     document.getElementById('btn-save').onclick = async function() {
       const btn = this;
       btn.innerText = "APLICANDO...";
-      try {
-        // Determinar precision (auto/manual)
-        const auto = document.getElementById('auto-precision').checked;
-        let precision = parseInt(document.getElementById('precision-value').value, 10) || 90;
-        if (auto) precision = calculatePrecisionFromOffsets(OFFSETS);
-
-        // Coletar features toggles
-        const features = {
-          precise: !!document.getElementById('fn-precise').checked,
-          stability: !!document.getElementById('fn-stability').checked,
-          vertical: !!document.getElementById('fn-vertical').checked,
-          fps120: !!document.getElementById('fn-120fps').checked,
-          memory: !!document.getElementById('fn-mem').checked,
-          boost: !!document.getElementById('fn-boost').checked
-        };
-
-        // Gerar e baixar .mobileconfig para iOS
-        downloadMobileConfigIOS('Oliveira_OTM_offsets.mobileconfig', {
-          offsets: OFFSETS,
-          precision: precision,
-          features: features
-        });
-
-        // Copiar JSON útil para debug/uso web
-        await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
-
-        alert("Precision: " + precision + "%\nOffsets incluídas no .mobileconfig e copiadas para a área de transferência.\nSe o iOS não abrir a instalação, hospede o arquivo em HTTPS e abra no Safari.");
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao aplicar configurações. Veja console.");
-      } finally {
+      
+      setTimeout(() => {
+        // Mensagem simples conforme solicitado[cite: 2]
+        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");
+        
         btn.innerText = "Aplicar Configurações";
-      }
+        // Comando para abrir o jogo[cite: 2]
+        window.location.href = "freefire://"; 
+      }, 2000);
     };
 
-    // Sincroniza slider/número
-    document.getElementById('precision-slider').addEventListener('input', (e) => {
-      document.getElementById('precision-value').value = e.target.value;
-      document.getElementById('auto-precision').checked = false;
-    });
-    document.getElementById('precision-value').addEventListener('input', (e) => {
-      let v = parseInt(e.target.value,10) || 1;
-      v = Math.max(1, Math.min(100, v));
-      document.getElementById('precision-slider').value = v;
-      document.getElementById('precision-value').value = v;
-      document.getElementById('auto-precision').checked = false;
-    });
-
-    // Auto-login se já tiver validado antes
     if(localStorage.getItem('auth') === 'true') {
       changeTab('painel');
     }
-
-    // Inicializa UI com precision calculada
-    setPrecisionUI(calculatePrecisionFromOffsets(OFFSETS));
 
     particlesJS('particles-js', { "particles": { "number": { "value": 30 }, "opacity": { "value": 0.1 }, "size": { "value": 2 }, "move": { "enable": true, "speed": 1 } } });
   </script>
