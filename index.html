@@ -249,15 +249,26 @@
         
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
+        
+       document.getElementById('btn-save').onclick = async function() {
+    const btn = this;
+    btn.innerText = "APLICANDO...";
 
-        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao aplicar configurações. Veja console.");
-      } finally {
-        btn.innerText = "Aplicar Configurações";
-      }
-    };
+    try {
+        // ... (sua lógica existente de gerar o .mobileconfig e copiar offsets)
+
+        // 1. Exibe a mensagem limpa
+        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nClique em OK para iniciar o jogo.");[cite: 3]
+
+        // 2. Abre o Free Fire automaticamente após o OK
+        window.location.href = "freefire://";[cite: 3]
+
+    } catch (err) {
+        alert("Erro ao aplicar as funções.");[cite: 3]
+    } finally {
+        btn.innerText = "Aplicar Configurações";[cite: 3]
+    }
+};
 
     // Sincroniza slider/número
     document.getElementById('precision-slider').addEventListener('input', (e) => {
