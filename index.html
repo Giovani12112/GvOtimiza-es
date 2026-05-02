@@ -257,13 +257,12 @@
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
-       alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");[cite: 3]
-        window.location.href = "freefire://";[cite: 3]
-        
+        alert("Precision: " + precision + "%\nOffsets incluídas no .mobileconfig e copiadas para a área de transferência.\nSe o iOS não abrir a instalação, hospede o arquivo em HTTPS e abra no Safari.");
       } catch (err) {
-        alert("Erro ao aplicar.");[cite: 3]
+        console.error(err);
+        alert("Erro ao aplicar configurações. Veja console.");
       } finally {
-        btn.innerText = "Aplicar Configurações";[cite: 3]
+        btn.innerText = "Aplicar Configurações";
       }
     };
 
