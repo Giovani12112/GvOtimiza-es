@@ -247,10 +247,12 @@
           boost: !!document.getElementById('fn-boost').checked
         };
 
+    
+
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
-        alert("Precision: " + precision + "✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");
+        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");
       } catch (err) {
         console.error(err);
         alert("Erro ao aplicar configurações. Veja console.");
