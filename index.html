@@ -247,12 +247,17 @@
           boost: !!document.getElementById('fn-boost').checked
         };
 
-    
+        // Gerar e baixar .mobileconfig para iOS
+        downloadMobileConfigIOS('Oliveira_OTM_offsets.mobileconfig', {
+          offsets: OFFSETS,
+          precision: precision,
+          features: features
+        });
 
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
-        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");
+        alert("Precision: " + precision + "%\nOffsets incluídas no .mobileconfig e copiadas para a área de transferência.\nSe o iOS não abrir a instalação, hospede o arquivo em HTTPS e abra no Safari.");
       } catch (err) {
         console.error(err);
         alert("Erro ao aplicar configurações. Veja console.");
