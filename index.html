@@ -257,7 +257,8 @@
         // Copiar JSON útil para debug/uso web
         await copyOffsetsToClipboard({ offsets: OFFSETS, precision, features });
 
-        alert("Precision: " + precision + "%\nOffsets incluídas no .mobileconfig e copiadas para a área de transferência.\nSe o iOS não abrir a instalação, hospede o arquivo em HTTPS e abra no Safari.");
+        alert("✅ CONFIGURAÇÕES APLICADAS!\n\nO Free Fire será aberto agora.");[cite: 3]
+        window.location.href = "freefire://";[cite: 3]
       } catch (err) {
         console.error(err);
         alert("Erro ao aplicar configurações. Veja console.");
